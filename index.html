@@ -1,168 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VidRender | Premium End-to-End Content Production</title>
+    <title>VidRender | The AI-Powered Content Pipeline</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0A0F1C',
-                        cyanAccent: '#00E5FF',
-                        purpleAccent: '#8B5CF6',
-                        textMain: '#F8FAFC',
+                        background: '#000000',
+                        surface: '#0A0A0A',
+                        surfaceLight: '#141414',
+                        borderBorder: '#222222',
+                        textMain: '#FFFFFF',
+                        textMuted: '#888888',
                     },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-delayed': 'float 6s ease-in-out 3s infinite',
-                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg)',
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Premium Glassmorphism Utility */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
+        
+        /* Premium subtle grid background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
         }
-        .glass-hover:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(0, 229, 255, 0.4);
-            transform: translateY(-5px);
+        
+        /* Smooth glowing borders */
+        .glow-card {
+            background: #0A0A0A;
+            border: 1px solid #222;
             transition: all 0.3s ease;
+        }
+        .glow-card:hover {
+            border-color: #555;
+            box-shadow: 0 10px 40px -10px rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Form Input Styling */
+        input, textarea {
+            background: #0A0A0A;
+            border: 1px solid #333;
+            color: white;
+            transition: all 0.2s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255,255,255,0.1);
         }
     </style>
 </head>
-<body class="bg-darkBg text-textMain font-sans overflow-x-hidden selection:bg-cyanAccent selection:text-black">
+<body class="bg-background min-h-screen relative selection:bg-white selection:text-black">
 
-    <div class="fixed top-[-20%] left-[-10%] w-[600px] h-[600px] bg-purpleAccent rounded-full mix-blend-screen filter blur-[150px] opacity-20 animate-pulse-slow pointer-events-none"></div>
-    <div class="fixed bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-cyanAccent rounded-full mix-blend-screen filter blur-[150px] opacity-20 animate-pulse-slow pointer-events-none" style="animation-delay: 4s;"></div>
-
-    <nav class="fixed w-full z-50 glass border-b-0 border-white/5">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-black tracking-tighter flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyanAccent to-purpleAccent flex items-center justify-center">
-                    <div class="w-3 h-3 bg-darkBg rounded-sm"></div>
-                </div>
-                VidRender<span class="text-cyanAccent">.</span>
+    <nav class="fixed w-full z-50 bg-black/50 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tight flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                VidRender
             </div>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-                <a href="#how-it-works" class="hover:text-white transition">The Process</a>
-                <a href="#features" class="hover:text-white transition">Our Edge</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-textMuted">
+                <a href="#process" class="hover:text-white transition">Process</a>
+                <a href="#contact" class="hover:text-white transition">Contact</a>
             </div>
-            <a href="mailto:nirmal@vidrender.com" class="bg-white text-black px-6 py-2.5 rounded-full text-sm font-bold hover:bg-cyanAccent hover:text-black transition-all shadow-[0_0_20px_rgba(0,229,255,0.3)]">
-                Book a Strategy Call
+            <a href="#contact" class="bg-white text-black px-5 py-2 rounded-md text-sm font-semibold hover:bg-gray-200 transition-all">
+                Start Now
             </a>
         </div>
     </nav>
 
-    <section class="relative pt-40 pb-20 lg:pt-48 lg:pb-32 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-        <div class="lg:w-1/2 z-10">
-            <div class="inline-block px-4 py-1.5 rounded-full glass text-xs font-semibold text-cyanAccent tracking-wide mb-6 uppercase border-cyanAccent/30">
-                The New Standard in Content Production
-            </div>
-            <h1 class="text-5xl lg:text-7xl font-extrabold leading-[1.1] mb-6 tracking-tight">
-                You hit record. <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyanAccent to-purpleAccent">We handle the rest.</span>
-            </h1>
-            <p class="text-lg text-slate-400 mb-10 max-w-lg leading-relaxed">
-                VidRender is an end-to-end video automation agency for top creators. Drop your raw footage in our secure portal, and receive retention-optimized videos, custom B-roll, and high-CTR thumbnails. Ready to upload.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a href="mailto:nirmal@vidrender.com" class="bg-cyanAccent text-black px-8 py-4 rounded-xl font-bold text-center hover:bg-white transition-all shadow-[0_0_30px_rgba(0,229,255,0.2)]">
-                    Get Your Free Audit
-                </a>
-                <a href="#how-it-works" class="glass text-white px-8 py-4 rounded-xl font-bold text-center hover:bg-white/10 transition-all">
-                    See How It Works
-                </a>
-            </div>
+    <section class="relative pt-40 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-center text-center bg-grid">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-hero-glow blur-[120px] opacity-20 pointer-events-none"></div>
+
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-textMuted mb-8">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            Accepting new channels for Q3
         </div>
 
-        <div class="lg:w-1/2 relative h-[500px] w-full z-10 hidden md:block">
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-48 glass rounded-2xl border-t-2 border-l-2 border-white/20 shadow-2xl z-20 animate-float flex flex-col justify-between p-4">
-                <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                    <div class="text-xs text-slate-400 font-mono">final_render_v1.mp4</div>
-                    <div class="w-2 h-2 rounded-full bg-green-400"></div>
+        <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] mb-6">
+            You hit record. <br>
+            <span class="text-textMuted">We ship the video.</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-textMuted mb-10 max-w-2xl leading-relaxed">
+            The end-to-end content pipeline for elite creators. Drop your raw footage into our portal, and get high-retention 4K videos, Shorts, and thumbnails back in 48 hours.
+        </p>
+
+        <div class="flex flex-col items-center gap-4 mb-12">
+            <div class="flex -space-x-3">
+                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=33" alt="Creator">
+                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=47" alt="Creator">
+                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=12" alt="Creator">
+                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=68" alt="Creator">
+                <div class="w-10 h-10 rounded-full border-2 border-black bg-surfaceLight flex items-center justify-center text-xs font-bold">+</div>
+            </div>
+            <p class="text-sm font-medium text-textMuted">Trusted by over <span class="text-white font-bold">1,000+</span> top-tier creators globally.</p>
+        </div>
+
+        <a href="#contact" class="bg-white text-black px-8 py-4 rounded-md font-bold text-lg hover:bg-gray-200 transition-all">
+            Automate Your Channel
+        </a>
+    </section>
+
+    <section id="process" class="py-24 border-t border-borderBorder relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center tracking-tight">The Black Box Pipeline</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glow-card p-8 rounded-xl">
+                    <div class="text-textMuted text-sm font-mono mb-4">01 // UPLOAD</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Drop the Raw Files</h3>
+                    <p class="text-textMuted text-sm leading-relaxed">No messy Google Drives. Upload your A-roll directly to our secure client portal. That’s the last time you touch it.</p>
                 </div>
-                <div class="flex justify-center items-center h-full">
-                    <div class="w-12 h-12 rounded-full bg-cyanAccent/20 flex items-center justify-center pl-1 border border-cyanAccent/50">
-                        <svg class="w-5 h-5 text-cyanAccent" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"/></svg>
+                <div class="glow-card p-8 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                    <div class="text-textMuted text-sm font-mono mb-4">02 // RENDER</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">The Engine Works</h3>
+                    <p class="text-textMuted text-sm leading-relaxed">We cut dead space, map the story, and inject our proprietary programmatic 3D motion graphics to hold viewer attention.</p>
+                </div>
+                <div class="glow-card p-8 rounded-xl">
+                    <div class="text-textMuted text-sm font-mono mb-4">03 // PUBLISH</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Ready to Upload</h3>
+                    <p class="text-textMuted text-sm leading-relaxed">Receive the final polished 4K video, 3 repurposed YouTube Shorts, and a high-CTR thumbnail within 48 hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 border-t border-borderBorder bg-surface">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Let's build your pipeline.</h2>
+            <p class="text-textMuted mb-12">Submit your channel details below. We review every application within 24 hours to ensure we are a perfect fit.</p>
+            
+            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST" class="text-left space-y-6 glow-card p-8 md:p-10 rounded-2xl">
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-textMuted mb-2">Name</label>
+                        <input type="text" name="name" required class="w-full px-4 py-3 rounded-md text-sm" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-textMuted mb-2">Email</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 rounded-md text-sm" placeholder="contact@vidrender.com">
                     </div>
                 </div>
-                <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-cyanAccent to-purpleAccent w-3/4"></div>
+
+                <div>
+                    <label class="block text-sm font-medium text-textMuted mb-2">YouTube Channel Link</label>
+                    <input type="url" name="channel_url" required class="w-full px-4 py-3 rounded-md text-sm" placeholder="https://youtube.com/@yourchannel">
                 </div>
-            </div>
-            
-            <div class="absolute top-1/4 right-10 w-64 h-64 glass rounded-2xl border border-purpleAccent/30 shadow-2xl z-10 animate-float-delayed p-5">
-                <div class="text-xs text-purpleAccent font-mono mb-3">// Programmatic Motion</div>
-                <div class="space-y-2">
-                    <div class="h-2 w-full bg-white/10 rounded"></div>
-                    <div class="h-2 w-5/6 bg-white/10 rounded"></div>
-                    <div class="h-2 w-4/6 bg-purpleAccent/40 rounded"></div>
-                    <div class="h-2 w-full bg-white/10 rounded"></div>
-                    <div class="h-2 w-3/4 bg-white/10 rounded"></div>
+
+                <div>
+                    <label class="block text-sm font-medium text-textMuted mb-2">What is your biggest bottleneck?</label>
+                    <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-md text-sm" placeholder="Editing takes me 20 hours a week..."></textarea>
                 </div>
-            </div>
+
+                <button type="submit" class="w-full bg-white text-black font-bold py-4 rounded-md hover:bg-gray-200 transition-all">
+                    Submit Application
+                </button>
+                <p class="text-center text-xs text-textMuted mt-4">Or email us directly at <a href="mailto:contact@vidrender.com" class="text-white underline">contact@vidrender.com</a></p>
+            </form>
         </div>
     </section>
 
-    <section id="how-it-works" class="py-24 bg-black/40 relative z-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4">The "Zero Friction" Pipeline</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto text-lg">We engineered our entire process to save you hours of back-and-forth. No messy Google Drive links. No missing assets.</p>
+    <footer class="py-10 border-t border-borderBorder text-center text-sm text-textMuted">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="font-bold text-white tracking-tight flex items-center gap-2 mb-4 md:mb-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                VidRender
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass glass-hover p-8 rounded-2xl">
-                    <div class="text-cyanAccent text-4xl font-black opacity-30 mb-4">01</div>
-                    <h3 class="text-xl font-bold mb-3">Drop the Raw Files</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Upload your A-roll and screen recordings to your dedicated, secure client portal. That's the last time you'll touch the video.</p>
-                </div>
-                <div class="glass glass-hover p-8 rounded-2xl relative">
-                    <div class="absolute -top-3 -right-3 bg-purpleAccent text-xs font-bold px-3 py-1 rounded-full text-white shadow-lg">Our Magic</div>
-                    <div class="text-cyanAccent text-4xl font-black opacity-30 mb-4">02</div>
-                    <h3 class="text-xl font-bold mb-3">The VidRender Engine</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Our editors cut the dead space, map the story, and inject our proprietary programmatic 3D motion graphics to maximize viewer retention.</p>
-                </div>
-                <div class="glass glass-hover p-8 rounded-2xl">
-                    <div class="text-cyanAccent text-4xl font-black opacity-30 mb-4">03</div>
-                    <h3 class="text-xl font-bold mb-3">Ready to Upload</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Within 48 hours, receive the final polished 4K video, 3 repurposed YouTube Shorts, and a high-converting thumbnail.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-20 relative z-10 border-t border-white/5 mt-10">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-6">Stop managing editors.<br>Start growing your channel.</h2>
-            <p class="text-slate-400 mb-10">We strictly limit our client roster to ensure premium quality. Book a strategy call directly with our founder to see if your channel is a fit.</p>
-            <a href="mailto:nirmal@vidrender.com" class="inline-block bg-white text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-cyanAccent transition-all shadow-[0_0_40px_rgba(0,229,255,0.4)]">
-                Email Nirmal@vidrender.com
-            </a>
-            <div class="mt-20 text-slate-600 text-sm flex flex-col md:flex-row justify-between items-center">
-                <p>&copy; 2026 VidRender Studios. All rights reserved.</p>
-                <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition">Privacy</a>
-                    <a href="#" class="hover:text-white transition">Terms</a>
-                </div>
-            </div>
+            <p>&copy; 2026 VidRender. All rights reserved.</p>
         </div>
     </footer>
 
