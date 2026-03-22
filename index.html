@@ -167,8 +167,14 @@
                 </div>
 
                 <div class="md:col-span-3">
-                    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST" class="space-y-6 glow-card p-8 rounded-2xl">
+                    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6 glow-card p-8 rounded-2xl">
                         
+                        <input type="hidden" name="access_key" value="21cafdb9-1b06-4557-90e4-da64d11e2e63">
+                        
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                        <input type="hidden" name="redirect" value="https://vidrender.com">
+
                         <div class="grid grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-xs font-bold text-textMuted uppercase mb-2">Name</label>
