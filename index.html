@@ -1,224 +1,1398 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VidRender | The AI-Powered Content Pipeline</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        background: '#000000',
-                        surface: '#0A0A0A',
-                        surfaceLight: '#141414',
-                        borderBorder: '#222222',
-                        textMain: '#FFFFFF',
-                        textMuted: '#888888',
-                        cyanAccent: '#00E5FF',
-                        purpleAccent: '#8B5CF6',
-                    },
-                    backgroundImage: {
-                        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #00E5FF 0deg, #8B5CF6 180deg, #0A0A0A 360deg)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
-        
-        /* Premium subtle grid background */
-        .bg-grid {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
-        
-        /* Smooth glowing borders */
-        .glow-card {
-            background: #0A0A0A;
-            border: 1px solid #222;
-            transition: all 0.3s ease;
-        }
-        .glow-card:hover {
-            border-color: #444;
-            box-shadow: 0 10px 40px -10px rgba(0, 229, 255, 0.05);
-            transform: translateY(-2px);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VidRender — you hit record, we make it hold</title>
+  <meta name="description" content="Retention-first editing for AI, tech, and finance creators. Paste your channel for an honest read on what's capping your growth." />
+  <meta name="theme-color" content="#FCFBF8" />
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRkY5RTJDIiAvPjxzdG9wIG9mZnNldD0iMC41IiBzdG9wLWNvbG9yPSIjNUZCNThBIiAvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE0QzRENiIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjgiIGZpbGw9IiMxNjE1MEYiIC8+CiAgPHBhdGggZD0iTTYgMjMgQyAxMSAyMiwgMTIgMjAsIDE2IDEzIEMgMjAgNiwgMjMgNiwgMjYgNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2cpIiBzdHJva2Utd2lkdGg9IjMuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPgogIDxjaXJjbGUgY3g9IjI2IiBjeT0iNiIgcj0iMi40IiBmaWxsPSIjMTRDNEQ2IiAvPgo8L3N2Zz4K" type="image/svg+xml" />
+  <script>
+    (function () { try { var s = localStorage.getItem("vidrender-theme"); var sys = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; document.documentElement.setAttribute("data-theme", s || sys); } catch (e) {} })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style id="tokens">
+/* tokens.css — ported from the approved prototype (light) + a derived dark theme.
+   Components use ONLY tokens. Dark overrides the base vars; the legacy aliases below reference the
+   base vars, so they follow the theme automatically (keeps brief/ + privacy/ working unchanged). */
 
-        /* Form Input Styling */
-        input, textarea {
-            background: #0A0A0A;
-            border: 1px solid #333;
-            color: white;
-            transition: all 0.2s;
-        }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #00E5FF;
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
-        }
-    </style>
+:root,
+[data-theme="light"] {
+  --bg:#FCFBF8; --surface:#FFFFFF; --ink:#14130E; --muted:#6E6A62; --faint:#B4B0A6; --line:#EBE9E2;
+  --amber:#FF9A2E; --cyan:#15C2D4; --teal:#0E9AA7;
+  --grad-mid:#3FB89C;
+  --grad:linear-gradient(95deg,#FF9A2E 6%,#3FB89C 52%,#15C2D4 94%);
+  --cta-fg:#FFFFFF;                 /* text on the ink-colored CTA */
+  --glow-flood:#8a5a14; --grain-opacity:.035;
+  --mesh:radial-gradient(900px 520px at 18% -8%,rgba(255,154,46,.10),transparent 60%),radial-gradient(800px 600px at 92% 12%,rgba(21,194,212,.09),transparent 55%);
+  --sh:0 40px 80px -36px rgba(60,42,12,.22),0 8px 24px -16px rgba(60,42,12,.10);
+  --csh:0 16px 38px -22px rgba(60,42,12,.26),0 2px 6px -3px rgba(60,42,12,.08);
+  --cardhover:0 28px 54px -26px rgba(60,42,12,.34),0 3px 8px -3px rgba(60,42,12,.12);
+}
+
+[data-theme="dark"] {
+  --bg:#0B0A07; --surface:#15140F; --ink:#F4F1E9; --muted:#9A958A; --faint:#5E5A50; --line:rgba(255,255,255,.10);
+  --amber:#FFAD4D; --cyan:#3FD0E0; --teal:#2BB6C4;
+  --grad-mid:#54C9A8;
+  --grad:linear-gradient(95deg,#FFAD4D 6%,#54C9A8 52%,#3FD0E0 94%);
+  --cta-fg:#14130E;                 /* dark text on the warm-white CTA */
+  --glow-flood:#000000; --grain-opacity:.05;
+  --mesh:radial-gradient(900px 520px at 18% -8%,rgba(255,173,77,.10),transparent 60%),radial-gradient(800px 600px at 92% 12%,rgba(63,208,224,.08),transparent 55%);
+  --sh:0 40px 80px -36px rgba(0,0,0,.6),0 8px 24px -16px rgba(0,0,0,.45);
+  --csh:0 16px 38px -22px rgba(0,0,0,.6),0 2px 6px -3px rgba(0,0,0,.45);
+  --cardhover:0 28px 54px -26px rgba(0,0,0,.7),0 3px 8px -3px rgba(0,0,0,.5);
+}
+
+:root {
+  --disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.56,.64,1);
+
+  /* legacy aliases → follow the active theme via the base vars above
+     (used by face/brief/* and face/privacy.html) */
+  --text:var(--ink); --text-muted:var(--muted); --text-faint:var(--faint); --border:var(--line);
+  --accent:var(--amber); --accent-hi:var(--teal); --accent-weak:rgba(255,154,46,.12);
+  --data:var(--cyan); --data-weak:rgba(21,194,212,.10); --positive:var(--teal);
+  --surface-2:#F6F5F1; --surface-solid:var(--surface); --surface-hi:rgba(255,255,255,.9);
+  --shadow:var(--sh); --shadow-sm:var(--csh); --shadow-card:var(--sh);
+  --shadow-glow:0 14px 34px -18px rgba(255,154,46,.5); --shadow-data-glow:0 12px 30px -18px rgba(21,194,212,.45);
+  --font-display:var(--disp); --font-body:var(--sans); --font-mono:var(--mono);
+  --fs-display:clamp(36px,7.4vw,72px); --fs-h2:clamp(26px,4.5vw,40px); --fs-h3:20px;
+  --fs-body:16px; --fs-small:14px; --fs-micro:11px;
+  --content-w:1000px; --radius:22px; --radius-sm:14px; --radius-pill:999px;
+  --t-micro:160ms; --t-standard:420ms;
+  --glass-blur:0px; --mesh-a:none; --mesh-b:none;
+}
+
+</style>
+  <style id="main">
+/* main.css — ported from the approved prototype. Tokens live in tokens.css. Landing classes are
+   verbatim from the prototype; #fff on themed surfaces → var(--cta-fg); mesh/grain are tokenized so
+   dark adapts. A theme toggle + a small shared-utility block (for brief/ + privacy/) are appended. */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.45;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--mesh)}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--grain-opacity);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1000px;margin:0 auto;padding:0 26px;position:relative;z-index:1}
+::selection{background:rgba(255,154,46,.22)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:28px 0}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;font-weight:600;color:var(--ink)}
+.mark{width:22px;height:22px;border-radius:6px;background:var(--ink);position:relative}
+.mark::after{content:"";position:absolute;left:8px;top:6px;border-left:7px solid var(--cta-fg);border-top:5px solid transparent;border-bottom:5px solid transparent}
+.navsub{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint);margin-left:2px}
+.navright{display:flex;align-items:center;gap:12px}
+.demo{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--faint);border:1px solid var(--line);border-radius:99px;padding:6px 11px}
+.tt{width:34px;height:34px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;font-size:13px;display:grid;place-items:center;transition:color .2s,border-color .2s}
+.tt:hover{color:var(--ink);border-color:var(--amber)}
+
+.hero{text-align:center;padding:54px 0 6px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--amber);margin-bottom:24px}
+h1{font-family:var(--disp);font-size:clamp(36px,7.4vw,72px);line-height:.99;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);font-size:clamp(15px,2.3vw,18px);max-width:420px;margin:24px auto 0;line-height:1.55}
+
+.stage{position:relative;width:100%;max-width:720px;margin:40px auto 4px}
+svg.curve{display:block;width:100%;aspect-ratio:720/280;height:auto;max-height:300px;overflow:visible}
+.replay{display:block;margin:12px auto 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint);background:none;border:none;cursor:pointer;transition:color .2s}
+.replay:hover{color:var(--ink)}
+
+.panel{max-width:580px;margin:44px auto 92px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px 28px 30px;box-shadow:var(--sh)}
+.prog{display:flex;align-items:center;gap:13px;margin-bottom:26px}
+.prog .bar{flex:1;height:5px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog .fill{height:100%;width:25%;background:var(--grad);border-radius:99px;transition:width .55s var(--ease);position:relative;overflow:hidden}
+.prog .fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-100%);animation:sheen 2.4s infinite}
+@keyframes sheen{to{transform:translateX(220%)}}
+.prog .count{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint);white-space:nowrap}
+.steps{position:relative;overflow:hidden}
+.q{font-family:var(--disp);font-size:23px;font-weight:600;letter-spacing:-.02em;margin-bottom:7px}
+.qs{color:var(--muted);font-size:14px;margin-bottom:22px;line-height:1.5}
+
+.field{display:flex;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:5px;transition:border-color .25s,box-shadow .25s}
+.field:focus-within{border-color:var(--amber);box-shadow:0 0 0 4px rgba(255,154,46,.10)}
+.field input{flex:1;border:none;background:none;outline:none;font-family:var(--mono);font-size:14px;padding:12px;color:var(--ink);caret-color:var(--amber)}
+.field input::placeholder{color:var(--faint)}
+
+.btn{position:relative;overflow:hidden;background:var(--ink);color:var(--cta-fg);border:none;cursor:pointer;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:600;font-family:var(--sans);white-space:nowrap;transition:transform .16s var(--ease),box-shadow .2s var(--ease);box-shadow:0 8px 20px -10px rgba(20,19,14,.55)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 32%,rgba(255,255,255,.28) 50%,transparent 68%);transform:translateX(-130%);transition:transform .65s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(20,19,14,.6)}
+.btn:hover::after{transform:translateX(130%)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.6;cursor:not-allowed;transform:none}
+.btn .arw{display:inline-block;transition:transform .25s var(--ease)}
+.btn:hover .arw{transform:translateX(4px)}
+.btn.full{width:100%;padding:15px;border-radius:14px;font-size:15px;margin-top:14px}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);border-radius:13px;padding:13px 16px;font-size:14px;cursor:pointer;transition:transform .2s var(--spring),border-color .2s,background .2s;font-family:var(--sans);color:var(--ink)}
+.chip:hover{border-color:var(--faint);transform:translateY(-2px)}
+.chip.on{border-color:var(--amber);background:rgba(255,154,46,.10);font-weight:600}
+.chip.on::before{content:"✓";color:var(--amber);font-weight:800;display:inline-block;animation:pop .34s var(--spring)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* inline field error (INVALID_INPUT) — direction, not blame */
+.urlnote{min-height:16px;margin-top:8px;font-family:var(--mono);font-size:11px;color:#C2410C;letter-spacing:.01em}
+
+/* the read — a styled card; message is the hero (PRD 2f): identity -> insight -> quiet receipts -> cadence */
+.read{margin-top:22px;opacity:0;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 22px 20px;box-shadow:var(--csh)}
+.rtop{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+.ravatar{width:44px;height:44px;border-radius:50%;flex:none;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--disp);font-weight:600;font-size:18px;background-size:cover;background-position:center;box-shadow:0 6px 16px -8px rgba(21,194,212,.5)}
+.rid{min-width:0}
+.rname{font-family:var(--disp);font-weight:600;font-size:15.5px;letter-spacing:-.01em;color:var(--ink)}
+.rcontext{font-family:var(--mono);font-size:10px;letter-spacing:.09em;color:var(--faint);margin-top:3px;text-transform:uppercase}
+.rinsight{font-family:var(--disp);font-weight:500;font-size:21px;line-height:1.34;letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.rinsight .hl{font-weight:600;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rmech{margin-top:10px;font-size:13.5px;line-height:1.5;color:var(--muted);max-width:54ch}
+.receipts{display:flex;flex-wrap:wrap;gap:14px 26px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.receipt{display:flex;flex-direction:column;gap:4px}
+.receipt .rk{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.receipt .rvrow{display:flex;align-items:baseline;gap:7px}
+.receipt .rv{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.receipt.muted .rv{color:var(--faint)}
+.momentum{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.02em;padding:2px 6px;border-radius:6px}
+.momentum.up{color:var(--teal);background:rgba(21,194,212,.12)}
+.momentum.down{color:#C2410C;background:rgba(255,154,46,.12)}
+.momentum.flat{color:var(--faint);background:var(--surface-2)}
+/* faint cadence bars */
+.cadence{display:flex;align-items:flex-end;gap:5px;height:26px;margin-top:18px;opacity:.5}
+.cadence i{flex:1;min-height:2px;border-radius:2px 2px 0 0;background:var(--grad);transform-origin:bottom}
+.cadence .clabel{flex:none;align-self:center;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--faint);margin-left:6px}
+
+/* empty / error states (no invented numbers) */
+.readmsg{margin-top:20px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--muted);font-size:14px;line-height:1.5}
+.readmsg .ri{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.readmsg .ravatar{width:34px;height:34px;font-size:15px}
+
+/* skeleton / shimmer (never a blank flash) */
+.readskel{margin-top:22px}
+.readskel .rtop{margin-bottom:16px}
+.readskel .skcol{display:flex;flex-direction:column;gap:7px}
+.sk{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,154,46,.10),transparent);animation:shimmer 1.3s var(--ease) infinite}
+.skav{width:40px;height:40px;border-radius:50%}
+.skl{height:11px}.w50{width:50%}.w30{width:30%}.w80{width:80%}
+.skbig{height:18px;margin-bottom:10px;border-radius:10px}
+.skreceipts{display:flex;gap:18px;margin-top:18px}
+.skr{width:64px;height:34px;border-radius:8px}
+@keyframes shimmer{to{transform:translateX(100%)}}
+
+.price{display:flex;align-items:baseline;gap:9px;margin:2px 0 4px}
+.price .p{font-family:var(--disp);font-size:38px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.price .per{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.recbadge{font-family:var(--mono);font-size:8px;letter-spacing:.1em;font-weight:700;color:var(--teal);background:rgba(21,194,212,.12);padding:3px 6px;border-radius:5px;margin-right:6px;vertical-align:1px}
+.tdesc{font-size:13px;color:var(--muted);opacity:.92;margin:0 0 14px}
+.slider{position:relative;height:30px;margin:10px 0 0;--pct:.5}
+.track{position:absolute;left:15px;right:15px;top:50%;height:5px;transform:translateY(-50%);background:var(--line);border-radius:99px}
+.tfill{position:absolute;left:15px;top:50%;height:5px;transform:translateY(-50%);background:var(--grad);border-radius:99px;width:calc(var(--pct) * (100% - 30px))}
+.recdot{position:absolute;top:50%;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 3px var(--surface);z-index:1}
+.thumb{position:absolute;top:50%;left:calc(15px + var(--pct) * (100% - 30px));width:24px;height:24px;border-radius:50%;background:var(--ink);border:4px solid var(--surface);box-shadow:0 4px 12px rgba(20,19,14,.32),0 0 0 4px rgba(255,154,46,.14);transform:translate(-50%,-50%);transition:left .14s var(--ease),box-shadow .2s;z-index:2}
+.slider.drag .thumb{box-shadow:0 7px 18px rgba(20,19,14,.4),0 0 0 7px rgba(255,154,46,.2);transform:translate(-50%,-50%) scale(1.07)}
+.range{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:30px;margin:0;opacity:0;cursor:grab}
+.range:active{cursor:grabbing}
+.ticks{position:relative;height:14px;margin-top:12px}
+.ticks span{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--faint);white-space:nowrap;transition:color .2s}
+.ticks span.on{color:var(--ink);font-weight:600}
+.tname{font-family:var(--disp);font-size:16px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.rechint{font-family:var(--mono);font-size:11px;letter-spacing:.01em;color:var(--faint);margin-top:14px;line-height:1.5}
+.rechint b{color:var(--muted);font-weight:600}
+.specbtn{display:block;margin:14px auto 0;background:none;border:none;color:var(--teal);font-family:var(--mono);font-size:11px;letter-spacing:.03em;cursor:pointer;transition:color .2s}
+.specbtn:hover{color:var(--ink)}
+.cfield{display:flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:9px 14px;margin-top:6px;transition:border-color .25s,box-shadow .25s}
+.cfield:focus-within{border-color:var(--amber);box-shadow:0 0 0 4px rgba(255,154,46,.10)}
+.cfield .pre{font-family:var(--disp);font-size:22px;font-weight:700}
+.cfield input{flex:1;border:none;background:none;outline:none;font-family:var(--disp);font-size:22px;font-weight:700;color:var(--ink);caret-color:var(--amber);min-width:0}
+.perTog{display:flex;gap:8px;margin-top:12px}
+.perTog button{flex:1;border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:10px;font-size:13px;cursor:pointer;font-family:var(--sans);color:var(--ink);transition:all .18s var(--ease)}
+.perTog button.on{border-color:var(--amber);background:rgba(255,154,46,.10);font-weight:600}
+
+.back{background:none;border:none;color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.08em;cursor:pointer;margin-top:18px}
+.back:hover{color:var(--ink)}
+.done{text-align:center;padding:16px 0}
+.done .big{font-family:var(--disp);font-size:25px;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+.done .small{color:var(--muted);font-size:14px;line-height:1.6;max-width:400px;margin:12px auto 0}
+.done .small b{color:var(--ink);font-weight:600}
+.done .tease{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase}
+
+.stance{text-align:center;padding:18px 0 70px}
+.stance h2{font-family:var(--disp);font-size:clamp(26px,4.5vw,40px);font-weight:600;letter-spacing:-.025em;text-wrap:balance}
+.stance p{color:var(--muted);font-size:15px;max-width:460px;margin:16px auto 0;line-height:1.6}
+
+footer{border-top:1px solid var(--line);position:relative;z-index:1}
+.fwrap{max-width:1000px;margin:0 auto;padding:40px 26px 30px}
+.ftop{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:18px}
+.fstance{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-.01em}
+.fcredit{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted)}
+.fcredit code{color:var(--ink)}
+.ghost{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;font-size:clamp(56px,15vw,150px);line-height:.9;color:transparent;-webkit-text-stroke:1px var(--line);margin:26px 0 18px;user-select:none}
+.fbot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--faint)}
+.fbot a{color:var(--faint);text-decoration:none}.fbot a:hover{color:var(--ink)}.fstrip{color:var(--muted)}
+@media(max-width:560px){.cards{flex-direction:column}.panel{margin:30px auto 64px;padding:24px}.ftop{flex-direction:column;align-items:flex-start}}
+
+/* ── shared utilities (brief/ + privacy/ pages) ── */
+.bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--mesh)}
+.bg-grain{display:none}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:28px 0}
+.theme-toggle{width:34px;height:34px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;font-size:13px;display:grid;place-items:center;transition:color .2s,border-color .2s}
+.theme-toggle:hover{color:var(--ink);border-color:var(--amber)}
+.glass{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--csh)}
+.mono{font-family:var(--mono);font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)} .faint{color:var(--faint)}
+h2{font-family:var(--disp);font-weight:600;letter-spacing:-.02em} h3{font-family:var(--disp);font-weight:600;letter-spacing:-.01em}
+.btn-primary{display:inline-block;background:var(--ink);color:var(--cta-fg);border:none;cursor:pointer;border-radius:11px;padding:13px 22px;font-size:14px;font-weight:600;font-family:var(--sans);text-decoration:none;transition:transform .16s var(--ease),box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);color:var(--cta-fg)}
+.foot{margin:64px 0 40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:var(--fs-micro);letter-spacing:.08em;color:var(--faint)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.001ms!important}.reveal{opacity:1;transform:none}}
+
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
-<body class="bg-background min-h-screen relative selection:bg-cyanAccent selection:text-black">
-
-    <nav class="fixed w-full z-50 bg-black/70 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-xl font-bold tracking-tight flex items-center gap-2">
-                <div class="w-6 h-6 rounded bg-gradient-to-br from-cyanAccent to-purpleAccent flex items-center justify-center">
-                    <div class="w-2 h-2 bg-black"></div>
-                </div>
-                VidRender
-            </div>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-textMuted">
-                <a href="#process" class="hover:text-white transition">Process</a>
-                <a href="#contact" class="hover:text-white transition">Contact</a>
-            </div>
-            <a href="#contact" class="bg-white text-black px-5 py-2 rounded-md text-sm font-semibold hover:bg-cyanAccent transition-all">
-                Start Now
-            </a>
-        </div>
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark"></span>VIDRENDER<span class="navsub">· VISUAL ENGINEERING</span></div>
+      <div class="navright">
+        <span class="demo" id="demoBadge" hidden>DEMO</span>
+        <button class="tt" data-theme-toggle aria-label="Switch theme">☾</button>
+      </div>
     </nav>
 
-    <section class="relative pt-40 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-center text-center bg-grid">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-hero-glow blur-[120px] opacity-20 pointer-events-none"></div>
-
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyanAccent/30 bg-cyanAccent/5 text-xs font-medium text-cyanAccent mb-8">
-            <span class="w-2 h-2 rounded-full bg-cyanAccent animate-pulse"></span>
-            Accepting new channels for Q3
-        </div>
-
-        <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] mb-6">
-            You hit record. <br>
-            <span class="text-textMuted">We ship the video.</span>
-        </h1>
-        
-        <p class="text-lg md:text-xl text-textMuted mb-10 max-w-2xl leading-relaxed">
-            The end-to-end content pipeline for elite creators. Drop your raw footage into our portal, and get high-retention 4K videos, Shorts, and thumbnails back in 48 hours.
-        </p>
-
-        <div class="flex flex-col items-center gap-4 mb-12">
-            <div class="flex -space-x-3">
-                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=33" alt="Creator">
-                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=47" alt="Creator">
-                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=12" alt="Creator">
-                <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/100?img=68" alt="Creator">
-                <div class="w-10 h-10 rounded-full border-2 border-black bg-surfaceLight flex items-center justify-center text-xs font-bold">+</div>
-            </div>
-            <p class="text-sm font-medium text-textMuted">Trusted by over <span class="text-white font-bold">1,000+</span> top-tier creators globally.</p>
-        </div>
-
-        <a href="#contact" class="bg-white text-black px-8 py-4 rounded-md font-bold text-lg hover:bg-cyanAccent transition-all shadow-[0_0_20px_rgba(0,229,255,0.2)]">
-            Automate Your Channel
-        </a>
+    <section class="hero">
+      <div class="eyebrow">RETENTION-FIRST POST-PRODUCTION</div>
+      <h1>You hit record.<br>We make it <span class="grad">hold.</span></h1>
+      <p class="sub">Retention-first editing for AI, tech &amp; finance creators.</p>
     </section>
 
-    <section id="process" class="py-24 border-t border-borderBorder relative">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center tracking-tight">The Black Box Pipeline</h2>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glow-card p-8 rounded-xl">
-                    <div class="text-textMuted text-sm font-mono mb-4">01 // UPLOAD</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Drop the Raw Files</h3>
-                    <p class="text-textMuted text-sm leading-relaxed">No messy Google Drives. Upload your A-roll directly to our secure client portal. That’s the last time you touch it.</p>
-                </div>
-                <div class="glow-card p-8 rounded-xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyanAccent to-purpleAccent"></div>
-                    <div class="text-textMuted text-sm font-mono mb-4">02 // RENDER</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">The Engine Works</h3>
-                    <p class="text-textMuted text-sm leading-relaxed">We cut dead space, map the story, and inject our proprietary programmatic 3D motion graphics to hold viewer attention.</p>
-                </div>
-                <div class="glow-card p-8 rounded-xl">
-                    <div class="text-textMuted text-sm font-mono mb-4">03 // PUBLISH</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Ready to Upload</h3>
-                    <p class="text-textMuted text-sm leading-relaxed">Receive the final polished 4K video, 3 repurposed YouTube Shorts, and a high-CTR thumbnail within 48 hours.</p>
-                </div>
+    <div class="stage">
+      <svg class="curve" viewBox="0 0 720 280" role="img" aria-label="A viewer-retention curve that sags and crashes, then is redrawn and lifted to hold flat and high.">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF9A2E"/><stop offset=".5" stop-color="#3FB89C"/><stop offset="1" stop-color="#15C2D4"/></linearGradient>
+          <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF9A2E" stop-opacity=".22"/><stop offset=".55" stop-color="#15C2D4" stop-opacity=".08"/><stop offset="1" stop-color="#15C2D4" stop-opacity="0"/></linearGradient>
+          <filter id="glow" x="-25%" y="-60%" width="150%" height="240%"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="depth" x="-30%" y="-40%" width="160%" height="220%"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#8a5a14" flood-opacity=".22"/></filter>
+          <radialGradient id="dg"><stop offset="0" stop-color="#15C2D4"/><stop offset="1" stop-color="#0E9AA7"/></radialGradient>
+        </defs>
+        <g id="grid" stroke="var(--line)" stroke-width="1" opacity="0"><line x1="0" y1="70" x2="720" y2="70"/><line x1="0" y1="140" x2="720" y2="140"/><line x1="0" y1="210" x2="720" y2="210"/></g>
+        <path id="before" fill="none" stroke="var(--faint)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round" opacity=".8"/>
+        <path id="area" fill="url(#fl)" opacity="0"/>
+        <path id="glowpath" fill="none" stroke="url(#g)" stroke-width="4" stroke-linecap="round" filter="url(#glow)" opacity=".55"/>
+        <g filter="url(#depth)"><path id="after" fill="none" stroke="url(#g)" stroke-width="4.5" stroke-linecap="round"/></g>
+        <path id="pulse" fill="none" stroke="#EAFBFF" stroke-width="4" stroke-linecap="round" filter="url(#glow)" opacity="0"/>
+        <circle id="dot" r="7" fill="url(#dg)" opacity="0"/>
+      </svg>
+      <button class="replay" id="replay">↻ replay</button>
+    </div>
+
+    <div class="panel">
+      <div class="prog"><div class="bar" id="pbar" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-label="Qualifier progress, step 1 of 4"><div class="fill" id="pfill"></div></div><div class="count" id="count">STEP 1 OF 4</div></div>
+      <div class="steps" id="steps">
+        <div class="step" aria-current="step">
+          <div class="q">Paste your channel</div>
+          <div class="qs">We read your recent uploads the way the algorithm does.</div>
+          <div class="field"><input id="url" placeholder="youtube.com/@yourchannel or @handle" aria-describedby="urlnote" autocomplete="off" autocapitalize="off" spellcheck="false"/><button class="btn" id="analyze">Analyze</button></div>
+          <div class="urlnote" id="urlnote" role="alert"></div>
+
+          <!-- skeleton while resolving/fetching (never a blank flash) -->
+          <div class="readskel" id="readskel" hidden aria-hidden="true">
+            <div class="rtop"><div class="sk skav"></div><div class="skcol"><div class="sk skl w50"></div><div class="sk skl w30"></div></div></div>
+            <div class="sk skbig"></div><div class="sk skbig w80"></div>
+            <div class="skreceipts"><div class="sk skr"></div><div class="sk skr"></div><div class="sk skr"></div></div>
+          </div>
+
+          <!-- the read card: identity -> insight (hero) -> quiet receipts -> faint cadence -->
+          <div class="read" id="read" hidden>
+            <div class="rtop">
+              <div class="ravatar" id="ravatar"></div>
+              <div class="rid"><div class="rname" id="rname"></div><div class="rcontext" id="rcontext"></div></div>
             </div>
+            <div class="rinsight" id="rinsight"></div>
+            <div class="rmech" id="rmech"></div>
+            <div class="receipts" id="receipts"></div>
+            <div class="cadence" id="cadence" aria-hidden="true"></div>
+          </div>
+
+          <!-- empty/error states (no invented numbers) -->
+          <div class="readmsg" id="readmsg" hidden role="status"></div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <section id="contact" class="py-24 border-t border-borderBorder bg-surface">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Let's build your pipeline.</h2>
-                <p class="text-textMuted max-w-2xl mx-auto">Submit your channel details below. We review every application within 24 hours to ensure we are a perfect fit.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-5 gap-12">
-                
-                <div class="md:col-span-2 flex flex-col justify-center space-y-8">
-                    <div>
-                        <h4 class="text-xs font-bold text-textMuted uppercase tracking-wider mb-2 border-b border-borderBorder pb-2">General Inquiries</h4>
-                        <a href="mailto:contact@vidrender.com" class="text-lg font-medium hover:text-cyanAccent transition-colors">contact@vidrender.com</a>
-                    </div>
-                    <div>
-                        <h4 class="text-xs font-bold text-cyanAccent uppercase tracking-wider mb-2 border-b border-borderBorder pb-2">Client Support & Onboarding</h4>
-                        <a href="mailto:client@vidrender.com" class="text-lg font-medium hover:text-cyanAccent transition-colors">client@vidrender.com</a>
-                    </div>
-                    <div class="p-4 bg-white/5 border border-white/10 rounded-lg">
-                        <p class="text-xs text-textMuted leading-relaxed">
-                            <span class="text-white font-bold">Note:</span> Form submissions are routed directly to our priority client onboarding team.
-                        </p>
-                    </div>
-                </div>
+    <section class="stance"><h2>Precision is the luxury.</h2><p>We read your channel the way the algorithm does, recommend the track that genuinely fits — even when it's smaller — and let the results speak.</p></section>
+  </div>
 
-                <div class="md:col-span-3">
-                    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6 glow-card p-8 rounded-2xl">
-                        
-                        <input type="hidden" name="access_key" value="21cafdb9-1b06-4557-90e4-da64d11e2e63">
-                        
-                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+  <footer><div class="fwrap">
+    <div class="ftop"><div class="fstance">Precision is the luxury.</div><div class="fcredit"><code>Edited by vidrender.com</code> appears on the work we're proud of.</div></div>
+    <div class="ghost">VIDRENDER</div>
+    <div class="fbot"><span class="fstrip">REAL READS · HONEST PROJECTIONS · PROVEN WORK</span><span><a href="mailto:hello@vidrender.com">hello@vidrender.com</a> · © 2026 VidRender</span></div>
+  </div></footer>
 
-                        <input type="hidden" name="redirect" value="https://vidrender.com">
+  <script>window.VIDRENDER = {
+  "demoMode": false,
+  "writeEndpoint": "https://script.google.com/macros/s/AKfycbzbMlKa0PQpTmpVkeqnGRXEqfueviRtmWFCZVAdJ3jXwpBjKtR8iGAo-_M7lVzALFEMzA/exec",
+  "writeToken": "f4d3a31ac8f5ea5ffe5a102e57fcca14c019c88a9b8f7682",
+  "youtubeApiKey": "AIzaSyC7pYGbmAgjxKs-dPLFDwpd5U3P-ZQKnG4",
+  "siteBaseUrl": "https://vidrender.com"
+};</script>
+  <script>
+(() => {
+  // js/theme.js
+  function initTheme() {
+    const toggle = document.querySelector("[data-theme-toggle]");
+    if (!toggle) return;
+    const apply = (theme) => {
+      document.documentElement.setAttribute("data-theme", theme);
+      toggle.textContent = theme === "dark" ? "\u2600" : "\u263E";
+      toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    };
+    apply(document.documentElement.getAttribute("data-theme") || "light");
+    toggle.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      localStorage.setItem("vidrender-theme", next);
+      apply(next);
+    });
+  }
 
-                        <div class="grid grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-xs font-bold text-textMuted uppercase mb-2">Name</label>
-                                <input type="text" name="name" required class="w-full px-4 py-3 rounded-md text-sm" placeholder="John Doe">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-textMuted uppercase mb-2">Email</label>
-                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-md text-sm" placeholder="creator@youtube.com">
-                            </div>
-                        </div>
+  // js/sample-data.js
+  var SAMPLE = {
+    copy: {
+      tagline: { lead: "You hit record.", hold: "We make it hold." },
+      subhead: "Retention-first editing for AI, tech & finance creators.",
+      closer: "We read your channel the way the algorithm does, recommend the track that genuinely fits \u2014 even when it's smaller \u2014 and let the results speak."
+    },
+    // Step-1 "channel read" reward (prototype values).
+    channel: {
+      name: "Everyday AI School",
+      handle: "@everydayaischool",
+      urlDefault: "youtube.com/@everydayaischool",
+      subs: 48200,
+      subsDisplay: "48.2K",
+      subsDelta: "\u2191 12%",
+      videoCount: 73,
+      cadenceLabel: "\u2248 5 / MONTH",
+      niche: "AI & Tech",
+      nicheConfidence: "HIGH CONFIDENCE",
+      fit: "\u2713 STRONG FIT"
+    },
+    // Hero retention curve (12 points; sag → held-high).
+    curve: {
+      before: [52, 96, 140, 175, 203, 224, 238, 247, 253, 257, 260, 262],
+      after: [52, 64, 73, 78, 81, 83, 84, 84, 83, 82, 81, 80]
+    },
+    // Step-2 bottleneck chips → stored on lead.bottleneck.
+    bottlenecks: ["Titles & thumbnails", "Hook & retention", "Edit & production", "Consistency", "Not sure"],
+    // Step-3 pricing (also live pricing). recommendedIndex anchors the slider's honest pick (Signature).
+    recommendedIndex: 2,
+    pricingTiers: [
+      { id: "essentials", contractTier: "essentials", price: "$50", per: "per video", tick: "$50", label: "Essentials", desc: "One edited video \u2014 the entry point, done well." },
+      { id: "standard", contractTier: "standard", price: "$100", per: "per video", tick: "$100", label: "Standard", desc: "A clean, fast edit on every upload." },
+      { id: "signature", contractTier: "signature", price: "$300", per: "per video", tick: "$300", label: "Signature", desc: "Custom motion where it counts." },
+      { id: "premium", contractTier: "premium", price: "$500", per: "per video", tick: "$500", label: "Premium", desc: "Full motion design on every video." },
+      { id: "studio", contractTier: "studio", price: "$1,000+", per: "per month", tick: "$1k+", label: "Studio", desc: "We run your whole channel, end to end." }
+    ],
+    // Control-room / pipeline demo (Modules B/C views).
+    sampleLeads: [
+      { name: "Maya R.", channel: "@buildwithmaya", status: "replied", budget: "premium" },
+      { name: "Devin K.", channel: "@quantdevin", status: "needs-followup", budget: "signature" },
+      { name: "Aisha N.", channel: "@aishaexplainsai", status: "sent", budget: "studio" },
+      { name: "Tom B.", channel: "@indiefinance", status: "new", budget: "essentials" }
+    ]
+  };
 
-                        <div>
-                            <label class="block text-xs font-bold text-textMuted uppercase mb-2">YouTube Channel Link</label>
-                            <input type="url" name="channel_url" required class="w-full px-4 py-3 rounded-md text-sm" placeholder="https://youtube.com/@yourchannel">
-                        </div>
+  // js/tiers.js
+  var TIERS = SAMPLE.pricingTiers;
+  var RECOMMENDED_INDEX = SAMPLE.recommendedIndex;
+  function mapSliderTier(index) {
+    const t = TIERS[index];
+    if (!t) throw new Error(`mapSliderTier: no tier at index ${index}`);
+    return {
+      budget_tier: t.contractTier,
+      budget_detail: { custom: false, tier: t.id, label: t.label, price: t.price, per: t.per }
+    };
+  }
+  function mapCustomBudget(amount, per) {
+    return {
+      budget_tier: "custom",
+      budget_detail: { custom: true, amount: Number(amount) || 0, per }
+    };
+  }
 
-                        <div>
-                            <label class="block text-xs font-bold text-textMuted uppercase mb-2">What is your biggest bottleneck?</label>
-                            <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-md text-sm resize-none" placeholder="Editing takes me 20 hours a week..."></textarea>
-                        </div>
+  // js/read/resolve.js
+  var RESERVED = /* @__PURE__ */ new Set(["watch", "channel", "c", "user", "shorts", "playlist", "results", "embed", "live", "feed", "hashtag"]);
+  var CHANNEL_ID_RE = /^UC[A-Za-z0-9_-]{22}$/;
+  var HANDLE_CHARS_RE = /^[A-Za-z0-9._-]{1,60}$/;
+  var VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+  function tidy(raw) {
+    return String(raw == null ? "" : raw).trim();
+  }
+  function parseUrlish(s) {
+    let host = "", path = s, query = "";
+    const withProto = /^https?:\/\//i.test(s) ? s : /^[A-Za-z0-9.-]+\.[A-Za-z]{2,}\//.test(s) || /^(www\.|m\.)/i.test(s) ? `https://${s}` : null;
+    if (withProto) {
+      try {
+        const u = new URL(withProto);
+        host = u.hostname.toLowerCase().replace(/^(www\.|m\.)/, "");
+        path = u.pathname;
+        query = u.search.replace(/^\?/, "");
+      } catch {
+      }
+    }
+    return { host, path, query };
+  }
+  function queryParam(query, key) {
+    for (const pair of query.split("&")) {
+      const [k, v] = pair.split("=");
+      if (k === key) return decodeURIComponent(v || "");
+    }
+    return null;
+  }
+  var isYouTubeHost = (host) => host === "youtube.com" || host === "youtu.be" || host.endsWith(".youtube.com");
+  function resolveInput(raw) {
+    const s = tidy(raw);
+    if (!s) return { kind: "invalid", plan: [], reason: "empty" };
+    const { host, path, query } = parseUrlish(s);
+    if (host && !isYouTubeHost(host)) return { kind: "invalid", plan: [], reason: "not-youtube" };
+    if (host === "youtu.be") {
+      const vid = path.replace(/^\//, "").split("/")[0];
+      if (VIDEO_ID_RE.test(vid)) return { kind: "video", value: vid, plan: [{ call: "videoToChannel", arg: vid }] };
+      return { kind: "invalid", plan: [], reason: "bad-video" };
+    }
+    if (host && host.endsWith("youtube.com")) {
+      const segs = path.split("/").filter(Boolean);
+      if (segs[0] === "watch") {
+        const vid = queryParam(query, "v");
+        if (vid && VIDEO_ID_RE.test(vid)) return { kind: "video", value: vid, plan: [{ call: "videoToChannel", arg: vid }] };
+        return { kind: "invalid", plan: [], reason: "bad-video" };
+      }
+      if ((segs[0] === "shorts" || segs[0] === "embed" || segs[0] === "live") && VIDEO_ID_RE.test(segs[1] || "")) {
+        return { kind: "video", value: segs[1], plan: [{ call: "videoToChannel", arg: segs[1] }] };
+      }
+      if (segs[0] === "channel" && CHANNEL_ID_RE.test(segs[1] || "")) {
+        return { kind: "channelId", value: segs[1], plan: [{ call: "channelsById", arg: segs[1] }] };
+      }
+      if (segs[0] === "user" && HANDLE_CHARS_RE.test(segs[1] || "")) {
+        return { kind: "user", value: segs[1], plan: [{ call: "channelsByUsername", arg: segs[1] }, { call: "searchChannel", arg: segs[1] }] };
+      }
+      if (segs[0] === "c" && HANDLE_CHARS_RE.test(segs[1] || "")) {
+        return { kind: "custom", value: segs[1], plan: [{ call: "searchChannel", arg: segs[1] }] };
+      }
+      if (segs[0] && segs[0][0] === "@") {
+        const h = segs[0].slice(1);
+        if (HANDLE_CHARS_RE.test(h)) return handlePlan(h);
+      }
+      if (segs.length === 1 && !RESERVED.has(segs[0].toLowerCase()) && HANDLE_CHARS_RE.test(segs[0])) {
+        return handlePlan(segs[0]);
+      }
+      return { kind: "invalid", plan: [], reason: "unrecognized-path" };
+    }
+    if (CHANNEL_ID_RE.test(s)) return { kind: "channelId", value: s, plan: [{ call: "channelsById", arg: s }] };
+    const bare = s.replace(/^@/, "");
+    if (!RESERVED.has(bare.toLowerCase()) && HANDLE_CHARS_RE.test(bare) && /[A-Za-z]/.test(bare)) {
+      return handlePlan(bare);
+    }
+    return { kind: "invalid", plan: [], reason: "unrecognized" };
+  }
+  function handlePlan(handle) {
+    const h = handle.replace(/^@/, "");
+    return {
+      kind: "handle",
+      value: h,
+      display: `@${h}`,
+      // forHandle first, then a search fallback to the best exact-handle match.
+      plan: [{ call: "channelsByHandle", arg: `@${h}` }, { call: "searchChannel", arg: h }]
+    };
+  }
+  function looksLikeChannel(raw) {
+    return resolveInput(raw).kind !== "invalid";
+  }
 
-                        <button type="submit" class="w-full bg-white text-black font-bold py-4 rounded-md hover:bg-cyanAccent transition-all shadow-lg">
-                            Submit Application
-                        </button>
-                    </form>
-                </div>
+  // js/read/metrics.js
+  var num = (v) => typeof v === "number" && isFinite(v) ? v : null;
+  var mean = (xs2) => xs2.length ? xs2.reduce((a, b) => a + b, 0) / xs2.length : null;
+  function deriveMetrics(channel = {}, videos = []) {
+    var _a, _b;
+    const vids = Array.isArray(videos) ? videos.slice() : [];
+    vids.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
+    const recentCount = vids.length;
+    const subs = channel.hiddenSubs ? null : num(channel.subs);
+    const totalViews = num(channel.totalViews);
+    const videoCount = num(channel.videoCount);
+    const ageYears = ageInYears(channel.publishedAt);
+    const daysSinceLastUpload = daysSince((_a = vids[0]) == null ? void 0 : _a.publishedAt);
+    const cadencePerMonth = computeCadence(vids);
+    const viewVals = vids.map((v) => num(v.views)).filter((v) => v != null);
+    const avgViews = mean(viewVals);
+    const engVals = [];
+    for (const v of vids) {
+      const views = num(v.views), likes = num(v.likes), comments = (_b = num(v.comments)) != null ? _b : 0;
+      if (likes == null) continue;
+      if (views == null || views <= 0) continue;
+      engVals.push((likes + comments) / views);
+    }
+    const engagementRate = engVals.length ? mean(engVals) : null;
+    const likesHidden = recentCount > 0 && engVals.length === 0;
+    const momentumRatio = computeMomentum(viewVals.length === recentCount ? vids : vids.filter((v) => num(v.views) != null));
+    const durVals = vids.map((v) => num(v.durationSec)).filter((v) => v != null);
+    const shortsMix = durVals.length ? durVals.filter((d) => d <= 60).length / durVals.length : null;
+    return {
+      subs,
+      totalViews,
+      videoCount,
+      recentCount,
+      ageYears,
+      daysSinceLastUpload,
+      cadencePerMonth,
+      cadenceSeries: monthlyCounts(vids, 6),
+      // last 6 months of upload counts (for the faint bars)
+      avgViews,
+      engagementRate,
+      momentumRatio,
+      shortsMix,
+      likesHidden,
+      // convenience ratios used by the reframe engine (null-safe)
+      viewsPerSub: subs && subs > 0 && avgViews != null ? avgViews / subs : null
+    };
+  }
+  function monthlyCounts(vids, months) {
+    const now = /* @__PURE__ */ new Date();
+    const buckets = [];
+    for (let i = months - 1; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      buckets.push({ k: `${d.getFullYear()}-${d.getMonth()}`, c: 0 });
+    }
+    const idx = new Map(buckets.map((b) => [b.k, b]));
+    for (const v of vids) {
+      const d = new Date(v.publishedAt || NaN);
+      if (isNaN(d)) continue;
+      const k = `${d.getFullYear()}-${d.getMonth()}`;
+      if (idx.has(k)) idx.get(k).c++;
+    }
+    return buckets.map((b) => b.c);
+  }
+  function ageInYears(publishedAt) {
+    const d = new Date(publishedAt || NaN);
+    if (isNaN(d)) return null;
+    return Math.max(0, (Date.now() - d.getTime()) / (365.25 * 864e5));
+  }
+  function daysSince(publishedAt) {
+    const d = new Date(publishedAt || NaN);
+    if (isNaN(d)) return null;
+    return Math.max(0, (Date.now() - d.getTime()) / 864e5);
+  }
+  function computeCadence(vids) {
+    const dates = vids.map((v) => new Date(v.publishedAt || NaN)).filter((d) => !isNaN(d));
+    if (dates.length < 2) return null;
+    const newest = dates[0].getTime(), oldest = dates[dates.length - 1].getTime();
+    const spanDays = (newest - oldest) / 864e5;
+    if (spanDays <= 0) return null;
+    return dates.length / spanDays * 30;
+  }
+  function computeMomentum(vids) {
+    const views = vids.map((v) => typeof v.views === "number" ? v.views : null).filter((v) => v != null);
+    if (views.length < 6) return null;
+    const third = Math.floor(views.length / 3);
+    if (third < 1) return null;
+    const newest = views.slice(0, third);
+    const previous = views.slice(third, third * 2);
+    const a = newest.reduce((x, y) => x + y, 0) / newest.length;
+    const b = previous.reduce((x, y) => x + y, 0) / previous.length;
+    if (b <= 0) return null;
+    return a / b;
+  }
 
-            </div>
-        </div>
-    </section>
+  // js/read/state.js
+  var STATE = Object.freeze({
+    INVALID_INPUT: "INVALID_INPUT",
+    NOT_FOUND: "NOT_FOUND",
+    API_ERROR: "API_ERROR",
+    PRIVATE_OR_EMPTY: "PRIVATE_OR_EMPTY",
+    MINIMAL_DATA: "MINIMAL_DATA",
+    HIDDEN_SUBS: "HIDDEN_SUBS",
+    HIDDEN_LIKES: "HIDDEN_LIKES",
+    HIDDEN_BOTH: "HIDDEN_BOTH",
+    OK: "OK"
+  });
+  var MESSAGES = {
+    INVALID_INPUT: "That doesn't look like a YouTube channel yet \u2014 paste your channel URL or @handle.",
+    NOT_FOUND: "We couldn't find that channel \u2014 double-check the @handle or paste the channel URL.",
+    API_ERROR: "Couldn't reach YouTube just now \u2014 try again in a moment.",
+    PRIVATE_OR_EMPTY: "No public videos to read yet \u2014 once you post, we can break it down."
+  };
+  function formatCount(n2) {
+    if (n2 == null || !isFinite(n2)) return "\u2014";
+    const x = Math.abs(n2);
+    if (x >= 1e6) return trimZero(n2 / 1e6) + "M";
+    if (x >= 1e3) return trimZero(n2 / 1e3) + "K";
+    return String(Math.round(n2));
+  }
+  function trimZero(v) {
+    return (Math.round(v * 10) / 10).toFixed(1).replace(/\.0$/, "");
+  }
+  function identityOf(channel) {
+    const handle = channel.handle ? `@${String(channel.handle).replace(/^@/, "")}` : "";
+    const title = channel.title || handle || "Your channel";
+    const sinceYear = channel.publishedAt && !isNaN(new Date(channel.publishedAt)) ? new Date(channel.publishedAt).getFullYear() : null;
+    const initial = (title.replace(/^@/, "")[0] || "?").toUpperCase();
+    return { title, handleDisplay: handle, avatarUrl: channel.avatarUrl || null, initial, sinceYear };
+  }
+  function receiptsOf(metrics, flags) {
+    const r = [];
+    if (flags.hiddenSubs) r.push({ key: "subs", label: "Subscribers", value: "Hidden", muted: true });
+    else if (metrics.subs != null) r.push({ key: "subs", label: "Subscribers", value: formatCount(metrics.subs) });
+    if (metrics.avgViews != null) r.push({ key: "avgViews", label: "Avg views", value: formatCount(metrics.avgViews) });
+    if (flags.hiddenLikes) r.push({ key: "engagement", label: "Engagement", value: "\u2014", muted: true });
+    else if (metrics.engagementRate != null) r.push({ key: "engagement", label: "Engagement", value: (metrics.engagementRate * 100).toFixed(1) + "%" });
+    return r;
+  }
+  function gateOf(state, metrics) {
+    if (state === STATE.MINIMAL_DATA) return "new";
+    if (metrics.recentCount != null && metrics.recentCount < 4 || metrics.ageYears != null && metrics.ageYears < 0.5) return "new";
+    if (metrics.daysSinceLastUpload != null && metrics.daysSinceLastUpload >= 90) return "dormant";
+    return "active";
+  }
+  function classifyRead(outcome = {}) {
+    const { resolution, error, channel, videos } = outcome;
+    if (resolution && resolution.kind === "invalid") return { state: STATE.INVALID_INPUT, flags: blank(), message: MESSAGES.INVALID_INPUT };
+    if (error) return { state: STATE.API_ERROR, flags: blank(), message: MESSAGES.API_ERROR };
+    if (!channel) return { state: STATE.NOT_FOUND, flags: blank(), message: MESSAGES.NOT_FOUND };
+    const vids = Array.isArray(videos) ? videos : [];
+    const identity = identityOf(channel);
+    const noUploads = !channel.uploadsPlaylist || channel.videoCount === 0 || vids.length === 0;
+    if (noUploads) return { state: STATE.PRIVATE_OR_EMPTY, flags: blank(), message: MESSAGES.PRIVATE_OR_EMPTY, identity, receipts: [], metrics: null };
+    const metrics = deriveMetrics(channel, vids);
+    const flags = { hiddenSubs: !!channel.hiddenSubs, hiddenLikes: !!metrics.likesHidden };
+    const receipts = receiptsOf(metrics, flags);
+    let state;
+    if (metrics.recentCount < 3) state = STATE.MINIMAL_DATA;
+    else if (flags.hiddenSubs && flags.hiddenLikes) state = STATE.HIDDEN_BOTH;
+    else if (flags.hiddenSubs) state = STATE.HIDDEN_SUBS;
+    else if (flags.hiddenLikes) state = STATE.HIDDEN_LIKES;
+    else state = STATE.OK;
+    return { state, flags, identity, receipts, metrics, reframeGate: gateOf(state, metrics) };
+  }
+  function blank() {
+    return { hiddenSubs: false, hiddenLikes: false };
+  }
 
-    <footer class="py-10 border-t border-borderBorder text-center text-sm text-textMuted bg-background">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="font-bold text-white tracking-tight flex items-center gap-2 mb-4 md:mb-0">
-                <div class="w-4 h-4 rounded bg-gradient-to-br from-cyanAccent to-purpleAccent"></div>
-                VidRender
-            </div>
-            <div class="flex gap-6 mb-4 md:mb-0">
-                <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition">Terms of Service</a>
-            </div>
-            <p>&copy; 2026 VidRender. All rights reserved.</p>
-        </div>
-    </footer>
+  // js/read/reframe.js
+  function reframe(read) {
+    const gate = read.reframeGate || "active";
+    const m = read.metrics || {};
+    if (gate === "new") return newGate(m);
+    if (gate === "dormant") return dormantGate(m);
+    const fired = ACTIVE_RULES.map((r) => r(m)).filter(Boolean);
+    if (fired.length) {
+      fired.sort((a, b) => b.score - a.score);
+      return { ...fired[0], gate, tension: fired[0].key !== "already-strong" };
+    }
+    return { ...fallback(m), gate, tension: false };
+  }
+  function newGate(m) {
+    const rising = m.momentumRatio != null && m.momentumRatio > 1.15;
+    if (rising) {
+      return {
+        key: "new-rising",
+        gate: "new",
+        tension: false,
+        insight: "You're early, and the trend is already pointing up \u2014 the next jump comes from how each video is built, not how many you post.",
+        mechanism: "Tighter openings and motion where the idea peaks compound while the channel is still small."
+      };
+    }
+    return {
+      key: "new-potential",
+      gate: "new",
+      tension: false,
+      insight: "You're early \u2014 the foundation is here. What separates the channels that break out is the edit, before the audience is even watching.",
+      mechanism: "Getting the open and pacing right now means every later video starts ahead."
+    };
+  }
+  function dormantGate(m) {
+    const since = m.daysSinceLastUpload != null ? Math.round(m.daysSinceLastUpload) : null;
+    return {
+      key: "dormant",
+      gate: "dormant",
+      tension: true,
+      insight: since ? `It's been about ${since} days since your last upload \u2014 the audience is still there, but the momentum has gone quiet.` : "The channel has gone quiet \u2014 the audience is still there, but the momentum has stalled.",
+      mechanism: "A restart lands far harder when the first videos back look sharper than where you left off."
+    };
+  }
+  var ACTIVE_RULES = [
+    // grinding — high volume, flat results. Effort validation (the strongest, most honest converter).
+    function grinding(m) {
+      if (m.cadencePerMonth == null || m.momentumRatio == null) return null;
+      if (m.cadencePerMonth >= 4 && m.momentumRatio < 1.05) {
+        return {
+          key: "grinding",
+          score: 0.9 + (4 - Math.min(m.momentumRatio, 4)) * 0,
+          insight: `You're posting about ${Math.round(m.cadencePerMonth)} a month and the views line is flat \u2014 effort isn't the problem here.`,
+          mechanism: "When output is high and results aren't moving, the lever is the edit, not more uploads."
+        };
+      }
+      return null;
+    },
+    // capped reach — healthy subs, few of them watch.
+    function cappedReach(m) {
+      if (m.subs == null || m.avgViews == null || m.viewsPerSub == null) return null;
+      if (m.subs >= 1e3 && m.viewsPerSub < 0.1) {
+        return {
+          key: "capped-reach",
+          score: 0.85 + (0.1 - m.viewsPerSub),
+          insight: `${formatCount(m.subs)} subscribers, about ${formatCount(m.avgViews)} views a video \u2014 most of the audience you've earned isn't seeing the work.`,
+          mechanism: "The opening seconds and packaging decide who actually presses play; that's an edit problem, not a reach problem."
+        };
+      }
+      return null;
+    },
+    // rising-but-leaking — climbing views, thin engagement.
+    function risingLeaking(m) {
+      if (m.momentumRatio == null || m.engagementRate == null) return null;
+      if (m.momentumRatio > 1.2 && m.engagementRate < 0.03) {
+        return {
+          key: "rising-but-leaking",
+          score: 0.8 + (m.momentumRatio - 1.2) * 0.2,
+          insight: "Your views are climbing, but engagement is thin \u2014 people are arriving and slipping away before the idea lands.",
+          mechanism: "Holding attention through the middle is a retention-edit problem; that's where the watch-time leaks."
+        };
+      }
+      return null;
+    },
+    // reach-rich / loyalty-light — lots of views, little conversion.
+    function reachRich(m) {
+      if (m.viewsPerSub == null || m.engagementRate == null) return null;
+      if (m.viewsPerSub > 0.5 && m.engagementRate < 0.025) {
+        return {
+          key: "reach-rich-loyalty-light",
+          score: 0.78,
+          insight: `Plenty of reach \u2014 about ${formatCount(m.avgViews)} a video \u2014 but few of those viewers convert to subscribers or comments.`,
+          mechanism: "A consistent signature look builds the recognition that turns a one-time view into a follow."
+        };
+      }
+      return null;
+    },
+    // hidden gem — strong engagement, small reach.
+    function hiddenGem(m) {
+      if (m.engagementRate == null || m.avgViews == null) return null;
+      const lowReach = m.viewsPerSub != null && m.viewsPerSub < 0.25 || m.subs != null && m.avgViews < m.subs * 0.25;
+      if (m.engagementRate >= 0.06 && lowReach) {
+        return {
+          key: "hidden-gem",
+          score: 0.82 + (m.engagementRate - 0.06),
+          insight: `The people who watch clearly love it \u2014 ${(m.engagementRate * 100).toFixed(1)}% engagement is high \u2014 there just aren't enough of them yet.`,
+          mechanism: "Strong content with small reach is almost always a packaging-and-opening problem, not a content one."
+        };
+      }
+      return null;
+    },
+    // low-cadence — momentum can't compound on the gap.
+    function lowCadence(m) {
+      if (m.cadencePerMonth == null) return null;
+      if (m.cadencePerMonth < 1.2 && (m.ageYears == null || m.ageYears >= 1)) {
+        return {
+          key: "low-cadence",
+          score: 0.7,
+          insight: "You're posting less than once a month \u2014 momentum can't compound across gaps that long.",
+          mechanism: "Taking the edit off your plate is usually what makes a steady, sustainable cadence possible."
+        };
+      }
+      return null;
+    },
+    // plateau — flat, steady, hit a ceiling.
+    function plateau(m) {
+      if (m.momentumRatio == null) return null;
+      if (m.momentumRatio >= 0.95 && m.momentumRatio <= 1.08 && (m.cadencePerMonth == null || m.cadencePerMonth < 4)) {
+        return {
+          key: "plateau",
+          score: 0.6,
+          insight: "Steady, but the last stretch has gone flat \u2014 you've reached a ceiling the current format won't break on its own.",
+          mechanism: "A sharper, more deliberate edit is usually what restarts growth at this stage."
+        };
+      }
+      return null;
+    },
+    // already-strong (honest) — no real gap; sets up the brand/signature line softly. Lowest score.
+    function alreadyStrong(m) {
+      if (m.engagementRate == null || m.momentumRatio == null || m.viewsPerSub == null) return null;
+      if (m.engagementRate >= 0.05 && m.momentumRatio >= 1.1 && m.viewsPerSub >= 0.2) {
+        return {
+          key: "already-strong",
+          score: 0.4,
+          insight: "Honestly, the fundamentals are strong \u2014 the lever here is small and about polish, not repair.",
+          mechanism: "At this level the gain comes from a sharper, more consistent visual signature, not fixing anything broken."
+        };
+      }
+      return null;
+    }
+  ];
+  function fallback(m) {
+    if (m.avgViews != null && m.recentCount != null) {
+      return {
+        key: "fallback-concrete",
+        insight: `About ${formatCount(m.avgViews)} views across your recent uploads \u2014 there's a specific, findable lever in how each one opens.`,
+        mechanism: "The first seconds decide the watch; that's the highest-leverage thing to get right."
+      };
+    }
+    return {
+      key: "fallback-generic",
+      insight: "There's a clear, specific lever in how your videos open and hold attention.",
+      mechanism: "The opening seconds decide the watch \u2014 that's where the work pays off first."
+    };
+  }
 
+  // js/read/fetch.js
+  var API = "https://www.googleapis.com/youtube/v3";
+  var CHANNEL_PARTS = "part=snippet,statistics,contentDetails";
+  function durationToSeconds(iso) {
+    if (!iso || typeof iso !== "string") return null;
+    const m = iso.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
+    if (!m) return null;
+    return Number(m[1] || 0) * 3600 + Number(m[2] || 0) * 60 + Number(m[3] || 0);
+  }
+  var n = (v) => v == null || v === "" ? null : Number(v);
+  function normalizeChannel(item, handleHint) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    if (!item) return null;
+    const sn = item.snippet || {}, st = item.statistics || {}, cd = item.contentDetails || {};
+    const hidden = st.hiddenSubscriberCount === true || st.subscriberCount == null;
+    const handle = (sn.customUrl || handleHint || "").replace(/^@/, "") || null;
+    return {
+      id: item.id || null,
+      title: sn.title || (handle ? `@${handle}` : null),
+      handle,
+      publishedAt: sn.publishedAt || null,
+      subs: hidden ? null : n(st.subscriberCount),
+      hiddenSubs: hidden,
+      totalViews: n(st.viewCount),
+      videoCount: n(st.videoCount),
+      avatarUrl: ((_b = (_a = sn.thumbnails) == null ? void 0 : _a.high) == null ? void 0 : _b.url) || ((_d = (_c = sn.thumbnails) == null ? void 0 : _c.medium) == null ? void 0 : _d.url) || ((_f = (_e = sn.thumbnails) == null ? void 0 : _e.default) == null ? void 0 : _f.url) || null,
+      country: sn.country || null,
+      uploadsPlaylist: ((_g = cd.relatedPlaylists) == null ? void 0 : _g.uploads) || null
+    };
+  }
+  function normalizeVideos(items) {
+    return (items || []).map((it) => {
+      var _a;
+      const st = it.statistics || {}, cd = it.contentDetails || {}, sn = it.snippet || {};
+      return {
+        id: it.id || null,
+        publishedAt: sn.publishedAt || null,
+        views: n(st.viewCount),
+        likes: st.likeCount == null ? null : n(st.likeCount),
+        comments: (_a = n(st.commentCount)) != null ? _a : 0,
+        durationSec: durationToSeconds(cd.duration)
+      };
+    });
+  }
+  async function resolveChannelItem(plan, key, getJSON) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
+    for (const step of plan) {
+      try {
+        if (step.call === "channelsById") {
+          const item = (_a = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${step.arg}&key=${key}`)).items) == null ? void 0 : _a[0];
+          if (item) return { item };
+        } else if (step.call === "channelsByHandle") {
+          const item = (_b = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&forHandle=${encodeURIComponent(step.arg)}&key=${key}`)).items) == null ? void 0 : _b[0];
+          if (item) return { item, handleHint: step.arg };
+        } else if (step.call === "channelsByUsername") {
+          const item = (_c = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&forUsername=${encodeURIComponent(step.arg)}&key=${key}`)).items) == null ? void 0 : _c[0];
+          if (item) return { item };
+        } else if (step.call === "searchChannel") {
+          const cid = (_f = (_e = (_d = (await getJSON(`${API}/search?part=snippet&type=channel&maxResults=1&q=${encodeURIComponent(step.arg)}&key=${key}`)).items) == null ? void 0 : _d[0]) == null ? void 0 : _e.id) == null ? void 0 : _f.channelId;
+          if (cid) {
+            const item = (_g = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${cid}&key=${key}`)).items) == null ? void 0 : _g[0];
+            if (item) return { item };
+          }
+        } else if (step.call === "videoToChannel") {
+          const cid = (_j = (_i = (_h = (await getJSON(`${API}/videos?part=snippet&id=${step.arg}&key=${key}`)).items) == null ? void 0 : _h[0]) == null ? void 0 : _i.snippet) == null ? void 0 : _j.channelId;
+          if (cid) {
+            const item = (_k = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${cid}&key=${key}`)).items) == null ? void 0 : _k[0];
+            if (item) return { item };
+          }
+        }
+      } catch (e) {
+        throw Object.assign(new Error("youtube-api"), { type: e.rateLimit ? "rate_limit" : "api" });
+      }
+    }
+    return null;
+  }
+  async function fetchRecentVideos(channel, key, getJSON) {
+    if (!channel.uploadsPlaylist) return [];
+    const pl = (await getJSON(`${API}/playlistItems?part=contentDetails&playlistId=${channel.uploadsPlaylist}&maxResults=30&key=${key}`)).items || [];
+    const ids = pl.map((it) => {
+      var _a;
+      return (_a = it.contentDetails) == null ? void 0 : _a.videoId;
+    }).filter(Boolean);
+    if (!ids.length) return [];
+    const v = (await getJSON(`${API}/videos?part=snippet,statistics,contentDetails&id=${ids.join(",")}&key=${key}`)).items || [];
+    return normalizeVideos(v);
+  }
+  var defaultGetJSON = async (url) => {
+    const res = await fetch(url);
+    if (!res.ok) {
+      const err = new Error(`YouTube ${res.status}`);
+      err.rateLimit = res.status === 403 || res.status === 429;
+      throw err;
+    }
+    return res.json();
+  };
+  async function readChannel(raw, opts = {}) {
+    const resolution = resolveInput(raw);
+    if (resolution.kind === "invalid") return withReframe({ ...classifyRead({ resolution }), resolution });
+    if (opts.demo || !opts.key) {
+      const outcome = demoOutcome(resolution);
+      return withReframe({ ...classifyRead({ resolution, ...outcome }), resolution, preview: true });
+    }
+    const getJSON = opts.getJSON || defaultGetJSON;
+    let channelItem, videos = [];
+    try {
+      const resolved = await resolveChannelItem(resolution.plan, opts.key, getJSON);
+      if (!resolved) return withReframe({ ...classifyRead({ resolution, channel: null }), resolution });
+      channelItem = normalizeChannel(resolved.item, resolved.handleHint);
+      videos = await fetchRecentVideos(channelItem, opts.key, getJSON);
+    } catch (e) {
+      return withReframe({ ...classifyRead({ resolution, error: { type: e.type || "api" } }), resolution });
+    }
+    return withReframe({ ...classifyRead({ resolution, channel: channelItem, videos }), resolution });
+  }
+  var READ_STATES = /* @__PURE__ */ new Set([STATE.OK, STATE.HIDDEN_SUBS, STATE.HIDDEN_LIKES, STATE.HIDDEN_BOTH, STATE.MINIMAL_DATA]);
+  function withReframe(read) {
+    read.reframe = READ_STATES.has(read.state) ? reframe(read) : null;
+    return read;
+  }
+  function demoOutcome(resolution) {
+    const handle = resolution.display ? resolution.display.replace(/^@/, "") : resolution.value || "everydayaischool";
+    const channel = {
+      id: "UCdemo000000000000000000",
+      title: titleCase(handle),
+      handle,
+      publishedAt: "2022-02-01T00:00:00Z",
+      subs: 48200,
+      hiddenSubs: false,
+      totalViews: 312e4,
+      videoCount: 73,
+      avatarUrl: null,
+      country: "US",
+      uploadsPlaylist: "UUdemo"
+    };
+    const base = [5200, 4800, 5100, 4900, 5300, 5e3, 4700, 5200, 4950, 5100, 4850, 5e3];
+    const videos = base.map((views, i) => ({
+      id: "demo" + i,
+      publishedAt: new Date(Date.parse("2026-06-20T00:00:00Z") - i * 6 * 864e5).toISOString(),
+      views,
+      likes: Math.round(views * 0.021),
+      comments: 6 + i % 4,
+      durationSec: 540 + i % 3 * 120
+    }));
+    return { channel, videos };
+  }
+  function titleCase(h) {
+    return String(h).replace(/[-_.]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).trim() || "Your channel";
+  }
+
+  // js/app.js
+  initTheme();
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var q = (id) => document.getElementById(id);
+  var demo = () => !!(window.VIDRENDER && window.VIDRENDER.demoMode);
+  var lead = { name: null, email: null, channel_url: null, handle: null, bottleneck: null, budget_tier: null, budget_detail: null };
+  async function submitLead() {
+    const cfg = window.VIDRENDER || {};
+    if (cfg.demoMode) {
+      if (cfg.localBridge) {
+        const payload = { name: lead.name, email: lead.email, channel_url: lead.channel_url, handle: lead.handle, bottleneck: lead.bottleneck, budget_tier: lead.budget_tier, budget_detail: lead.budget_detail };
+        try {
+          await fetch(cfg.localBridge, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ token: "demo", action: "appendLead", payload }) });
+        } catch {
+        }
+      }
+      console.info("[demo] lead captured:", { ...lead });
+      return { demo: true };
+    }
+    if (!cfg.writeEndpoint || !cfg.writeToken) {
+      await wait(400);
+      console.info("[preview] lead staged locally:", { ...lead });
+      return { preview: true };
+    }
+    const res = await fetch(cfg.writeEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "append",
+        token: cfg.writeToken,
+        channel_url: lead.channel_url,
+        handle: lead.handle || "",
+        bottleneck: lead.bottleneck || "",
+        budget_tier: lead.budget_tier || "",
+        budget_detail: lead.budget_detail || "",
+        name: lead.name || "",
+        email: lead.email
+      })
+    });
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || "Submission failed.");
+    return json;
+  }
+  var wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  var W = 720;
+  var N = 12;
+  var xs = [...Array(N)].map((_, i) => i * (W / (N - 1)));
+  var before = SAMPLE.curve.before;
+  var after = SAMPLE.curve.after;
+  var sm = (ys) => {
+    let d = `M ${xs[0]} ${ys[0]}`;
+    for (let i = 0; i < N - 1; i++) {
+      const cx = (xs[i] + xs[i + 1]) / 2;
+      d += ` C ${cx} ${ys[i]}, ${cx} ${ys[i + 1]}, ${xs[i + 1]} ${ys[i + 1]}`;
+    }
+    return d;
+  };
+  var arf = (ys) => sm(ys) + ` L ${W} 280 L 0 280 Z`;
+  var lerp = (a, b, t) => a + (b - a) * t;
+  var $b = q("before");
+  var $a = q("after");
+  var $gp = q("glowpath");
+  var $arr = q("area");
+  var $dot = q("dot");
+  var $grid = q("grid");
+  var $pulse = q("pulse");
+  $b.setAttribute("d", sm(before));
+  function setAfter(t) {
+    const ys = after.map((a, i) => lerp(before[i], a, t)), d = sm(ys);
+    $a.setAttribute("d", d);
+    $gp.setAttribute("d", d);
+    $arr.setAttribute("d", arf(ys));
+    $dot.setAttribute("cx", W);
+    $dot.setAttribute("cy", ys[N - 1]);
+  }
+  var breathe;
+  var travel;
+  function startGlow() {
+    const d = sm(after);
+    $pulse.setAttribute("d", d);
+    const Lp = $pulse.getTotalLength();
+    gsap.set($pulse, { opacity: 0.95, attr: { "stroke-dasharray": `18 ${Lp}`, "stroke-dashoffset": 0 } });
+    travel = gsap.to($pulse, { attr: { "stroke-dashoffset": -(Lp + 18) }, duration: 2.8, ease: "none", repeat: -1 });
+    breathe = gsap.to($dot, { attr: { r: 8.6 }, duration: 1.7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  }
+  function playHero() {
+    if (breathe) breathe.kill();
+    if (travel) travel.kill();
+    gsap.set($pulse, { opacity: 0 });
+    if (reduce) {
+      setAfter(1);
+      gsap.set([$arr, $dot, $grid], { opacity: 1 });
+      const L2 = $a.getTotalLength();
+      gsap.set([$a, $gp], { strokeDasharray: L2, strokeDashoffset: 0 });
+      startGlow();
+      return;
+    }
+    setAfter(0);
+    const L = $a.getTotalLength();
+    gsap.set([$a, $gp], { strokeDasharray: L, strokeDashoffset: L });
+    gsap.set([$arr, $dot], { opacity: 0 });
+    gsap.set($grid, { opacity: 0 });
+    gsap.timeline().to($grid, { opacity: 1, duration: 0.8 }, 0).to([$a, $gp], { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, 0.3).to({ t: 0 }, { t: 1, duration: 1.7, ease: "power3.inOut", onUpdate() {
+      setAfter(this.targets()[0].t);
+    } }, 0.5).to($arr, { opacity: 1, duration: 1 }, 1.1).to($dot, { opacity: 1, duration: 0.5 }, 1.7).fromTo($dot, { attr: { r: 7 } }, { attr: { r: 12 }, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut" }, ">-.25").add(startGlow);
+  }
+  q("replay").onclick = playHero;
+  if (!reduce) {
+    gsap.from("nav", { y: -12, opacity: 0, duration: 0.6, ease: "power3.out" });
+    gsap.from(".eyebrow", { y: 14, opacity: 0, duration: 0.6, delay: 0.1, ease: "power3.out" });
+    gsap.from("h1", { y: 22, opacity: 0, duration: 0.8, delay: 0.2, ease: "power3.out" });
+    gsap.from(".sub", { y: 14, opacity: 0, duration: 0.6, delay: 0.4, ease: "power3.out" });
+    gsap.from(".stage", { y: 26, opacity: 0, duration: 0.9, delay: 0.5, ease: "power3.out", onComplete: playHero });
+    gsap.from(".panel", { y: 26, opacity: 0, duration: 0.8, delay: 0.75, ease: "power3.out" });
+  } else {
+    playHero();
+  }
+  var FOUND = /* @__PURE__ */ new Set(["OK", "HIDDEN_SUBS", "HIDDEN_LIKES", "HIDDEN_BOTH", "MINIMAL_DATA", "PRIVATE_OR_EMPTY"]);
+  function paintIdentity(host, identity, metrics) {
+    const av = host.querySelector(".ravatar");
+    if (identity.avatarUrl) {
+      av.style.backgroundImage = `url("${identity.avatarUrl}")`;
+      av.textContent = "";
+    } else {
+      av.style.backgroundImage = "";
+      av.textContent = identity.initial;
+    }
+    host.querySelector(".rname").textContent = identity.handleDisplay || identity.title;
+    const parts = [];
+    if (identity.sinceYear) parts.push(`Creating since ${identity.sinceYear}`);
+    if ((metrics == null ? void 0 : metrics.videoCount) != null) parts.push(`${formatCount(metrics.videoCount)} videos`);
+    if ((metrics == null ? void 0 : metrics.totalViews) != null) parts.push(`${formatCount(metrics.totalViews)} views`);
+    host.querySelector(".rcontext").textContent = parts.join("  \xB7  ");
+  }
+  function momentumChip(ratio) {
+    if (ratio == null) return "";
+    const pct = Math.round((ratio - 1) * 100);
+    if (pct >= 3) return `<span class="momentum up">\u2191 ${pct}%</span>`;
+    if (pct <= -3) return `<span class="momentum down">\u2193 ${Math.abs(pct)}%</span>`;
+    return `<span class="momentum flat">\u2192 steady</span>`;
+  }
+  function paintCadence(host, metrics) {
+    const el = host.querySelector(".cadence");
+    const series = (metrics == null ? void 0 : metrics.cadenceSeries) || [];
+    if (!series.length || series.every((c) => c === 0)) {
+      el.style.display = "none";
+      el.innerHTML = "";
+      return;
+    }
+    el.style.display = "";
+    const max = Math.max(1, ...series);
+    const label = (metrics == null ? void 0 : metrics.cadencePerMonth) != null ? `\u2248 ${Math.max(1, Math.round(metrics.cadencePerMonth))}/MO` : "";
+    el.innerHTML = series.map((c) => `<i style="height:${Math.round(c / max * 100)}%"></i>`).join("") + (label ? `<span class="clabel">${label}</span>` : "");
+  }
+  function renderRead(read) {
+    var _a;
+    q("readskel").hidden = true;
+    const readEl = q("read"), msgEl = q("readmsg");
+    readEl.hidden = true;
+    msgEl.hidden = true;
+    if (!FOUND.has(read.state)) {
+      msgEl.hidden = false;
+      msgEl.innerHTML = `<div>${read.message}</div>`;
+      if (!reduce) gsap.fromTo(msgEl, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" });
+      return false;
+    }
+    readEl.hidden = false;
+    const m = read.metrics;
+    paintIdentity(readEl, read.identity, m);
+    const insight = q("rinsight"), mech = q("rmech"), receipts = q("receipts"), cadence = q("cadence");
+    if (read.state === "PRIVATE_OR_EMPTY") {
+      insight.textContent = read.message;
+      mech.textContent = "";
+      receipts.innerHTML = "";
+      cadence.style.display = "none";
+    } else {
+      insight.innerHTML = read.reframe ? read.reframe.insight : "";
+      mech.textContent = read.reframe ? read.reframe.mechanism : "";
+      const momentumKey = ((_a = read.flags) == null ? void 0 : _a.hiddenSubs) ? "avgViews" : "subs";
+      receipts.innerHTML = (read.receipts || []).map((r) => {
+        const chip = r.key === momentumKey ? momentumChip(m == null ? void 0 : m.momentumRatio) : "";
+        return `<div class="receipt${r.muted ? " muted" : ""}"><span class="rk">${r.label}</span><span class="rvrow"><span class="rv">${r.value}</span>${chip}</span></div>`;
+      }).join("");
+      paintCadence(readEl, m);
+    }
+    if (reduce) {
+      gsap.set(readEl, { opacity: 1 });
+      gsap.set(".cadence i", { scaleY: 1 });
+      return true;
+    }
+    gsap.set(readEl, { opacity: 1 });
+    gsap.from(readEl.querySelector(".rtop"), { y: 10, opacity: 0, duration: 0.45, ease: "power3.out" });
+    gsap.from(insight, { y: 14, opacity: 0, duration: 0.6, delay: 0.12, ease: "power3.out" });
+    gsap.from(mech, { y: 10, opacity: 0, duration: 0.5, delay: 0.28, ease: "power3.out" });
+    gsap.from(readEl.querySelectorAll(".receipt"), { y: 12, opacity: 0, stagger: 0.07, duration: 0.5, delay: 0.4, ease: "power3.out" });
+    gsap.fromTo(readEl.querySelectorAll(".cadence i"), { scaleY: 0 }, { scaleY: 1, stagger: 0.05, duration: 0.5, delay: 0.55, ease: "back.out(1.6)" });
+    return true;
+  }
+  var steps = q("steps");
+  var pfill = q("pfill");
+  var count = q("count");
+  var TOTAL = 4;
+  var cur = 0;
+  var TIERS2 = SAMPLE.pricingTiers;
+  var REC = SAMPLE.recommendedIndex;
+  var MX = TIERS2.length - 1;
+  var BN = SAMPLE.bottlenecks;
+  var pbar = q("pbar");
+  function setProg() {
+    pfill.style.width = (cur + 1) / TOTAL * 100 + "%";
+    count.textContent = `STEP ${cur + 1} OF ${TOTAL}`;
+    if (pbar) {
+      pbar.setAttribute("aria-valuenow", String(cur + 1));
+      pbar.setAttribute("aria-label", `Qualifier progress, step ${cur + 1} of ${TOTAL}`);
+    }
+  }
+  function go(html) {
+    const old = steps.firstElementChild, n2 = document.createElement("div");
+    n2.className = "step";
+    n2.setAttribute("aria-current", "step");
+    n2.innerHTML = html;
+    steps.appendChild(n2);
+    if (old) old.removeAttribute("aria-current");
+    if (reduce) {
+      old.remove();
+    } else {
+      gsap.to(old, { x: -34, opacity: 0, duration: 0.34, ease: "power2.in", onComplete: () => old.remove() });
+      gsap.fromTo(n2, { x: 34, opacity: 0, scale: 0.99 }, { x: 0, opacity: 1, scale: 1, duration: 0.5, delay: 0.18, ease: "power3.out" });
+    }
+    const h = n2.querySelector(".q");
+    if (h) {
+      h.tabIndex = -1;
+      setTimeout(() => h.focus({ preventScroll: true }), reduce ? 0 : 220);
+    }
+    return n2;
+  }
+  q("analyze").onclick = async () => {
+    var _a;
+    const b = q("analyze"), input = (q("url").value || "").trim(), note = q("urlnote");
+    if (!looksLikeChannel(input)) {
+      note.textContent = "That doesn't look like a YouTube channel yet \u2014 paste your channel URL or @handle.";
+      q("url").focus();
+      return;
+    }
+    note.textContent = "";
+    lead.channel_url = input;
+    b.textContent = "Reading\u2026";
+    b.disabled = true;
+    q("read").hidden = true;
+    q("readmsg").hidden = true;
+    q("readskel").hidden = false;
+    const cfg = window.VIDRENDER || {};
+    const t0 = Date.now();
+    let read;
+    try {
+      read = await readChannel(input, { demo: demo(), key: cfg.youtubeApiKey });
+    } catch {
+      read = { state: "API_ERROR", message: "Couldn't reach YouTube just now \u2014 try again in a moment." };
+    }
+    const elapsed = Date.now() - t0, minBeat = reduce ? 0 : 650;
+    if (elapsed < minBeat) await wait(minBeat - elapsed);
+    lead.handle = (((_a = read.identity) == null ? void 0 : _a.handleDisplay) || "").replace(/^@/, "") || null;
+    const canProceed = renderRead(read);
+    b.disabled = false;
+    if (canProceed) {
+      b.innerHTML = 'Next <span class="arw">\u2192</span>';
+      b.onclick = s2;
+    } else {
+      b.textContent = "Try again";
+    }
+  };
+  function s2() {
+    cur = 1;
+    setProg();
+    const n2 = go(`<div class="q">What's capping your growth?</div><div class="qs">Pick the one that stings most. We'll confirm it from your data.</div><div class="chips">${BN.map((b) => `<button class="chip" data-b="${b}">${b}</button>`).join("")}</div><button class="back">\u2190 back</button>`);
+    n2.querySelectorAll(".chip").forEach((c) => c.onclick = () => {
+      n2.querySelectorAll(".chip").forEach((x) => x.classList.remove("on"));
+      c.classList.add("on");
+      lead.bottleneck = c.dataset.b;
+      setTimeout(s3, 240);
+    });
+    n2.querySelector(".back").onclick = () => location.reload();
+  }
+  function s3() {
+    cur = 2;
+    setProg();
+    const n2 = go(`<div class="q">What's your budget?</div><div class="qs">Slide to your number \u2014 we recommend honestly.</div>
+  <div class="price"><span class="p" id="pp"></span><span class="per" id="pper"></span></div>
+  <div class="tname" id="tn"></div>
+  <div class="tdesc" id="td"></div>
+  <div id="sw"><div class="slider" id="sl"><div class="track"></div><div class="tfill"></div><div class="recdot" id="rd"></div><div class="thumb"></div><input type="range" class="range" id="rg" min="0" max="${MX}" step="1" value="${REC}" aria-label="budget level"/></div><div class="ticks" id="tk"></div><div class="rechint" id="rh"></div></div>
+  <div id="cw" style="display:none"><div class="cfield"><span class="pre">$</span><input id="camt" inputmode="numeric" placeholder="Your number"/></div><div class="perTog"><button class="on" data-per="per video">per video</button><button data-per="per month">per month</button></div></div>
+  <button class="specbtn" id="spec">Have a specific budget? \u2192</button>
+  <button class="btn full" id="cont">Continue <span class="arw">\u2192</span></button><button class="back">\u2190 back</button>`);
+    const rg = n2.querySelector("#rg"), sl = n2.querySelector("#sl"), tk = n2.querySelector("#tk"), pp = n2.querySelector("#pp"), pper = n2.querySelector("#pper"), tn = n2.querySelector("#tn"), td = n2.querySelector("#td"), rh = n2.querySelector("#rh"), sw = n2.querySelector("#sw"), cw = n2.querySelector("#cw"), spec = n2.querySelector("#spec"), camt = n2.querySelector("#camt");
+    const recName = TIERS2[REC].label;
+    TIERS2.forEach((t, i) => {
+      const sp = document.createElement("span");
+      sp.style.left = `calc(15px + ${i / MX} * (100% - 30px))`;
+      sp.textContent = t.tick;
+      tk.appendChild(sp);
+    });
+    n2.querySelector("#rd").style.left = `calc(15px + ${REC / MX} * (100% - 30px))`;
+    let custom = false, perMode = "per video";
+    const hint = (v) => v < REC ? `\u2191 Most see real lift at <b>${recName} \xB7 ${TIERS2[REC].price}</b>.` : v === REC ? "\u2713 Our honest pick for channels like yours." : `\u2193 <b>${recName} \xB7 ${TIERS2[REC].price}</b> covers most \u2014 choose more only if you want it.`;
+    function render() {
+      const v = +rg.value, t = TIERS2[v];
+      sl.style.setProperty("--pct", v / MX);
+      pp.textContent = t.price;
+      pper.textContent = t.per;
+      tn.innerHTML = `${t.label}${v === REC ? ' <span class="recbadge">RECOMMENDED</span>' : ""}`;
+      td.textContent = t.desc;
+      rh.innerHTML = hint(v);
+      [...tk.children].forEach((sp, i) => sp.classList.toggle("on", i === v));
+      if (!reduce) gsap.fromTo(pp, { scale: 0.94 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
+    }
+    function cust() {
+      pp.textContent = camt.value ? "$" + Number(camt.value).toLocaleString() : "$\u2014";
+      pper.textContent = perMode;
+      tn.textContent = "Custom";
+      td.textContent = "";
+      rh.innerHTML = "We'll tailor a quote to your budget.";
+    }
+    function showCustom(on) {
+      custom = on;
+      sw.style.display = on ? "none" : "";
+      cw.style.display = on ? "" : "none";
+      spec.textContent = on ? "\u2190 use the slider instead" : "Have a specific budget? \u2192";
+      if (on) {
+        cust();
+        setTimeout(() => camt.focus(), 50);
+      } else render();
+    }
+    rg.addEventListener("input", render);
+    rg.addEventListener("pointerdown", () => sl.classList.add("drag"));
+    ["pointerup", "pointercancel", "blur"].forEach((e) => rg.addEventListener(e, () => sl.classList.remove("drag")));
+    spec.onclick = () => showCustom(!custom);
+    camt.addEventListener("input", cust);
+    n2.querySelectorAll(".perTog button").forEach((b) => b.onclick = () => {
+      n2.querySelectorAll(".perTog button").forEach((x) => x.classList.remove("on"));
+      b.classList.add("on");
+      perMode = b.dataset.per;
+      cust();
+    });
+    render();
+    n2.querySelector("#cont").onclick = () => {
+      const mapped = custom ? mapCustomBudget(camt.value, perMode) : mapSliderTier(+rg.value);
+      lead.budget_tier = mapped.budget_tier;
+      lead.budget_detail = mapped.budget_detail;
+      s4();
+    };
+    n2.querySelector(".back").onclick = s2;
+  }
+  function s4() {
+    cur = 3;
+    setProg();
+    const n2 = go(`<div class="q">Where do we send your brief?</div><div class="qs">Your full breakdown + a free sample land within 24 hours.</div><div class="field" style="margin-bottom:10px"><input id="nm" placeholder="Name (optional)"/></div><div class="field"><input id="em" placeholder="you@email.com"/></div><div class="field-note" id="enote" style="color:#C2410C;font-family:var(--mono);font-size:11px;margin-top:8px;min-height:14px"></div><button class="btn full" id="send">Send my brief</button><button class="back">\u2190 back</button>`);
+    n2.querySelector("#send").onclick = async () => {
+      const email = (n2.querySelector("#em").value || "").trim();
+      const note = n2.querySelector("#enote");
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        note.textContent = "Enter a valid email so we can send your brief.";
+        n2.querySelector("#em").focus();
+        return;
+      }
+      note.textContent = "";
+      lead.name = (n2.querySelector("#nm").value || "").trim() || null;
+      lead.email = email;
+      const b = n2.querySelector("#send");
+      b.textContent = "Sending\u2026";
+      b.disabled = true;
+      try {
+        await submitLead();
+        done();
+      } catch (err) {
+        note.textContent = err.message || "Couldn't submit. Try again.";
+        b.disabled = false;
+        b.textContent = "Send my brief";
+      }
+    };
+    n2.querySelector(".back").onclick = s3;
+  }
+  function done() {
+    pfill.style.width = "100%";
+    count.textContent = "DONE";
+    go(`<div class="done">
+    <div class="big">We're pulling your last videos apart, frame by frame.</div>
+    <div class="small">Transcripts, thumbnails, and the exact seconds you start losing people \u2014 a real read, not a template. <b>Your full breakdown lands in your inbox within 24 hours.</b></div>
+    <div class="tease">It won't look like any "audit" you've seen.</div>
+  </div>`);
+  }
+  if (demo()) {
+    const b = q("demoBadge");
+    if (b) b.hidden = false;
+  }
+  setProg();
+})();
+
+</script>
 </body>
 </html>
