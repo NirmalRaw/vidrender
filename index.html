@@ -66,7 +66,6 @@
   --t-micro:160ms; --t-standard:420ms;
   --glass-blur:0px; --mesh-a:none; --mesh-b:none;
 }
-
 </style>
   <style id="main">
 /* main.css — ported from the approved prototype. Tokens live in tokens.css. Landing classes are
@@ -116,7 +115,7 @@ svg.curve{display:block;width:100%;aspect-ratio:720/280;height:auto;max-height:3
 
 .field{display:flex;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:5px;transition:border-color .25s,box-shadow .25s}
 .field:focus-within{border-color:var(--amber);box-shadow:0 0 0 4px rgba(255,154,46,.10)}
-.field input{flex:1;border:none;background:none;outline:none;font-family:var(--mono);font-size:14px;padding:12px;color:var(--ink);caret-color:var(--amber)}
+.field input{flex:1;min-width:0;border:none;background:none;outline:none;font-family:var(--mono);font-size:14px;padding:12px;color:var(--ink);caret-color:var(--amber)}
 .field input::placeholder{color:var(--faint)}
 
 .btn{position:relative;overflow:hidden;background:var(--ink);color:var(--cta-fg);border:none;cursor:pointer;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:600;font-family:var(--sans);white-space:nowrap;transition:transform .16s var(--ease),box-shadow .2s var(--ease);box-shadow:0 8px 20px -10px rgba(20,19,14,.55)}
@@ -219,6 +218,110 @@ svg.curve{display:block;width:100%;aspect-ratio:720/280;height:auto;max-height:3
 .done .small b{color:var(--ink);font-weight:600}
 .done .tease{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase}
 
+/* the handoff — final step: a pre-written note the creator sends to open the thread (they type nothing) */
+.handoff{padding:4px 0 2px}
+
+/* the storyboard — a looping phone that plays the whole promise: send → read → problems → growth */
+.ho-phone{--yt:#FF3D3D;display:flex;flex-direction:column;align-items:center;margin-bottom:8px}
+.ph-frame{position:relative;width:250px;height:452px;background:var(--ink);border-radius:34px;padding:11px;box-shadow:0 30px 64px -26px rgba(20,19,14,.6),0 0 0 1px var(--line)}
+.ph-cam{position:absolute;top:15px;left:50%;transform:translateX(-50%);width:52px;height:6px;border-radius:99px;background:rgba(255,255,255,.16);z-index:6}
+.ph-screen{position:relative;width:100%;height:100%;background:var(--bg);border-radius:24px;overflow:hidden}
+.scene{position:absolute;inset:0;padding:16px 15px;display:flex;flex-direction:column;opacity:0}
+.ph-cursor{position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:rgba(140,140,140,.28);border:2px solid rgba(150,150,150,.75);z-index:10;pointer-events:none;opacity:0;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+
+/* scene 1 · compose (email) */
+.gm-bar{display:flex;align-items:center;gap:9px;padding-bottom:11px;border-bottom:1px solid var(--line);margin-bottom:11px}
+.gm-x{color:var(--faint);font-size:12px}
+.gm-t{flex:1;font-family:var(--sans);font-weight:600;font-size:12.5px;color:var(--ink)}
+.gm-send{background:var(--ink);color:var(--cta-fg);font-size:11px;font-weight:600;padding:7px 12px;border-radius:99px;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(20,19,14,.6)}
+.gm-row{display:flex;gap:9px;font-size:12px;padding:7px 0;border-bottom:1px solid var(--line)}
+.gm-k{color:var(--faint);font-family:var(--mono);font-size:9.5px;width:32px;padding-top:2px}
+.gm-v{color:var(--ink);font-family:var(--mono);font-size:11px;min-width:0;word-break:break-word}
+.gm-body{margin-top:13px;display:flex;flex-direction:column;gap:9px}
+.gm-hi{font-size:12.5px;color:var(--ink)}
+.gl{height:7px;border-radius:99px;background:var(--line);display:block}
+.gl.w90{width:90%}.gl.w80{width:80%}.gl.w60{width:60%}
+.gm-sign{margin-top:6px;font-size:12.5px;color:var(--muted)}
+.gm-sign b{color:var(--ink);font-weight:600}
+
+/* scene 2 · sent */
+.sc-sent{align-items:center;justify-content:center;text-align:center}
+.sent-check{width:66px;height:66px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-size:33px;font-weight:700;box-shadow:0 16px 32px -14px rgba(21,194,212,.65)}
+.sent-t{margin-top:18px;font-family:var(--disp);font-weight:600;font-size:18px;color:var(--ink)}
+.sent-s{margin-top:6px;color:var(--muted);font-size:13px}
+
+/* scene 3 · reading the channel (YouTube-style) */
+.yt-bar{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.yt-play{width:26px;height:18px;border-radius:5px;background:var(--yt);position:relative;flex:none}
+.yt-play::after{content:"";position:absolute;left:9px;top:5px;border-left:8px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.yt-bt{font-family:var(--sans);font-weight:600;font-size:12.5px;color:var(--ink)}
+.yt-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.yt-av{width:34px;height:34px;border-radius:50%;background:var(--grad);flex:none}
+.yt-id{display:flex;flex-direction:column;min-width:0}
+.yt-id b{font-size:12px;font-family:var(--mono);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yt-id span{font-size:9.5px;color:var(--faint);font-family:var(--mono);letter-spacing:.05em}
+.yt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.yt-grid i{aspect-ratio:16/9;border-radius:7px;background:linear-gradient(135deg,var(--surface-2),var(--line));position:relative;display:block}
+.yt-grid i::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-left:9px solid var(--faint);border-top:5px solid transparent;border-bottom:5px solid transparent;opacity:.5}
+.yt-scan{position:absolute;left:15px;right:15px;height:42px;background:linear-gradient(180deg,transparent,rgba(21,194,212,.18),transparent);border-top:2px solid var(--teal);border-bottom:2px solid var(--teal);border-radius:6px;opacity:0}
+.yt-cap{position:absolute;left:15px;right:15px;bottom:15px;text-align:center;font-family:var(--mono);font-size:9.5px;color:var(--faint);letter-spacing:.04em}
+
+/* scene 4 · what we found — a visual attention-crash + their real numbers */
+.pr-h{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--ink);margin-bottom:10px}
+.pr-chart{position:relative;margin-bottom:14px}
+.pr-curve{width:100%;height:auto;display:block;overflow:visible}
+.pr-leak{position:absolute;right:6px;top:44%;display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;letter-spacing:.03em;color:var(--yt);background:rgba(255,61,61,.12);padding:3px 8px;border-radius:99px;white-space:nowrap}
+.pr-leak::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--yt)}
+.pr-insight{font-family:var(--disp);font-weight:500;font-size:13.5px;line-height:1.42;letter-spacing:-.01em;color:var(--ink);text-wrap:balance;margin-bottom:13px}
+.pr-stats{display:flex;flex-wrap:wrap;gap:7px}
+.pr-chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
+
+/* scene 5 · before / after growth (honest: directional lift, no fabricated numbers) */
+.gr-h{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--ink);margin-bottom:5px}
+.gr-legend{display:flex;gap:15px;margin-bottom:14px}
+.lg{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;color:var(--muted)}
+.lg::before{content:"";width:9px;height:9px;border-radius:3px}
+.lg-a::before{background:var(--line)}
+.lg-b::before{background:var(--grad)}
+.gr-chart{display:flex;justify-content:space-around;align-items:flex-start;gap:8px;padding:0 2px;margin-top:4px}
+.gr-group{display:flex;flex-direction:column;align-items:center;flex:1}
+.gr-bars{display:flex;align-items:flex-end;justify-content:center;gap:7px;height:150px;border-bottom:1.5px solid var(--line)}
+.gr-bar{width:21px;border-radius:6px 6px 0 0;height:var(--h);transform:scaleY(0);transform-origin:bottom;position:relative}
+.b-now{background:var(--line)}
+.b-vr{background:var(--grad);box-shadow:0 10px 20px -9px rgba(21,194,212,.6)}
+.gr-up{position:absolute;top:-17px;left:50%;font-size:11px;font-weight:800;color:var(--teal);opacity:0}
+.gr-lab{font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-top:9px}
+.gr-val{font-family:var(--disp);font-weight:600;font-size:13px;letter-spacing:-.01em;color:var(--ink);font-variant-numeric:tabular-nums;margin-top:3px}
+
+/* scene 6 · the clear CTA outro — mirrors the real button below so there's no confusion */
+.sc-outro{align-items:center;justify-content:center;text-align:center}
+.out-badge{width:56px;height:56px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-size:21px;box-shadow:0 15px 32px -13px rgba(21,194,212,.65)}
+.out-title{margin-top:16px;font-family:var(--disp);font-weight:600;font-size:20px;letter-spacing:-.02em;color:var(--ink)}
+.out-sub{margin-top:8px;color:var(--muted);font-size:12.5px;line-height:1.5;max-width:190px}
+.out-btn{margin-top:18px;background:var(--ink);color:var(--cta-fg);font-size:12.5px;font-weight:600;padding:12px 22px;border-radius:99px;box-shadow:0 12px 24px -11px rgba(20,19,14,.6)}
+.out-hint{margin-top:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase}
+
+.ho-cap{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.09em;color:var(--faint);text-transform:uppercase;margin-top:15px;max-width:250px;line-height:1.55}
+
+.ho-eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--amber);margin-bottom:12px}
+.ho-title{font-family:var(--disp);font-size:25px;font-weight:600;letter-spacing:-.02em;text-wrap:balance;margin-bottom:9px}
+.ho-sub{color:var(--muted);font-size:14px;line-height:1.6;max-width:46ch;margin-bottom:20px}
+.ho-preview{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--csh)}
+.ho-line{display:flex;gap:12px;padding:3px 0}
+.ho-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);flex:none;width:52px;padding-top:3px}
+.ho-v{font-family:var(--mono);font-size:12.5px;color:var(--ink);word-break:break-word;min-width:0}
+.ho-body{margin-top:11px;padding-top:13px;border-top:1px solid var(--line);white-space:pre-line;font-family:var(--sans);font-size:13px;line-height:1.65;color:var(--muted)}
+.handoff .btn.full{display:block;text-align:center;text-decoration:none}
+.ho-fallback{margin-top:16px;text-align:center}
+.ho-fallback>span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:10px}
+.ho-copyrow{display:flex;gap:10px}
+.ho-copy{flex:1;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:11px;padding:11px 10px;font-size:12.5px;font-family:var(--sans);cursor:pointer;transition:transform .16s var(--ease),border-color .2s,color .2s}
+.ho-copy:hover{border-color:var(--amber);transform:translateY(-1px)}
+.ho-copy:active{transform:scale(.97)}
+.ho-copy.done{border-color:var(--teal);color:var(--teal)}
+.ho-reassure{margin-top:18px;text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;color:var(--faint);line-height:1.55}
+@media(max-width:380px){.ho-copyrow{flex-direction:column}}
+
 .stance{text-align:center;padding:18px 0 70px}
 .stance h2{font-family:var(--disp);font-size:clamp(26px,4.5vw,40px);font-weight:600;letter-spacing:-.025em;text-wrap:balance}
 .stance p{color:var(--muted);font-size:15px;max-width:460px;margin:16px auto 0;line-height:1.6}
@@ -233,6 +336,8 @@ footer{border-top:1px solid var(--line);position:relative;z-index:1}
 .fbot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--faint)}
 .fbot a{color:var(--faint);text-decoration:none}.fbot a:hover{color:var(--ink)}.fstrip{color:var(--muted)}
 @media(max-width:560px){.cards{flex-direction:column}.panel{margin:30px auto 64px;padding:24px}.ftop{flex-direction:column;align-items:flex-start}}
+/* narrow screens: let the input+button field stack so the Analyze button never overflows or clips */
+@media(max-width:430px){.field:has(.btn){flex-wrap:wrap}.field:has(.btn) input{flex:1 1 100%}.field:has(.btn) .btn{flex:1 1 100%}}
 
 /* ── shared utilities (brief/ + privacy/ pages) ── */
 .bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--mesh)}
@@ -251,7 +356,6 @@ h2{font-family:var(--disp);font-weight:600;letter-spacing:-.02em} h3{font-family
 .reveal.in{opacity:1;transform:none}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.001ms!important}.reveal{opacity:1;transform:none}}
-
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
@@ -343,1056 +447,1333 @@ h2{font-family:var(--disp);font-weight:600;letter-spacing:-.02em} h3{font-family
 };</script>
   <script>
 (() => {
-  // js/theme.js
-  function initTheme() {
-    const toggle = document.querySelector("[data-theme-toggle]");
-    if (!toggle) return;
-    const apply = (theme) => {
-      document.documentElement.setAttribute("data-theme", theme);
-      toggle.textContent = theme === "dark" ? "\u2600" : "\u263E";
-      toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
-    };
-    apply(document.documentElement.getAttribute("data-theme") || "light");
-    toggle.addEventListener("click", () => {
-      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      localStorage.setItem("vidrender-theme", next);
-      apply(next);
-    });
-  }
+  // face/js/theme.js
+// theme.js — light/dark toggle. First load respects prefers-color-scheme (set pre-paint in <head>);
+// an explicit choice is remembered in localStorage. Tokens live in tokens.css.
 
-  // js/sample-data.js
-  var SAMPLE = {
-    copy: {
-      tagline: { lead: "You hit record.", hold: "We make it hold." },
-      subhead: "Retention-first editing for AI, tech & finance creators.",
-      closer: "We read your channel the way the algorithm does, recommend the track that genuinely fits \u2014 even when it's smaller \u2014 and let the results speak."
-    },
-    // Step-1 "channel read" reward (prototype values).
-    channel: {
-      name: "Everyday AI School",
-      handle: "@everydayaischool",
-      urlDefault: "youtube.com/@everydayaischool",
-      subs: 48200,
-      subsDisplay: "48.2K",
-      subsDelta: "\u2191 12%",
-      videoCount: 73,
-      cadenceLabel: "\u2248 5 / MONTH",
-      niche: "AI & Tech",
-      nicheConfidence: "HIGH CONFIDENCE",
-      fit: "\u2713 STRONG FIT"
-    },
-    // Hero retention curve (12 points; sag → held-high).
-    curve: {
-      before: [52, 96, 140, 175, 203, 224, 238, 247, 253, 257, 260, 262],
-      after: [52, 64, 73, 78, 81, 83, 84, 84, 83, 82, 81, 80]
-    },
-    // Step-2 bottleneck chips → stored on lead.bottleneck.
-    bottlenecks: ["Titles & thumbnails", "Hook & retention", "Edit & production", "Consistency", "Not sure"],
-    // Step-3 pricing (also live pricing). recommendedIndex anchors the slider's honest pick (Signature).
-    recommendedIndex: 2,
-    pricingTiers: [
-      { id: "essentials", contractTier: "essentials", price: "$50", per: "per video", tick: "$50", label: "Essentials", desc: "One edited video \u2014 the entry point, done well." },
-      { id: "standard", contractTier: "standard", price: "$100", per: "per video", tick: "$100", label: "Standard", desc: "A clean, fast edit on every upload." },
-      { id: "signature", contractTier: "signature", price: "$300", per: "per video", tick: "$300", label: "Signature", desc: "Custom motion where it counts." },
-      { id: "premium", contractTier: "premium", price: "$500", per: "per video", tick: "$500", label: "Premium", desc: "Full motion design on every video." },
-      { id: "studio", contractTier: "studio", price: "$1,000+", per: "per month", tick: "$1k+", label: "Studio", desc: "We run your whole channel, end to end." }
-    ],
-    // Control-room / pipeline demo (Modules B/C views).
-    sampleLeads: [
-      { name: "Maya R.", channel: "@buildwithmaya", status: "replied", budget: "premium" },
-      { name: "Devin K.", channel: "@quantdevin", status: "needs-followup", budget: "signature" },
-      { name: "Aisha N.", channel: "@aishaexplainsai", status: "sent", budget: "studio" },
-      { name: "Tom B.", channel: "@indiefinance", status: "new", budget: "essentials" }
-    ]
+function initTheme() {
+  const toggle = document.querySelector("[data-theme-toggle]");
+  if (!toggle) return;
+
+  const apply = (theme) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    toggle.textContent = theme === "dark" ? "☀" : "☾";
+    toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
   };
 
-  // js/tiers.js
-  var TIERS = SAMPLE.pricingTiers;
-  var RECOMMENDED_INDEX = SAMPLE.recommendedIndex;
-  function mapSliderTier(index) {
-    const t = TIERS[index];
-    if (!t) throw new Error(`mapSliderTier: no tier at index ${index}`);
-    return {
-      budget_tier: t.contractTier,
-      budget_detail: { custom: false, tier: t.id, label: t.label, price: t.price, per: t.per }
-    };
+  apply(document.documentElement.getAttribute("data-theme") || "light");
+
+  toggle.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    localStorage.setItem("vidrender-theme", next);
+    apply(next);
+  });
+}
+
+
+  // face/js/sample-data.js
+// sample-data.js — bundled DEMO content for the Face (PRD §6). With DEMO_MODE on, the whole
+// experience renders from here: no API, no keys. Values match the approved prototype. Content/
+// pricing/copy is data, not code. `contractTier` maps each UI tier → the Lead data-contract enum
+// 1:1 (essentials|standard|signature|premium|studio); a "specific budget" maps to `custom`
+// with the amount + per kept in budget_detail. THIS ARRAY IS THE SINGLE SOURCE OF TRUTH for
+// pricing — the slider, tiers.js, the contract, the brief and the prompts all follow it.
+// Lineup: $50 Essentials (floor) · $100 Standard · $300 Signature (recommended) · $500 Premium ·
+// $1,000+/mo Studio (retainer). No $700 "Cinematic".
+
+const SAMPLE = {
+  copy: {
+    tagline: { lead: "You hit record.", hold: "We make it hold." },
+    subhead: "Retention-first editing for AI, tech & finance creators.",
+    closer: "We read your channel the way the algorithm does, recommend the track that genuinely fits — even when it's smaller — and let the results speak.",
+  },
+
+  // Step-1 "channel read" reward (prototype values).
+  channel: {
+    name: "Everyday AI School",
+    handle: "@everydayaischool",
+    urlDefault: "youtube.com/@everydayaischool",
+    subs: 48200, subsDisplay: "48.2K", subsDelta: "↑ 12%",
+    videoCount: 73, cadenceLabel: "≈ 5 / MONTH",
+    niche: "AI & Tech", nicheConfidence: "HIGH CONFIDENCE",
+    fit: "✓ STRONG FIT",
+  },
+
+  // Hero retention curve (12 points; sag → held-high).
+  curve: {
+    before: [52, 96, 140, 175, 203, 224, 238, 247, 253, 257, 260, 262],
+    after: [52, 64, 73, 78, 81, 83, 84, 84, 83, 82, 81, 80],
+  },
+
+  // Step-2 bottleneck chips → stored on lead.bottleneck.
+  bottlenecks: ["Titles & thumbnails", "Hook & retention", "Edit & production", "Consistency", "Not sure"],
+
+  // Step-3 pricing (also live pricing). recommendedIndex anchors the slider's honest pick (Signature).
+  recommendedIndex: 2,
+  pricingTiers: [
+    { id: "essentials", contractTier: "essentials", price: "$50", per: "per video", tick: "$50", label: "Essentials", desc: "One edited video — the entry point, done well." },
+    { id: "standard", contractTier: "standard", price: "$100", per: "per video", tick: "$100", label: "Standard", desc: "A clean, fast edit on every upload." },
+    { id: "signature", contractTier: "signature", price: "$300", per: "per video", tick: "$300", label: "Signature", desc: "Custom motion where it counts." },
+    { id: "premium", contractTier: "premium", price: "$500", per: "per video", tick: "$500", label: "Premium", desc: "Full motion design on every video." },
+    { id: "studio", contractTier: "studio", price: "$1,000+", per: "per month", tick: "$1k+", label: "Studio", desc: "We run your whole channel, end to end." },
+  ],
+
+  // Control-room / pipeline demo (Modules B/C views).
+  sampleLeads: [
+    { name: "Maya R.", channel: "@buildwithmaya", status: "replied", budget: "premium" },
+    { name: "Devin K.", channel: "@quantdevin", status: "needs-followup", budget: "signature" },
+    { name: "Aisha N.", channel: "@aishaexplainsai", status: "sent", budget: "studio" },
+    { name: "Tom B.", channel: "@indiefinance", status: "new", budget: "essentials" },
+  ],
+};
+
+
+
+  // face/js/tiers.js
+// tiers.js — the single 5-tier scale → Lead data-contract mapping (PRD §1.2).
+//
+// Pure, DOM-free, and the ONE place the Face turns a budget choice into {budget_tier, budget_detail}.
+// Imported by js/app.js (the qualifier) and by the Node test suite (local-app/tests/run.js), so the
+// mapping is tested exactly as it ships. The five tiers map 1:1 to the contract enum; a "specific
+// budget" maps to `custom`, with the amount + per preserved in budget_detail for the founder's quote.
+
+
+const TIERS = SAMPLE.pricingTiers;
+const RECOMMENDED_INDEX = SAMPLE.recommendedIndex;
+
+/** Map a slider position (0..TIERS.length-1) → contract tier + detail. */
+function mapSliderTier(index) {
+  const t = TIERS[index];
+  if (!t) throw new Error(`mapSliderTier: no tier at index ${index}`);
+  return {
+    budget_tier: t.contractTier,
+    budget_detail: { custom: false, tier: t.id, label: t.label, price: t.price, per: t.per },
+  };
+}
+
+/** Map a typed-in "specific budget" → the `custom` tier, keeping amount + per for the quote. */
+function mapCustomBudget(amount, per) {
+  return {
+    budget_tier: "custom",
+    budget_detail: { custom: true, amount: Number(amount) || 0, per },
+  };
+}
+
+
+  // face/js/read/resolve.js
+// resolve.js — PART 2a input resolution (pure, DOM-free, Node-testable).
+//
+// Turns *whatever the creator pastes* into a deterministic resolution plan: the kind of identifier
+// and the ordered YouTube Data API lookups needed to reach a channelId. No network here — this only
+// classifies and normalizes. The fetch layer (read/fetch.js) executes the plan; the tests exercise
+// this directly for every URL/handle form in 2a. Never throws — bad input returns {kind:"invalid"}.
+
+// Path segments that are YouTube routes, never a handle/username.
+const RESERVED = new Set(["watch", "channel", "c", "user", "shorts", "playlist", "results", "embed", "live", "feed", "hashtag"]);
+
+const CHANNEL_ID_RE = /^UC[A-Za-z0-9_-]{22}$/;        // canonical 24-char channel id
+const HANDLE_CHARS_RE = /^[A-Za-z0-9._-]{1,60}$/;      // YouTube handle/username charset
+const VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;             // 11-char video id
+
+/** Strip protocol, www/m subdomain, trailing slash, leading @, lowercase the host. Returns a tidy string. */
+function tidy(raw) {
+  return String(raw == null ? "" : raw).trim();
+}
+
+/** Pull the host + path + query from a URL-ish string, tolerating a missing protocol. */
+function parseUrlish(s) {
+  let host = "", path = s, query = "";
+  const withProto = /^https?:\/\//i.test(s) ? s : (/^[A-Za-z0-9.-]+\.[A-Za-z]{2,}\//.test(s) || /^(www\.|m\.)/i.test(s) ? `https://${s}` : null);
+  if (withProto) {
+    try {
+      const u = new URL(withProto);
+      host = u.hostname.toLowerCase().replace(/^(www\.|m\.)/, "");
+      path = u.pathname;
+      query = u.search.replace(/^\?/, "");
+    } catch { /* fall through to raw */ }
   }
-  function mapCustomBudget(amount, per) {
-    return {
-      budget_tier: "custom",
-      budget_detail: { custom: true, amount: Number(amount) || 0, per }
-    };
+  return { host, path, query };
+}
+
+function queryParam(query, key) {
+  for (const pair of query.split("&")) {
+    const [k, v] = pair.split("=");
+    if (k === key) return decodeURIComponent(v || "");
+  }
+  return null;
+}
+
+const isYouTubeHost = (host) => host === "youtube.com" || host === "youtu.be" || host.endsWith(".youtube.com");
+
+/**
+ * Resolve pasted input → a plan.
+ * @returns {{kind:string, value?:string, display?:string, plan:Array<{call:string, arg:string}>, reason?:string}}
+ *   kind ∈ invalid | channelId | handle | video | custom | user
+ *   plan steps use call ∈ channelsById | channelsByHandle | searchChannel | videoToChannel | channelsByUsername
+ */
+function resolveInput(raw) {
+  const s = tidy(raw);
+  if (!s) return { kind: "invalid", plan: [], reason: "empty" };
+
+  // Obvious non-YouTube: a URL on another domain.
+  const { host, path, query } = parseUrlish(s);
+  if (host && !isYouTubeHost(host)) return { kind: "invalid", plan: [], reason: "not-youtube" };
+
+  // youtu.be/<videoId> short share link.
+  if (host === "youtu.be") {
+    const vid = path.replace(/^\//, "").split("/")[0];
+    if (VIDEO_ID_RE.test(vid)) return { kind: "video", value: vid, plan: [{ call: "videoToChannel", arg: vid }] };
+    return { kind: "invalid", plan: [], reason: "bad-video" };
   }
 
-  // js/read/resolve.js
-  var RESERVED = /* @__PURE__ */ new Set(["watch", "channel", "c", "user", "shorts", "playlist", "results", "embed", "live", "feed", "hashtag"]);
-  var CHANNEL_ID_RE = /^UC[A-Za-z0-9_-]{22}$/;
-  var HANDLE_CHARS_RE = /^[A-Za-z0-9._-]{1,60}$/;
-  var VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
-  function tidy(raw) {
-    return String(raw == null ? "" : raw).trim();
-  }
-  function parseUrlish(s) {
-    let host = "", path = s, query = "";
-    const withProto = /^https?:\/\//i.test(s) ? s : /^[A-Za-z0-9.-]+\.[A-Za-z]{2,}\//.test(s) || /^(www\.|m\.)/i.test(s) ? `https://${s}` : null;
-    if (withProto) {
-      try {
-        const u = new URL(withProto);
-        host = u.hostname.toLowerCase().replace(/^(www\.|m\.)/, "");
-        path = u.pathname;
-        query = u.search.replace(/^\?/, "");
-      } catch {
-      }
-    }
-    return { host, path, query };
-  }
-  function queryParam(query, key) {
-    for (const pair of query.split("&")) {
-      const [k, v] = pair.split("=");
-      if (k === key) return decodeURIComponent(v || "");
-    }
-    return null;
-  }
-  var isYouTubeHost = (host) => host === "youtube.com" || host === "youtu.be" || host.endsWith(".youtube.com");
-  function resolveInput(raw) {
-    const s = tidy(raw);
-    if (!s) return { kind: "invalid", plan: [], reason: "empty" };
-    const { host, path, query } = parseUrlish(s);
-    if (host && !isYouTubeHost(host)) return { kind: "invalid", plan: [], reason: "not-youtube" };
-    if (host === "youtu.be") {
-      const vid = path.replace(/^\//, "").split("/")[0];
-      if (VIDEO_ID_RE.test(vid)) return { kind: "video", value: vid, plan: [{ call: "videoToChannel", arg: vid }] };
+  // A real YouTube URL path (host present) — classify by first segment.
+  if (host && host.endsWith("youtube.com")) {
+    const segs = path.split("/").filter(Boolean);
+    // /watch?v=ID  or  /shorts/ID  or  /embed/ID  or  /live/ID
+    if (segs[0] === "watch") {
+      const vid = queryParam(query, "v");
+      if (vid && VIDEO_ID_RE.test(vid)) return { kind: "video", value: vid, plan: [{ call: "videoToChannel", arg: vid }] };
       return { kind: "invalid", plan: [], reason: "bad-video" };
     }
-    if (host && host.endsWith("youtube.com")) {
-      const segs = path.split("/").filter(Boolean);
-      if (segs[0] === "watch") {
-        const vid = queryParam(query, "v");
-        if (vid && VIDEO_ID_RE.test(vid)) return { kind: "video", value: vid, plan: [{ call: "videoToChannel", arg: vid }] };
-        return { kind: "invalid", plan: [], reason: "bad-video" };
-      }
-      if ((segs[0] === "shorts" || segs[0] === "embed" || segs[0] === "live") && VIDEO_ID_RE.test(segs[1] || "")) {
-        return { kind: "video", value: segs[1], plan: [{ call: "videoToChannel", arg: segs[1] }] };
-      }
-      if (segs[0] === "channel" && CHANNEL_ID_RE.test(segs[1] || "")) {
-        return { kind: "channelId", value: segs[1], plan: [{ call: "channelsById", arg: segs[1] }] };
-      }
-      if (segs[0] === "user" && HANDLE_CHARS_RE.test(segs[1] || "")) {
-        return { kind: "user", value: segs[1], plan: [{ call: "channelsByUsername", arg: segs[1] }, { call: "searchChannel", arg: segs[1] }] };
-      }
-      if (segs[0] === "c" && HANDLE_CHARS_RE.test(segs[1] || "")) {
-        return { kind: "custom", value: segs[1], plan: [{ call: "searchChannel", arg: segs[1] }] };
-      }
-      if (segs[0] && segs[0][0] === "@") {
-        const h = segs[0].slice(1);
-        if (HANDLE_CHARS_RE.test(h)) return handlePlan(h);
-      }
-      if (segs.length === 1 && !RESERVED.has(segs[0].toLowerCase()) && HANDLE_CHARS_RE.test(segs[0])) {
-        return handlePlan(segs[0]);
-      }
-      return { kind: "invalid", plan: [], reason: "unrecognized-path" };
+    if ((segs[0] === "shorts" || segs[0] === "embed" || segs[0] === "live") && VIDEO_ID_RE.test(segs[1] || "")) {
+      return { kind: "video", value: segs[1], plan: [{ call: "videoToChannel", arg: segs[1] }] };
     }
-    if (CHANNEL_ID_RE.test(s)) return { kind: "channelId", value: s, plan: [{ call: "channelsById", arg: s }] };
-    const bare = s.replace(/^@/, "");
-    if (!RESERVED.has(bare.toLowerCase()) && HANDLE_CHARS_RE.test(bare) && /[A-Za-z]/.test(bare)) {
-      return handlePlan(bare);
+    if (segs[0] === "channel" && CHANNEL_ID_RE.test(segs[1] || "")) {
+      return { kind: "channelId", value: segs[1], plan: [{ call: "channelsById", arg: segs[1] }] };
     }
-    return { kind: "invalid", plan: [], reason: "unrecognized" };
-  }
-  function handlePlan(handle) {
-    const h = handle.replace(/^@/, "");
-    return {
-      kind: "handle",
-      value: h,
-      display: `@${h}`,
-      // forHandle first, then a search fallback to the best exact-handle match.
-      plan: [{ call: "channelsByHandle", arg: `@${h}` }, { call: "searchChannel", arg: h }]
-    };
-  }
-  function looksLikeChannel(raw) {
-    return resolveInput(raw).kind !== "invalid";
+    if (segs[0] === "user" && HANDLE_CHARS_RE.test(segs[1] || "")) {
+      return { kind: "user", value: segs[1], plan: [{ call: "channelsByUsername", arg: segs[1] }, { call: "searchChannel", arg: segs[1] }] };
+    }
+    if (segs[0] === "c" && HANDLE_CHARS_RE.test(segs[1] || "")) {
+      return { kind: "custom", value: segs[1], plan: [{ call: "searchChannel", arg: segs[1] }] };
+    }
+    // /@handle
+    if (segs[0] && segs[0][0] === "@") {
+      const h = segs[0].slice(1);
+      if (HANDLE_CHARS_RE.test(h)) return handlePlan(h);
+    }
+    // Bare /<token> that isn't reserved → treat as a handle (YouTube allows handle-at-root).
+    if (segs.length === 1 && !RESERVED.has(segs[0].toLowerCase()) && HANDLE_CHARS_RE.test(segs[0])) {
+      return handlePlan(segs[0]);
+    }
+    return { kind: "invalid", plan: [], reason: "unrecognized-path" };
   }
 
-  // js/read/metrics.js
-  var num = (v) => typeof v === "number" && isFinite(v) ? v : null;
-  var mean = (xs2) => xs2.length ? xs2.reduce((a, b) => a + b, 0) / xs2.length : null;
-  function deriveMetrics(channel = {}, videos = []) {
-    var _a, _b;
-    const vids = Array.isArray(videos) ? videos.slice() : [];
-    vids.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
-    const recentCount = vids.length;
-    const subs = channel.hiddenSubs ? null : num(channel.subs);
-    const totalViews = num(channel.totalViews);
-    const videoCount = num(channel.videoCount);
-    const ageYears = ageInYears(channel.publishedAt);
-    const daysSinceLastUpload = daysSince((_a = vids[0]) == null ? void 0 : _a.publishedAt);
-    const cadencePerMonth = computeCadence(vids);
-    const viewVals = vids.map((v) => num(v.views)).filter((v) => v != null);
-    const avgViews = mean(viewVals);
-    const engVals = [];
-    for (const v of vids) {
-      const views = num(v.views), likes = num(v.likes), comments = (_b = num(v.comments)) != null ? _b : 0;
-      if (likes == null) continue;
-      if (views == null || views <= 0) continue;
-      engVals.push((likes + comments) / views);
-    }
-    const engagementRate = engVals.length ? mean(engVals) : null;
-    const likesHidden = recentCount > 0 && engVals.length === 0;
-    const momentumRatio = computeMomentum(viewVals.length === recentCount ? vids : vids.filter((v) => num(v.views) != null));
-    const durVals = vids.map((v) => num(v.durationSec)).filter((v) => v != null);
-    const shortsMix = durVals.length ? durVals.filter((d) => d <= 60).length / durVals.length : null;
-    return {
-      subs,
-      totalViews,
-      videoCount,
-      recentCount,
-      ageYears,
-      daysSinceLastUpload,
-      cadencePerMonth,
-      cadenceSeries: monthlyCounts(vids, 6),
-      // last 6 months of upload counts (for the faint bars)
-      avgViews,
-      engagementRate,
-      momentumRatio,
-      shortsMix,
-      likesHidden,
-      // convenience ratios used by the reframe engine (null-safe)
-      viewsPerSub: subs && subs > 0 && avgViews != null ? avgViews / subs : null
-    };
+  // No host — a bare token the user typed.
+  // Raw channel id.
+  if (CHANNEL_ID_RE.test(s)) return { kind: "channelId", value: s, plan: [{ call: "channelsById", arg: s }] };
+  // @handle or plain handle token.
+  const bare = s.replace(/^@/, "");
+  if (!RESERVED.has(bare.toLowerCase()) && HANDLE_CHARS_RE.test(bare) && /[A-Za-z]/.test(bare)) {
+    return handlePlan(bare);
   }
-  function monthlyCounts(vids, months) {
-    const now = /* @__PURE__ */ new Date();
-    const buckets = [];
-    for (let i = months - 1; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      buckets.push({ k: `${d.getFullYear()}-${d.getMonth()}`, c: 0 });
-    }
-    const idx = new Map(buckets.map((b) => [b.k, b]));
-    for (const v of vids) {
-      const d = new Date(v.publishedAt || NaN);
-      if (isNaN(d)) continue;
-      const k = `${d.getFullYear()}-${d.getMonth()}`;
-      if (idx.has(k)) idx.get(k).c++;
-    }
-    return buckets.map((b) => b.c);
-  }
-  function ageInYears(publishedAt) {
-    const d = new Date(publishedAt || NaN);
-    if (isNaN(d)) return null;
-    return Math.max(0, (Date.now() - d.getTime()) / (365.25 * 864e5));
-  }
-  function daysSince(publishedAt) {
-    const d = new Date(publishedAt || NaN);
-    if (isNaN(d)) return null;
-    return Math.max(0, (Date.now() - d.getTime()) / 864e5);
-  }
-  function computeCadence(vids) {
-    const dates = vids.map((v) => new Date(v.publishedAt || NaN)).filter((d) => !isNaN(d));
-    if (dates.length < 2) return null;
-    const newest = dates[0].getTime(), oldest = dates[dates.length - 1].getTime();
-    const spanDays = (newest - oldest) / 864e5;
-    if (spanDays <= 0) return null;
-    return dates.length / spanDays * 30;
-  }
-  function computeMomentum(vids) {
-    const views = vids.map((v) => typeof v.views === "number" ? v.views : null).filter((v) => v != null);
-    if (views.length < 6) return null;
-    const third = Math.floor(views.length / 3);
-    if (third < 1) return null;
-    const newest = views.slice(0, third);
-    const previous = views.slice(third, third * 2);
-    const a = newest.reduce((x, y) => x + y, 0) / newest.length;
-    const b = previous.reduce((x, y) => x + y, 0) / previous.length;
-    if (b <= 0) return null;
-    return a / b;
-  }
+  return { kind: "invalid", plan: [], reason: "unrecognized" };
+}
 
-  // js/read/state.js
-  var STATE = Object.freeze({
-    INVALID_INPUT: "INVALID_INPUT",
-    NOT_FOUND: "NOT_FOUND",
-    API_ERROR: "API_ERROR",
-    PRIVATE_OR_EMPTY: "PRIVATE_OR_EMPTY",
-    MINIMAL_DATA: "MINIMAL_DATA",
-    HIDDEN_SUBS: "HIDDEN_SUBS",
-    HIDDEN_LIKES: "HIDDEN_LIKES",
-    HIDDEN_BOTH: "HIDDEN_BOTH",
-    OK: "OK"
-  });
-  var MESSAGES = {
-    INVALID_INPUT: "That doesn't look like a YouTube channel yet \u2014 paste your channel URL or @handle.",
-    NOT_FOUND: "We couldn't find that channel \u2014 double-check the @handle or paste the channel URL.",
-    API_ERROR: "Couldn't reach YouTube just now \u2014 try again in a moment.",
-    PRIVATE_OR_EMPTY: "No public videos to read yet \u2014 once you post, we can break it down."
+function handlePlan(handle) {
+  const h = handle.replace(/^@/, "");
+  return {
+    kind: "handle",
+    value: h,
+    display: `@${h}`,
+    // forHandle first, then a search fallback to the best exact-handle match.
+    plan: [{ call: "channelsByHandle", arg: `@${h}` }, { call: "searchChannel", arg: h }],
   };
-  function formatCount(n2) {
-    if (n2 == null || !isFinite(n2)) return "\u2014";
-    const x = Math.abs(n2);
-    if (x >= 1e6) return trimZero(n2 / 1e6) + "M";
-    if (x >= 1e3) return trimZero(n2 / 1e3) + "K";
-    return String(Math.round(n2));
-  }
-  function trimZero(v) {
-    return (Math.round(v * 10) / 10).toFixed(1).replace(/\.0$/, "");
-  }
-  function identityOf(channel) {
-    const handle = channel.handle ? `@${String(channel.handle).replace(/^@/, "")}` : "";
-    const title = channel.title || handle || "Your channel";
-    const sinceYear = channel.publishedAt && !isNaN(new Date(channel.publishedAt)) ? new Date(channel.publishedAt).getFullYear() : null;
-    const initial = (title.replace(/^@/, "")[0] || "?").toUpperCase();
-    return { title, handleDisplay: handle, avatarUrl: channel.avatarUrl || null, initial, sinceYear };
-  }
-  function receiptsOf(metrics, flags) {
-    const r = [];
-    if (flags.hiddenSubs) r.push({ key: "subs", label: "Subscribers", value: "Hidden", muted: true });
-    else if (metrics.subs != null) r.push({ key: "subs", label: "Subscribers", value: formatCount(metrics.subs) });
-    if (metrics.avgViews != null) r.push({ key: "avgViews", label: "Avg views", value: formatCount(metrics.avgViews) });
-    if (flags.hiddenLikes) r.push({ key: "engagement", label: "Engagement", value: "\u2014", muted: true });
-    else if (metrics.engagementRate != null) r.push({ key: "engagement", label: "Engagement", value: (metrics.engagementRate * 100).toFixed(1) + "%" });
-    return r;
-  }
-  function gateOf(state, metrics) {
-    if (state === STATE.MINIMAL_DATA) return "new";
-    if (metrics.recentCount != null && metrics.recentCount < 4 || metrics.ageYears != null && metrics.ageYears < 0.5) return "new";
-    if (metrics.daysSinceLastUpload != null && metrics.daysSinceLastUpload >= 90) return "dormant";
-    return "active";
-  }
-  function classifyRead(outcome = {}) {
-    const { resolution, error, channel, videos } = outcome;
-    if (resolution && resolution.kind === "invalid") return { state: STATE.INVALID_INPUT, flags: blank(), message: MESSAGES.INVALID_INPUT };
-    if (error) return { state: STATE.API_ERROR, flags: blank(), message: MESSAGES.API_ERROR };
-    if (!channel) return { state: STATE.NOT_FOUND, flags: blank(), message: MESSAGES.NOT_FOUND };
-    const vids = Array.isArray(videos) ? videos : [];
-    const identity = identityOf(channel);
-    const noUploads = !channel.uploadsPlaylist || channel.videoCount === 0 || vids.length === 0;
-    if (noUploads) return { state: STATE.PRIVATE_OR_EMPTY, flags: blank(), message: MESSAGES.PRIVATE_OR_EMPTY, identity, receipts: [], metrics: null };
-    const metrics = deriveMetrics(channel, vids);
-    const flags = { hiddenSubs: !!channel.hiddenSubs, hiddenLikes: !!metrics.likesHidden };
-    const receipts = receiptsOf(metrics, flags);
-    let state;
-    if (metrics.recentCount < 3) state = STATE.MINIMAL_DATA;
-    else if (flags.hiddenSubs && flags.hiddenLikes) state = STATE.HIDDEN_BOTH;
-    else if (flags.hiddenSubs) state = STATE.HIDDEN_SUBS;
-    else if (flags.hiddenLikes) state = STATE.HIDDEN_LIKES;
-    else state = STATE.OK;
-    return { state, flags, identity, receipts, metrics, reframeGate: gateOf(state, metrics) };
-  }
-  function blank() {
-    return { hiddenSubs: false, hiddenLikes: false };
-  }
+}
 
-  // js/read/reframe.js
-  function reframe(read) {
-    const gate = read.reframeGate || "active";
-    const m = read.metrics || {};
-    if (gate === "new") return newGate(m);
-    if (gate === "dormant") return dormantGate(m);
-    const fired = ACTIVE_RULES.map((r) => r(m)).filter(Boolean);
-    if (fired.length) {
-      fired.sort((a, b) => b.score - a.score);
-      return { ...fired[0], gate, tension: fired[0].key !== "already-strong" };
-    }
-    return { ...fallback(m), gate, tension: false };
-  }
-  function newGate(m) {
-    const rising = m.momentumRatio != null && m.momentumRatio > 1.15;
-    if (rising) {
-      return {
-        key: "new-rising",
-        gate: "new",
-        tension: false,
-        insight: "You're early, and the trend is already pointing up \u2014 the next jump comes from how each video is built, not how many you post.",
-        mechanism: "Tighter openings and motion where the idea peaks compound while the channel is still small."
-      };
-    }
-    return {
-      key: "new-potential",
-      gate: "new",
-      tension: false,
-      insight: "You're early \u2014 the foundation is here. What separates the channels that break out is the edit, before the audience is even watching.",
-      mechanism: "Getting the open and pacing right now means every later video starts ahead."
-    };
-  }
-  function dormantGate(m) {
-    const since = m.daysSinceLastUpload != null ? Math.round(m.daysSinceLastUpload) : null;
-    return {
-      key: "dormant",
-      gate: "dormant",
-      tension: true,
-      insight: since ? `It's been about ${since} days since your last upload \u2014 the audience is still there, but the momentum has gone quiet.` : "The channel has gone quiet \u2014 the audience is still there, but the momentum has stalled.",
-      mechanism: "A restart lands far harder when the first videos back look sharper than where you left off."
-    };
-  }
-  var ACTIVE_RULES = [
-    // grinding — high volume, flat results. Effort validation (the strongest, most honest converter).
-    function grinding(m) {
-      if (m.cadencePerMonth == null || m.momentumRatio == null) return null;
-      if (m.cadencePerMonth >= 4 && m.momentumRatio < 1.05) {
-        return {
-          key: "grinding",
-          score: 0.9 + (4 - Math.min(m.momentumRatio, 4)) * 0,
-          insight: `You're posting about ${Math.round(m.cadencePerMonth)} a month and the views line is flat \u2014 effort isn't the problem here.`,
-          mechanism: "When output is high and results aren't moving, the lever is the edit, not more uploads."
-        };
-      }
-      return null;
-    },
-    // capped reach — healthy subs, few of them watch.
-    function cappedReach(m) {
-      if (m.subs == null || m.avgViews == null || m.viewsPerSub == null) return null;
-      if (m.subs >= 1e3 && m.viewsPerSub < 0.1) {
-        return {
-          key: "capped-reach",
-          score: 0.85 + (0.1 - m.viewsPerSub),
-          insight: `${formatCount(m.subs)} subscribers, about ${formatCount(m.avgViews)} views a video \u2014 most of the audience you've earned isn't seeing the work.`,
-          mechanism: "The opening seconds and packaging decide who actually presses play; that's an edit problem, not a reach problem."
-        };
-      }
-      return null;
-    },
-    // rising-but-leaking — climbing views, thin engagement.
-    function risingLeaking(m) {
-      if (m.momentumRatio == null || m.engagementRate == null) return null;
-      if (m.momentumRatio > 1.2 && m.engagementRate < 0.03) {
-        return {
-          key: "rising-but-leaking",
-          score: 0.8 + (m.momentumRatio - 1.2) * 0.2,
-          insight: "Your views are climbing, but engagement is thin \u2014 people are arriving and slipping away before the idea lands.",
-          mechanism: "Holding attention through the middle is a retention-edit problem; that's where the watch-time leaks."
-        };
-      }
-      return null;
-    },
-    // reach-rich / loyalty-light — lots of views, little conversion.
-    function reachRich(m) {
-      if (m.viewsPerSub == null || m.engagementRate == null) return null;
-      if (m.viewsPerSub > 0.5 && m.engagementRate < 0.025) {
-        return {
-          key: "reach-rich-loyalty-light",
-          score: 0.78,
-          insight: `Plenty of reach \u2014 about ${formatCount(m.avgViews)} a video \u2014 but few of those viewers convert to subscribers or comments.`,
-          mechanism: "A consistent signature look builds the recognition that turns a one-time view into a follow."
-        };
-      }
-      return null;
-    },
-    // hidden gem — strong engagement, small reach.
-    function hiddenGem(m) {
-      if (m.engagementRate == null || m.avgViews == null) return null;
-      const lowReach = m.viewsPerSub != null && m.viewsPerSub < 0.25 || m.subs != null && m.avgViews < m.subs * 0.25;
-      if (m.engagementRate >= 0.06 && lowReach) {
-        return {
-          key: "hidden-gem",
-          score: 0.82 + (m.engagementRate - 0.06),
-          insight: `The people who watch clearly love it \u2014 ${(m.engagementRate * 100).toFixed(1)}% engagement is high \u2014 there just aren't enough of them yet.`,
-          mechanism: "Strong content with small reach is almost always a packaging-and-opening problem, not a content one."
-        };
-      }
-      return null;
-    },
-    // low-cadence — momentum can't compound on the gap.
-    function lowCadence(m) {
-      if (m.cadencePerMonth == null) return null;
-      if (m.cadencePerMonth < 1.2 && (m.ageYears == null || m.ageYears >= 1)) {
-        return {
-          key: "low-cadence",
-          score: 0.7,
-          insight: "You're posting less than once a month \u2014 momentum can't compound across gaps that long.",
-          mechanism: "Taking the edit off your plate is usually what makes a steady, sustainable cadence possible."
-        };
-      }
-      return null;
-    },
-    // plateau — flat, steady, hit a ceiling.
-    function plateau(m) {
-      if (m.momentumRatio == null) return null;
-      if (m.momentumRatio >= 0.95 && m.momentumRatio <= 1.08 && (m.cadencePerMonth == null || m.cadencePerMonth < 4)) {
-        return {
-          key: "plateau",
-          score: 0.6,
-          insight: "Steady, but the last stretch has gone flat \u2014 you've reached a ceiling the current format won't break on its own.",
-          mechanism: "A sharper, more deliberate edit is usually what restarts growth at this stage."
-        };
-      }
-      return null;
-    },
-    // already-strong (honest) — no real gap; sets up the brand/signature line softly. Lowest score.
-    function alreadyStrong(m) {
-      if (m.engagementRate == null || m.momentumRatio == null || m.viewsPerSub == null) return null;
-      if (m.engagementRate >= 0.05 && m.momentumRatio >= 1.1 && m.viewsPerSub >= 0.2) {
-        return {
-          key: "already-strong",
-          score: 0.4,
-          insight: "Honestly, the fundamentals are strong \u2014 the lever here is small and about polish, not repair.",
-          mechanism: "At this level the gain comes from a sharper, more consistent visual signature, not fixing anything broken."
-        };
-      }
-      return null;
-    }
-  ];
-  function fallback(m) {
-    if (m.avgViews != null && m.recentCount != null) {
-      return {
-        key: "fallback-concrete",
-        insight: `About ${formatCount(m.avgViews)} views across your recent uploads \u2014 there's a specific, findable lever in how each one opens.`,
-        mechanism: "The first seconds decide the watch; that's the highest-leverage thing to get right."
-      };
-    }
-    return {
-      key: "fallback-generic",
-      insight: "There's a clear, specific lever in how your videos open and hold attention.",
-      mechanism: "The opening seconds decide the watch \u2014 that's where the work pays off first."
-    };
-  }
+/** True if the input is at least plausibly a YouTube channel — the cheap client-side guard (2a). */
+function looksLikeChannel(raw) {
+  return resolveInput(raw).kind !== "invalid";
+}
 
-  // js/read/fetch.js
-  var API = "https://www.googleapis.com/youtube/v3";
-  var CHANNEL_PARTS = "part=snippet,statistics,contentDetails";
-  function durationToSeconds(iso) {
-    if (!iso || typeof iso !== "string") return null;
-    const m = iso.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
-    if (!m) return null;
-    return Number(m[1] || 0) * 3600 + Number(m[2] || 0) * 60 + Number(m[3] || 0);
+
+
+  // face/js/read/metrics.js
+// metrics.js — PART 2c derived metrics (pure math; each degrades to null, never throws/guesses).
+//
+// Operates on NORMALIZED shapes (the fetch layer maps the raw API into these; tests feed them
+// directly). Every metric is null when its inputs are missing — a wrong/confident number is worse
+// than an omission (PRD guardrail). Every divide-by-zero and empty-array case is guarded.
+//
+// Normalized channel: { title, handle, publishedAt, subs|null, hiddenSubs, totalViews|null,
+//                       videoCount|null, avatarUrl|null, country|null, uploadsPlaylist|null }
+// Normalized video:   { id, publishedAt, views|null, likes|null, comments|null, durationSec|null }
+
+const num = (v) => (typeof v === "number" && isFinite(v) ? v : null);
+const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
+
+/** @returns {object} all metrics, each number or null. */
+function deriveMetrics(channel = {}, videos = []) {
+  const vids = Array.isArray(videos) ? videos.slice() : [];
+  // newest first
+  vids.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
+  const recentCount = vids.length;
+
+  const subs = channel.hiddenSubs ? null : num(channel.subs);
+  const totalViews = num(channel.totalViews);
+  const videoCount = num(channel.videoCount);
+
+  const ageYears = ageInYears(channel.publishedAt);
+  const daysSinceLastUpload = daysSince(vids[0]?.publishedAt);
+  const cadencePerMonth = computeCadence(vids);
+
+  const viewVals = vids.map((v) => num(v.views)).filter((v) => v != null);
+  const avgViews = mean(viewVals);
+
+  // engagement = mean of (likes+comments)/views per video with usable inputs.
+  const engVals = [];
+  for (const v of vids) {
+    const views = num(v.views), likes = num(v.likes), comments = num(v.comments) ?? 0;
+    if (likes == null) continue;             // likes hidden on this video → skip it
+    if (views == null || views <= 0) continue;
+    engVals.push((likes + comments) / views);
   }
-  var n = (v) => v == null || v === "" ? null : Number(v);
-  function normalizeChannel(item, handleHint) {
-    var _a, _b, _c, _d, _e, _f, _g;
-    if (!item) return null;
-    const sn = item.snippet || {}, st = item.statistics || {}, cd = item.contentDetails || {};
-    const hidden = st.hiddenSubscriberCount === true || st.subscriberCount == null;
-    const handle = (sn.customUrl || handleHint || "").replace(/^@/, "") || null;
-    return {
-      id: item.id || null,
-      title: sn.title || (handle ? `@${handle}` : null),
-      handle,
-      publishedAt: sn.publishedAt || null,
-      subs: hidden ? null : n(st.subscriberCount),
-      hiddenSubs: hidden,
-      totalViews: n(st.viewCount),
-      videoCount: n(st.videoCount),
-      avatarUrl: ((_b = (_a = sn.thumbnails) == null ? void 0 : _a.high) == null ? void 0 : _b.url) || ((_d = (_c = sn.thumbnails) == null ? void 0 : _c.medium) == null ? void 0 : _d.url) || ((_f = (_e = sn.thumbnails) == null ? void 0 : _e.default) == null ? void 0 : _f.url) || null,
-      country: sn.country || null,
-      uploadsPlaylist: ((_g = cd.relatedPlaylists) == null ? void 0 : _g.uploads) || null
-    };
+  const engagementRate = engVals.length ? mean(engVals) : null;
+  const likesHidden = recentCount > 0 && engVals.length === 0; // had videos, none exposed likes
+
+  const momentumRatio = computeMomentum(viewVals.length === recentCount ? vids : vids.filter((v) => num(v.views) != null));
+
+  const durVals = vids.map((v) => num(v.durationSec)).filter((v) => v != null);
+  const shortsMix = durVals.length ? durVals.filter((d) => d <= 60).length / durVals.length : null;
+
+  return {
+    subs, totalViews, videoCount,
+    recentCount, ageYears, daysSinceLastUpload, cadencePerMonth,
+    cadenceSeries: monthlyCounts(vids, 6),   // last 6 months of upload counts (for the faint bars)
+    avgViews, engagementRate, momentumRatio, shortsMix,
+    likesHidden,
+    // convenience ratios used by the reframe engine (null-safe)
+    viewsPerSub: subs && subs > 0 && avgViews != null ? avgViews / subs : null,
+  };
+}
+
+/** Upload counts for the last `months` calendar months (oldest → newest). */
+function monthlyCounts(vids, months) {
+  const now = new Date();
+  const buckets = [];
+  for (let i = months - 1; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    buckets.push({ k: `${d.getFullYear()}-${d.getMonth()}`, c: 0 });
   }
-  function normalizeVideos(items) {
-    return (items || []).map((it) => {
-      var _a;
-      const st = it.statistics || {}, cd = it.contentDetails || {}, sn = it.snippet || {};
-      return {
-        id: it.id || null,
-        publishedAt: sn.publishedAt || null,
-        views: n(st.viewCount),
-        likes: st.likeCount == null ? null : n(st.likeCount),
-        comments: (_a = n(st.commentCount)) != null ? _a : 0,
-        durationSec: durationToSeconds(cd.duration)
-      };
-    });
+  const idx = new Map(buckets.map((b) => [b.k, b]));
+  for (const v of vids) {
+    const d = new Date(v.publishedAt || NaN);
+    if (isNaN(d)) continue;
+    const k = `${d.getFullYear()}-${d.getMonth()}`;
+    if (idx.has(k)) idx.get(k).c++;
   }
-  async function resolveChannelItem(plan, key, getJSON) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
-    for (const step of plan) {
-      try {
-        if (step.call === "channelsById") {
-          const item = (_a = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${step.arg}&key=${key}`)).items) == null ? void 0 : _a[0];
-          if (item) return { item };
-        } else if (step.call === "channelsByHandle") {
-          const item = (_b = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&forHandle=${encodeURIComponent(step.arg)}&key=${key}`)).items) == null ? void 0 : _b[0];
-          if (item) return { item, handleHint: step.arg };
-        } else if (step.call === "channelsByUsername") {
-          const item = (_c = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&forUsername=${encodeURIComponent(step.arg)}&key=${key}`)).items) == null ? void 0 : _c[0];
-          if (item) return { item };
-        } else if (step.call === "searchChannel") {
-          const cid = (_f = (_e = (_d = (await getJSON(`${API}/search?part=snippet&type=channel&maxResults=1&q=${encodeURIComponent(step.arg)}&key=${key}`)).items) == null ? void 0 : _d[0]) == null ? void 0 : _e.id) == null ? void 0 : _f.channelId;
-          if (cid) {
-            const item = (_g = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${cid}&key=${key}`)).items) == null ? void 0 : _g[0];
-            if (item) return { item };
-          }
-        } else if (step.call === "videoToChannel") {
-          const cid = (_j = (_i = (_h = (await getJSON(`${API}/videos?part=snippet&id=${step.arg}&key=${key}`)).items) == null ? void 0 : _h[0]) == null ? void 0 : _i.snippet) == null ? void 0 : _j.channelId;
-          if (cid) {
-            const item = (_k = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${cid}&key=${key}`)).items) == null ? void 0 : _k[0];
-            if (item) return { item };
-          }
-        }
-      } catch (e) {
-        throw Object.assign(new Error("youtube-api"), { type: e.rateLimit ? "rate_limit" : "api" });
-      }
+  return buckets.map((b) => b.c);
+}
+
+function ageInYears(publishedAt) {
+  const d = new Date(publishedAt || NaN);
+  if (isNaN(d)) return null;
+  return Math.max(0, (Date.now() - d.getTime()) / (365.25 * 864e5));
+}
+
+function daysSince(publishedAt) {
+  const d = new Date(publishedAt || NaN);
+  if (isNaN(d)) return null;
+  return Math.max(0, (Date.now() - d.getTime()) / 864e5);
+}
+
+/** Uploads per month from the recent set's date span. Null if fewer than 2 dated videos. */
+function computeCadence(vids) {
+  const dates = vids.map((v) => new Date(v.publishedAt || NaN)).filter((d) => !isNaN(d));
+  if (dates.length < 2) return null;
+  const newest = dates[0].getTime(), oldest = dates[dates.length - 1].getTime();
+  const spanDays = (newest - oldest) / 864e5;
+  if (spanDays <= 0) return null;
+  return (dates.length / spanDays) * 30;
+}
+
+/** Momentum = avg views of the newest third vs the previous third. Null if fewer than 6 view-bearing videos. */
+function computeMomentum(vids) {
+  const views = vids.map((v) => (typeof v.views === "number" ? v.views : null)).filter((v) => v != null);
+  if (views.length < 6) return null;
+  const third = Math.floor(views.length / 3);
+  if (third < 1) return null;
+  const newest = views.slice(0, third);
+  const previous = views.slice(third, third * 2);
+  const a = newest.reduce((x, y) => x + y, 0) / newest.length;
+  const b = previous.reduce((x, y) => x + y, 0) / previous.length;
+  if (b <= 0) return null;
+  return a / b;
+}
+
+
+  // face/js/read/state.js
+// state.js — PART 2d the state machine (pure). Resolves a fetch outcome to EXACTLY ONE display
+// state, in the PRD priority order, and assembles the render payload (identity + muted receipts +
+// metrics + flags). The engine can never freelance: every state has a defined, testable shape. No
+// invented numbers — a missing metric is simply absent, never guessed.
+
+
+const STATE = Object.freeze({
+  INVALID_INPUT: "INVALID_INPUT",
+  NOT_FOUND: "NOT_FOUND",
+  API_ERROR: "API_ERROR",
+  PRIVATE_OR_EMPTY: "PRIVATE_OR_EMPTY",
+  MINIMAL_DATA: "MINIMAL_DATA",
+  HIDDEN_SUBS: "HIDDEN_SUBS",
+  HIDDEN_LIKES: "HIDDEN_LIKES",
+  HIDDEN_BOTH: "HIDDEN_BOTH",
+  OK: "OK",
+});
+
+const MESSAGES = {
+  INVALID_INPUT: "That doesn't look like a YouTube channel yet — paste your channel URL or @handle.",
+  NOT_FOUND: "We couldn't find that channel — double-check the @handle or paste the channel URL.",
+  API_ERROR: "Couldn't reach YouTube just now — try again in a moment.",
+  PRIVATE_OR_EMPTY: "No public videos to read yet — once you post, we can break it down.",
+};
+
+/** Round a count to a short human label: 48230 → "48.2K", 1_200_000 → "1.2M". */
+function formatCount(n) {
+  if (n == null || !isFinite(n)) return "—";
+  const x = Math.abs(n);
+  if (x >= 1e6) return trimZero(n / 1e6) + "M";
+  if (x >= 1e3) return trimZero(n / 1e3) + "K";
+  return String(Math.round(n));
+}
+function trimZero(v) { return (Math.round(v * 10) / 10).toFixed(1).replace(/\.0$/, ""); }
+
+function identityOf(channel) {
+  const handle = channel.handle ? `@${String(channel.handle).replace(/^@/, "")}` : "";
+  const title = channel.title || handle || "Your channel";
+  const sinceYear = channel.publishedAt && !isNaN(new Date(channel.publishedAt)) ? new Date(channel.publishedAt).getFullYear() : null;
+  const initial = (title.replace(/^@/, "")[0] || "?").toUpperCase();
+  return { title, handleDisplay: handle, avatarUrl: channel.avatarUrl || null, initial, sinceYear };
+}
+
+function receiptsOf(metrics, flags) {
+  const r = [];
+  if (flags.hiddenSubs) r.push({ key: "subs", label: "Subscribers", value: "Hidden", muted: true });
+  else if (metrics.subs != null) r.push({ key: "subs", label: "Subscribers", value: formatCount(metrics.subs) });
+  if (metrics.avgViews != null) r.push({ key: "avgViews", label: "Avg views", value: formatCount(metrics.avgViews) });
+  if (flags.hiddenLikes) r.push({ key: "engagement", label: "Engagement", value: "—", muted: true });
+  else if (metrics.engagementRate != null) r.push({ key: "engagement", label: "Engagement", value: (metrics.engagementRate * 100).toFixed(1) + "%" });
+  // cadence is rendered as the faint bar series, not a receipt (avoids duplication)
+  return r;
+}
+
+/** Which reframe gate applies (PRD 2e): new (young/few), dormant (90+ days quiet), or active. */
+function gateOf(state, metrics) {
+  if (state === STATE.MINIMAL_DATA) return "new";
+  if ((metrics.recentCount != null && metrics.recentCount < 4) || (metrics.ageYears != null && metrics.ageYears < 0.5)) return "new";
+  if (metrics.daysSinceLastUpload != null && metrics.daysSinceLastUpload >= 90) return "dormant";
+  return "active";
+}
+
+/**
+ * @param {{resolution?:object, error?:{type:string}|null, channel?:object|null, videos?:Array}} outcome
+ * @returns {{state:string, flags:{hiddenSubs:boolean,hiddenLikes:boolean}, message?:string,
+ *   identity?:object, receipts?:Array, metrics?:object, reframeGate?:string}}
+ */
+function classifyRead(outcome = {}) {
+  const { resolution, error, channel, videos } = outcome;
+
+  // 1 — INVALID_INPUT (failed 2a validation)
+  if (resolution && resolution.kind === "invalid") return { state: STATE.INVALID_INPUT, flags: blank(), message: MESSAGES.INVALID_INPUT };
+
+  // 3 — API_ERROR / RATE_LIMIT (before NOT_FOUND: a failed call isn't a "no channel")
+  if (error) return { state: STATE.API_ERROR, flags: blank(), message: MESSAGES.API_ERROR };
+
+  // 2 — NOT_FOUND
+  if (!channel) return { state: STATE.NOT_FOUND, flags: blank(), message: MESSAGES.NOT_FOUND };
+
+  const vids = Array.isArray(videos) ? videos : [];
+  const identity = identityOf(channel);
+
+  // 4 — PRIVATE_OR_EMPTY (exists but no public uploads)
+  const noUploads = !channel.uploadsPlaylist || (channel.videoCount === 0) || vids.length === 0;
+  if (noUploads) return { state: STATE.PRIVATE_OR_EMPTY, flags: blank(), message: MESSAGES.PRIVATE_OR_EMPTY, identity, receipts: [], metrics: null };
+
+  const metrics = deriveMetrics(channel, vids);
+  const flags = { hiddenSubs: !!channel.hiddenSubs, hiddenLikes: !!metrics.likesHidden };
+  const receipts = receiptsOf(metrics, flags);
+
+  // 5 — MINIMAL_DATA (< 3 recent videos): identity + whatever exists, suppress cadence/momentum reframes
+  let state;
+  if (metrics.recentCount < 3) state = STATE.MINIMAL_DATA;
+  else if (flags.hiddenSubs && flags.hiddenLikes) state = STATE.HIDDEN_BOTH; // 6+7 combined
+  else if (flags.hiddenSubs) state = STATE.HIDDEN_SUBS;                        // 6
+  else if (flags.hiddenLikes) state = STATE.HIDDEN_LIKES;                      // 7
+  else state = STATE.OK;                                                       // 8
+
+  return { state, flags, identity, receipts, metrics, reframeGate: gateOf(state, metrics) };
+}
+
+function blank() { return { hiddenSubs: false, hiddenLikes: false }; }
+
+
+  // face/js/read/reframe.js
+// reframe.js — PART 2e the reframe engine (pure, deterministic, honest).
+//
+// Pairs the creator's real numbers with ONE true reframe that turns a figure they already know into
+// a gap they hadn't named — naming the mechanism, pointing at editing WITHOUT selling. A scored
+// rules engine: every rule has an honesty threshold (it only fires on a real gap) and required
+// metrics (if any is null — hidden/missing — the rule is simply unavailable). Pick the single
+// highest-scoring true rule. One tension max. Never manufacture a gap; if nothing fires, return a
+// concrete, true fallback line. No niche/category, ever.
+//
+// Input: the classifyRead() result (state.reframeGate + metrics + flags). Output: one reframe.
+
+
+/** @returns {{key:string, insight:string, mechanism:string, gate:string, tension:boolean}} */
+function reframe(read) {
+  const gate = read.reframeGate || "active";
+  const m = read.metrics || {};
+
+  if (gate === "new") return newGate(m);
+  if (gate === "dormant") return dormantGate(m);
+
+  // active — score every applicable rule, take the best true one.
+  const fired = ACTIVE_RULES.map((r) => r(m)).filter(Boolean);
+  if (fired.length) {
+    fired.sort((a, b) => b.score - a.score);
+    return { ...fired[0], gate, tension: fired[0].key !== "already-strong" };
+  }
+  return { ...fallback(m), gate, tension: false };
+}
+
+// ── gates ──────────────────────────────────────────────────────────────────
+function newGate(m) {
+  const rising = m.momentumRatio != null && m.momentumRatio > 1.15;
+  if (rising) {
+    return { key: "new-rising", gate: "new", tension: false,
+      insight: "You're early, and the trend is already pointing up — the next jump comes from how each video is built, not how many you post.",
+      mechanism: "Tighter openings and motion where the idea peaks compound while the channel is still small." };
+  }
+  return { key: "new-potential", gate: "new", tension: false,
+    insight: "You're early — the foundation is here. What separates the channels that break out is the edit, before the audience is even watching.",
+    mechanism: "Getting the open and pacing right now means every later video starts ahead." };
+}
+
+function dormantGate(m) {
+  const since = m.daysSinceLastUpload != null ? Math.round(m.daysSinceLastUpload) : null;
+  return { key: "dormant", gate: "dormant", tension: true,
+    insight: since ? `It's been about ${since} days since your last upload — the audience is still there, but the momentum has gone quiet.`
+                   : "The channel has gone quiet — the audience is still there, but the momentum has stalled.",
+    mechanism: "A restart lands far harder when the first videos back look sharper than where you left off." };
+}
+
+// ── active rules (each returns a scored reframe or null) ─────────────────────
+// Thresholds are honesty gates: fire only on a genuine gap. Tuned conservatively and documented.
+const ACTIVE_RULES = [
+  // grinding — high volume, flat results. Effort validation (the strongest, most honest converter).
+  function grinding(m) {
+    if (m.cadencePerMonth == null || m.momentumRatio == null) return null;
+    if (m.cadencePerMonth >= 4 && m.momentumRatio < 1.05) {
+      return { key: "grinding", score: 0.9 + (4 - Math.min(m.momentumRatio, 4)) * 0.0,
+        insight: `You're posting about ${Math.round(m.cadencePerMonth)} a month and the views line is flat — effort isn't the problem here.`,
+        mechanism: "When output is high and results aren't moving, the lever is the edit, not more uploads." };
     }
     return null;
-  }
-  async function fetchRecentVideos(channel, key, getJSON) {
-    if (!channel.uploadsPlaylist) return [];
-    const pl = (await getJSON(`${API}/playlistItems?part=contentDetails&playlistId=${channel.uploadsPlaylist}&maxResults=30&key=${key}`)).items || [];
-    const ids = pl.map((it) => {
-      var _a;
-      return (_a = it.contentDetails) == null ? void 0 : _a.videoId;
-    }).filter(Boolean);
-    if (!ids.length) return [];
-    const v = (await getJSON(`${API}/videos?part=snippet,statistics,contentDetails&id=${ids.join(",")}&key=${key}`)).items || [];
-    return normalizeVideos(v);
-  }
-  var defaultGetJSON = async (url) => {
-    const res = await fetch(url);
-    if (!res.ok) {
-      const err = new Error(`YouTube ${res.status}`);
-      err.rateLimit = res.status === 403 || res.status === 429;
-      throw err;
+  },
+  // capped reach — healthy subs, few of them watch.
+  function cappedReach(m) {
+    if (m.subs == null || m.avgViews == null || m.viewsPerSub == null) return null;
+    if (m.subs >= 1000 && m.viewsPerSub < 0.10) {
+      return { key: "capped-reach", score: 0.85 + (0.10 - m.viewsPerSub),
+        insight: `${formatCount(m.subs)} subscribers, about ${formatCount(m.avgViews)} views a video — most of the audience you've earned isn't seeing the work.`,
+        mechanism: "The opening seconds and packaging decide who actually presses play; that's an edit problem, not a reach problem." };
     }
-    return res.json();
+    return null;
+  },
+  // rising-but-leaking — climbing views, thin engagement.
+  function risingLeaking(m) {
+    if (m.momentumRatio == null || m.engagementRate == null) return null;
+    if (m.momentumRatio > 1.2 && m.engagementRate < 0.03) {
+      return { key: "rising-but-leaking", score: 0.8 + (m.momentumRatio - 1.2) * 0.2,
+        insight: "Your views are climbing, but engagement is thin — people are arriving and slipping away before the idea lands.",
+        mechanism: "Holding attention through the middle is a retention-edit problem; that's where the watch-time leaks." };
+    }
+    return null;
+  },
+  // reach-rich / loyalty-light — lots of views, little conversion.
+  function reachRich(m) {
+    if (m.viewsPerSub == null || m.engagementRate == null) return null;
+    if (m.viewsPerSub > 0.5 && m.engagementRate < 0.025) {
+      return { key: "reach-rich-loyalty-light", score: 0.78,
+        insight: `Plenty of reach — about ${formatCount(m.avgViews)} a video — but few of those viewers convert to subscribers or comments.`,
+        mechanism: "A consistent signature look builds the recognition that turns a one-time view into a follow." };
+    }
+    return null;
+  },
+  // hidden gem — strong engagement, small reach.
+  function hiddenGem(m) {
+    if (m.engagementRate == null || m.avgViews == null) return null;
+    const lowReach = (m.viewsPerSub != null && m.viewsPerSub < 0.25) || (m.subs != null && m.avgViews < m.subs * 0.25);
+    if (m.engagementRate >= 0.06 && lowReach) {
+      return { key: "hidden-gem", score: 0.82 + (m.engagementRate - 0.06),
+        insight: `The people who watch clearly love it — ${(m.engagementRate * 100).toFixed(1)}% engagement is high — there just aren't enough of them yet.`,
+        mechanism: "Strong content with small reach is almost always a packaging-and-opening problem, not a content one." };
+    }
+    return null;
+  },
+  // low-cadence — momentum can't compound on the gap.
+  function lowCadence(m) {
+    if (m.cadencePerMonth == null) return null;
+    if (m.cadencePerMonth < 1.2 && (m.ageYears == null || m.ageYears >= 1)) {
+      return { key: "low-cadence", score: 0.7,
+        insight: "You're posting less than once a month — momentum can't compound across gaps that long.",
+        mechanism: "Taking the edit off your plate is usually what makes a steady, sustainable cadence possible." };
+    }
+    return null;
+  },
+  // plateau — flat, steady, hit a ceiling.
+  function plateau(m) {
+    if (m.momentumRatio == null) return null;
+    if (m.momentumRatio >= 0.95 && m.momentumRatio <= 1.08 && (m.cadencePerMonth == null || m.cadencePerMonth < 4)) {
+      return { key: "plateau", score: 0.6,
+        insight: "Steady, but the last stretch has gone flat — you've reached a ceiling the current format won't break on its own.",
+        mechanism: "A sharper, more deliberate edit is usually what restarts growth at this stage." };
+    }
+    return null;
+  },
+  // already-strong (honest) — no real gap; sets up the brand/signature line softly. Lowest score.
+  function alreadyStrong(m) {
+    if (m.engagementRate == null || m.momentumRatio == null || m.viewsPerSub == null) return null;
+    if (m.engagementRate >= 0.05 && m.momentumRatio >= 1.1 && m.viewsPerSub >= 0.2) {
+      return { key: "already-strong", score: 0.4,
+        insight: "Honestly, the fundamentals are strong — the lever here is small and about polish, not repair.",
+        mechanism: "At this level the gain comes from a sharper, more consistent visual signature, not fixing anything broken." };
+    }
+    return null;
+  },
+];
+
+// Concrete, true fallback — never bland, never a manufactured gap.
+function fallback(m) {
+  if (m.avgViews != null && m.recentCount != null) {
+    return { key: "fallback-concrete",
+      insight: `About ${formatCount(m.avgViews)} views across your recent uploads — there's a specific, findable lever in how each one opens.`,
+      mechanism: "The first seconds decide the watch; that's the highest-leverage thing to get right." };
+  }
+  return { key: "fallback-generic",
+    insight: "There's a clear, specific lever in how your videos open and hold attention.",
+    mechanism: "The opening seconds decide the watch — that's where the work pays off first." };
+}
+
+
+
+  // face/js/read/fetch.js
+// fetch.js — PART 2b the API call plan + normalizers + the read orchestrator.
+//
+// Executes the resolution plan against the YouTube Data API (live, with the referrer-restricted
+// public key), normalizes the raw API into the shapes metrics/state expect, and — with no key
+// (DEMO) — returns a realistic mock so the read is fully demoable. The orchestrator ties it all
+// together: resolve → fetch → classify → reframe. Network is injected (getJSON) so normalizers and
+// the demo path are testable without a network. Never invents data: any failure → a typed error
+// the state machine turns into API_ERROR / NOT_FOUND, never a half-filled card.
+
+
+const API = "https://www.googleapis.com/youtube/v3";
+const CHANNEL_PARTS = "part=snippet,statistics,contentDetails";
+
+/** Parse ISO-8601 duration (PT#H#M#S) → seconds, or null. */
+function durationToSeconds(iso) {
+  if (!iso || typeof iso !== "string") return null;
+  const m = iso.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
+  if (!m) return null;
+  return (Number(m[1] || 0) * 3600) + (Number(m[2] || 0) * 60) + Number(m[3] || 0);
+}
+
+const n = (v) => (v == null || v === "" ? null : Number(v));
+
+/** Normalize a channels.list item → the normalized channel shape. */
+function normalizeChannel(item, handleHint) {
+  if (!item) return null;
+  const sn = item.snippet || {}, st = item.statistics || {}, cd = item.contentDetails || {};
+  const hidden = st.hiddenSubscriberCount === true || st.subscriberCount == null;
+  const handle = (sn.customUrl || handleHint || "").replace(/^@/, "") || null;
+  return {
+    id: item.id || null,
+    title: sn.title || (handle ? `@${handle}` : null),
+    handle,
+    publishedAt: sn.publishedAt || null,
+    subs: hidden ? null : n(st.subscriberCount),
+    hiddenSubs: hidden,
+    totalViews: n(st.viewCount),
+    videoCount: n(st.videoCount),
+    avatarUrl: sn.thumbnails?.high?.url || sn.thumbnails?.medium?.url || sn.thumbnails?.default?.url || null,
+    country: sn.country || null,
+    uploadsPlaylist: cd.relatedPlaylists?.uploads || null,
   };
-  async function readChannel(raw, opts = {}) {
-    const resolution = resolveInput(raw);
-    if (resolution.kind === "invalid") return withReframe({ ...classifyRead({ resolution }), resolution });
-    if (opts.demo || !opts.key) {
-      const outcome = demoOutcome(resolution);
-      return withReframe({ ...classifyRead({ resolution, ...outcome }), resolution, preview: true });
-    }
-    const getJSON = opts.getJSON || defaultGetJSON;
-    let channelItem, videos = [];
-    try {
-      const resolved = await resolveChannelItem(resolution.plan, opts.key, getJSON);
-      if (!resolved) return withReframe({ ...classifyRead({ resolution, channel: null }), resolution });
-      channelItem = normalizeChannel(resolved.item, resolved.handleHint);
-      videos = await fetchRecentVideos(channelItem, opts.key, getJSON);
-    } catch (e) {
-      return withReframe({ ...classifyRead({ resolution, error: { type: e.type || "api" } }), resolution });
-    }
-    return withReframe({ ...classifyRead({ resolution, channel: channelItem, videos }), resolution });
-  }
-  var READ_STATES = /* @__PURE__ */ new Set([STATE.OK, STATE.HIDDEN_SUBS, STATE.HIDDEN_LIKES, STATE.HIDDEN_BOTH, STATE.MINIMAL_DATA]);
-  function withReframe(read) {
-    read.reframe = READ_STATES.has(read.state) ? reframe(read) : null;
-    return read;
-  }
-  function demoOutcome(resolution) {
-    const handle = resolution.display ? resolution.display.replace(/^@/, "") : resolution.value || "everydayaischool";
-    const channel = {
-      id: "UCdemo000000000000000000",
-      title: titleCase(handle),
-      handle,
-      publishedAt: "2022-02-01T00:00:00Z",
-      subs: 48200,
-      hiddenSubs: false,
-      totalViews: 312e4,
-      videoCount: 73,
-      avatarUrl: null,
-      country: "US",
-      uploadsPlaylist: "UUdemo"
+}
+
+/** Normalize videos.list items → normalized video array. A missing likeCount = likes hidden (null). */
+function normalizeVideos(items) {
+  return (items || []).map((it) => {
+    const st = it.statistics || {}, cd = it.contentDetails || {}, sn = it.snippet || {};
+    return {
+      id: it.id || null,
+      publishedAt: sn.publishedAt || null,
+      views: n(st.viewCount),
+      likes: st.likeCount == null ? null : n(st.likeCount),
+      comments: n(st.commentCount) ?? 0,
+      durationSec: durationToSeconds(cd.duration),
     };
-    const base = [5200, 4800, 5100, 4900, 5300, 5e3, 4700, 5200, 4950, 5100, 4850, 5e3];
-    const videos = base.map((views, i) => ({
-      id: "demo" + i,
-      publishedAt: new Date(Date.parse("2026-06-20T00:00:00Z") - i * 6 * 864e5).toISOString(),
-      views,
-      likes: Math.round(views * 0.021),
-      comments: 6 + i % 4,
-      durationSec: 540 + i % 3 * 120
-    }));
-    return { channel, videos };
+  });
+}
+
+/** Execute the resolution plan → a channels.list item (or null). getJSON is injected for testing. */
+async function resolveChannelItem(plan, key, getJSON) {
+  for (const step of plan) {
+    try {
+      if (step.call === "channelsById") {
+        const item = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${step.arg}&key=${key}`)).items?.[0];
+        if (item) return { item };
+      } else if (step.call === "channelsByHandle") {
+        const item = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&forHandle=${encodeURIComponent(step.arg)}&key=${key}`)).items?.[0];
+        if (item) return { item, handleHint: step.arg };
+      } else if (step.call === "channelsByUsername") {
+        const item = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&forUsername=${encodeURIComponent(step.arg)}&key=${key}`)).items?.[0];
+        if (item) return { item };
+      } else if (step.call === "searchChannel") {
+        const cid = (await getJSON(`${API}/search?part=snippet&type=channel&maxResults=1&q=${encodeURIComponent(step.arg)}&key=${key}`)).items?.[0]?.id?.channelId;
+        if (cid) { const item = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${cid}&key=${key}`)).items?.[0]; if (item) return { item }; }
+      } else if (step.call === "videoToChannel") {
+        const cid = (await getJSON(`${API}/videos?part=snippet&id=${step.arg}&key=${key}`)).items?.[0]?.snippet?.channelId;
+        if (cid) { const item = (await getJSON(`${API}/channels?${CHANNEL_PARTS}&id=${cid}&key=${key}`)).items?.[0]; if (item) return { item }; }
+      }
+    } catch (e) {
+      throw Object.assign(new Error("youtube-api"), { type: e.rateLimit ? "rate_limit" : "api" });
+    }
   }
-  function titleCase(h) {
-    return String(h).replace(/[-_.]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).trim() || "Your channel";
+  return null; // exhausted the plan → no channel
+}
+
+/** Fetch recent videos for a resolved channel. Returns normalized videos (may be []). */
+async function fetchRecentVideos(channel, key, getJSON) {
+  if (!channel.uploadsPlaylist) return [];
+  const pl = (await getJSON(`${API}/playlistItems?part=contentDetails&playlistId=${channel.uploadsPlaylist}&maxResults=30&key=${key}`)).items || [];
+  const ids = pl.map((it) => it.contentDetails?.videoId).filter(Boolean);
+  if (!ids.length) return [];
+  const v = (await getJSON(`${API}/videos?part=snippet,statistics,contentDetails&id=${ids.join(",")}&key=${key}`)).items || [];
+  return normalizeVideos(v);
+}
+
+const defaultGetJSON = async (url) => {
+  const res = await fetch(url);
+  if (!res.ok) { const err = new Error(`YouTube ${res.status}`); err.rateLimit = res.status === 403 || res.status === 429; throw err; }
+  return res.json();
+};
+
+/**
+ * The read orchestrator. resolve → fetch → classify → reframe.
+ * @param {string} raw the pasted channel input
+ * @param {{key?:string, demo?:boolean, getJSON?:Function}} opts
+ * @returns {Promise<object>} classifyRead() result + { reframe } (reframe null on non-read states)
+ */
+async function readChannel(raw, opts = {}) {
+  const resolution = resolveInput(raw);
+  if (resolution.kind === "invalid") return withReframe({ ...classifyRead({ resolution }), resolution });
+
+  // DEMO / no key → realistic mock outcome, run through the real classifier + reframe.
+  if (opts.demo || !opts.key) {
+    const outcome = demoOutcome(resolution);
+    return withReframe({ ...classifyRead({ resolution, ...outcome }), resolution, preview: true });
   }
 
-  // js/app.js
-  initTheme();
-  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var q = (id) => document.getElementById(id);
-  var demo = () => !!(window.VIDRENDER && window.VIDRENDER.demoMode);
-  var lead = { name: null, email: null, channel_url: null, handle: null, bottleneck: null, budget_tier: null, budget_detail: null };
-  async function submitLead() {
-    const cfg = window.VIDRENDER || {};
-    if (cfg.demoMode) {
-      if (cfg.localBridge) {
-        const payload = { name: lead.name, email: lead.email, channel_url: lead.channel_url, handle: lead.handle, bottleneck: lead.bottleneck, budget_tier: lead.budget_tier, budget_detail: lead.budget_detail };
-        try {
-          await fetch(cfg.localBridge, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ token: "demo", action: "appendLead", payload }) });
-        } catch {
-        }
-      }
-      console.info("[demo] lead captured:", { ...lead });
-      return { demo: true };
-    }
-    if (!cfg.writeEndpoint || !cfg.writeToken) {
-      await wait(400);
-      console.info("[preview] lead staged locally:", { ...lead });
-      return { preview: true };
-    }
-    const res = await fetch(cfg.writeEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        action: "append",
-        token: cfg.writeToken,
-        channel_url: lead.channel_url,
-        handle: lead.handle || "",
-        bottleneck: lead.bottleneck || "",
-        budget_tier: lead.budget_tier || "",
-        budget_detail: lead.budget_detail || "",
-        name: lead.name || "",
-        email: lead.email
-      })
-    });
-    const json = await res.json();
-    if (!json.ok) throw new Error(json.error || "Submission failed.");
-    return json;
+  const getJSON = opts.getJSON || defaultGetJSON;
+  let channelItem, videos = [];
+  try {
+    const resolved = await resolveChannelItem(resolution.plan, opts.key, getJSON);
+    if (!resolved) return withReframe({ ...classifyRead({ resolution, channel: null }), resolution });
+    channelItem = normalizeChannel(resolved.item, resolved.handleHint);
+    videos = await fetchRecentVideos(channelItem, opts.key, getJSON);
+  } catch (e) {
+    return withReframe({ ...classifyRead({ resolution, error: { type: e.type || "api" } }), resolution });
   }
-  var wait = (ms) => new Promise((r) => setTimeout(r, ms));
-  var W = 720;
-  var N = 12;
-  var xs = [...Array(N)].map((_, i) => i * (W / (N - 1)));
-  var before = SAMPLE.curve.before;
-  var after = SAMPLE.curve.after;
-  var sm = (ys) => {
-    let d = `M ${xs[0]} ${ys[0]}`;
-    for (let i = 0; i < N - 1; i++) {
-      const cx = (xs[i] + xs[i + 1]) / 2;
-      d += ` C ${cx} ${ys[i]}, ${cx} ${ys[i + 1]}, ${xs[i + 1]} ${ys[i + 1]}`;
-    }
-    return d;
+  return withReframe({ ...classifyRead({ resolution, channel: channelItem, videos }), resolution });
+}
+
+const READ_STATES = new Set([STATE.OK, STATE.HIDDEN_SUBS, STATE.HIDDEN_LIKES, STATE.HIDDEN_BOTH, STATE.MINIMAL_DATA]);
+function withReframe(read) {
+  read.reframe = READ_STATES.has(read.state) ? reframe(read) : null;
+  return read;
+}
+
+/** A realistic, deterministic demo outcome (a hard-working AI channel whose edit is the bottleneck). */
+function demoOutcome(resolution) {
+  const handle = resolution.display ? resolution.display.replace(/^@/, "") : (resolution.value || "everydayaischool");
+  const channel = {
+    id: "UCdemo000000000000000000", title: titleCase(handle), handle,
+    publishedAt: "2022-02-01T00:00:00Z", subs: 48200, hiddenSubs: false,
+    totalViews: 3120000, videoCount: 73, avatarUrl: null, country: "US", uploadsPlaylist: "UUdemo",
   };
-  var arf = (ys) => sm(ys) + ` L ${W} 280 L 0 280 Z`;
-  var lerp = (a, b, t) => a + (b - a) * t;
-  var $b = q("before");
-  var $a = q("after");
-  var $gp = q("glowpath");
-  var $arr = q("area");
-  var $dot = q("dot");
-  var $grid = q("grid");
-  var $pulse = q("pulse");
-  $b.setAttribute("d", sm(before));
-  function setAfter(t) {
-    const ys = after.map((a, i) => lerp(before[i], a, t)), d = sm(ys);
-    $a.setAttribute("d", d);
-    $gp.setAttribute("d", d);
-    $arr.setAttribute("d", arf(ys));
-    $dot.setAttribute("cx", W);
-    $dot.setAttribute("cy", ys[N - 1]);
-  }
-  var breathe;
-  var travel;
-  function startGlow() {
-    const d = sm(after);
-    $pulse.setAttribute("d", d);
-    const Lp = $pulse.getTotalLength();
-    gsap.set($pulse, { opacity: 0.95, attr: { "stroke-dasharray": `18 ${Lp}`, "stroke-dashoffset": 0 } });
-    travel = gsap.to($pulse, { attr: { "stroke-dashoffset": -(Lp + 18) }, duration: 2.8, ease: "none", repeat: -1 });
-    breathe = gsap.to($dot, { attr: { r: 8.6 }, duration: 1.7, repeat: -1, yoyo: true, ease: "sine.inOut" });
-  }
-  function playHero() {
-    if (breathe) breathe.kill();
-    if (travel) travel.kill();
-    gsap.set($pulse, { opacity: 0 });
-    if (reduce) {
-      setAfter(1);
-      gsap.set([$arr, $dot, $grid], { opacity: 1 });
-      const L2 = $a.getTotalLength();
-      gsap.set([$a, $gp], { strokeDasharray: L2, strokeDashoffset: 0 });
-      startGlow();
-      return;
+  const base = [5200, 4800, 5100, 4900, 5300, 5000, 4700, 5200, 4950, 5100, 4850, 5000];
+  const videos = base.map((views, i) => ({
+    id: "demo" + i, publishedAt: new Date(Date.parse("2026-06-20T00:00:00Z") - i * 6 * 864e5).toISOString(),
+    views, likes: Math.round(views * 0.021), comments: 6 + (i % 4), durationSec: 540 + (i % 3) * 120,
+  }));
+  return { channel, videos };
+}
+
+function titleCase(h) { return String(h).replace(/[-_.]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).trim() || "Your channel"; }
+
+
+
+  // face/js/app.js — wrapped so its local TIERS/REC/etc. stay scoped (no clash with tiers.js)
+  (() => {
+// app.js — the Face (ported from the approved prototype, modularized). Drives the retention-curve
+// hero + the guided 4-step panel, wired to: theme toggle, DEMO_MODE/config, sample-data.js, and the
+// lead-capture → submit path (demo short-circuit, or the append-only write endpoint when live).
+
+
+initTheme();
+
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const q = (id) => document.getElementById(id);
+const demo = () => !!(window.VIDRENDER && window.VIDRENDER.demoMode);
+
+// ───────────────────────── lead capture (maps to the Lead data contract §8) ─────────────────────────
+const lead = { name: null, email: null, channel_url: null, handle: null, bottleneck: null, budget_tier: null, budget_detail: null };
+let READ = null; // the last channel-read result — powers the personalized handoff storyboard (same data the read card shows)
+
+async function submitLead() {
+  const cfg = window.VIDRENDER || {};
+  if (cfg.demoMode) {
+    // Best-effort local bridge so the lead appears in the control-room inbox (end-to-end test).
+    if (cfg.localBridge) {
+      const payload = { name: lead.name, email: lead.email, channel_url: lead.channel_url, handle: lead.handle, bottleneck: lead.bottleneck, budget_tier: lead.budget_tier, budget_detail: lead.budget_detail };
+      try { await fetch(cfg.localBridge, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ token: "demo", action: "appendLead", payload }) }); }
+      catch { /* control room not running — pure standalone demo */ }
     }
-    setAfter(0);
-    const L = $a.getTotalLength();
-    gsap.set([$a, $gp], { strokeDasharray: L, strokeDashoffset: L });
-    gsap.set([$arr, $dot], { opacity: 0 });
-    gsap.set($grid, { opacity: 0 });
-    gsap.timeline().to($grid, { opacity: 1, duration: 0.8 }, 0).to([$a, $gp], { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, 0.3).to({ t: 0 }, { t: 1, duration: 1.7, ease: "power3.inOut", onUpdate() {
-      setAfter(this.targets()[0].t);
-    } }, 0.5).to($arr, { opacity: 1, duration: 1 }, 1.1).to($dot, { opacity: 1, duration: 0.5 }, 1.7).fromTo($dot, { attr: { r: 7 } }, { attr: { r: 12 }, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut" }, ">-.25").add(startGlow);
+    console.info("[demo] lead captured:", { ...lead });
+    return { demo: true };
   }
-  q("replay").onclick = playHero;
-  if (!reduce) {
-    gsap.from("nav", { y: -12, opacity: 0, duration: 0.6, ease: "power3.out" });
-    gsap.from(".eyebrow", { y: 14, opacity: 0, duration: 0.6, delay: 0.1, ease: "power3.out" });
-    gsap.from("h1", { y: 22, opacity: 0, duration: 0.8, delay: 0.2, ease: "power3.out" });
-    gsap.from(".sub", { y: 14, opacity: 0, duration: 0.6, delay: 0.4, ease: "power3.out" });
-    gsap.from(".stage", { y: 26, opacity: 0, duration: 0.9, delay: 0.5, ease: "power3.out", onComplete: playHero });
-    gsap.from(".panel", { y: 26, opacity: 0, duration: 0.8, delay: 0.75, ease: "power3.out" });
+  if (!cfg.writeEndpoint || !cfg.writeToken) { await wait(400); console.info("[preview] lead staged locally:", { ...lead }); return { preview: true }; }
+  // LIVE: flat JSON, text/plain (no CORS preflight), append-only WRITE_TOKEN → Apps Script.
+  const res = await fetch(cfg.writeEndpoint, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      action: "append", token: cfg.writeToken,
+      channel_url: lead.channel_url, handle: lead.handle || "",
+      bottleneck: lead.bottleneck || "", budget_tier: lead.budget_tier || "",
+      budget_detail: lead.budget_detail || "", name: lead.name || "", email: lead.email,
+    }),
+  });
+  const json = await res.json();
+  if (!json.ok) throw new Error(json.error || "Submission failed.");
+  return json; // { ok, slug }
+}
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// ───────────────────────── hero: the retention curve ─────────────────────────
+const W = 720, N = 12, xs = [...Array(N)].map((_, i) => i * (W / (N - 1)));
+const before = SAMPLE.curve.before, after = SAMPLE.curve.after;
+const sm = (ys) => { let d = `M ${xs[0]} ${ys[0]}`; for (let i = 0; i < N - 1; i++) { const cx = (xs[i] + xs[i + 1]) / 2; d += ` C ${cx} ${ys[i]}, ${cx} ${ys[i + 1]}, ${xs[i + 1]} ${ys[i + 1]}`; } return d; };
+const arf = (ys) => sm(ys) + ` L ${W} 280 L 0 280 Z`;
+const lerp = (a, b, t) => a + (b - a) * t;
+const $b = q("before"), $a = q("after"), $gp = q("glowpath"), $arr = q("area"), $dot = q("dot"), $grid = q("grid"), $pulse = q("pulse");
+$b.setAttribute("d", sm(before));
+function setAfter(t) { const ys = after.map((a, i) => lerp(before[i], a, t)), d = sm(ys); $a.setAttribute("d", d); $gp.setAttribute("d", d); $arr.setAttribute("d", arf(ys)); $dot.setAttribute("cx", W); $dot.setAttribute("cy", ys[N - 1]); }
+let breathe, travel;
+function startGlow() {
+  const d = sm(after); $pulse.setAttribute("d", d); const Lp = $pulse.getTotalLength();
+  gsap.set($pulse, { opacity: 0.95, attr: { "stroke-dasharray": `18 ${Lp}`, "stroke-dashoffset": 0 } });
+  travel = gsap.to($pulse, { attr: { "stroke-dashoffset": -(Lp + 18) }, duration: 2.8, ease: "none", repeat: -1 });
+  breathe = gsap.to($dot, { attr: { r: 8.6 }, duration: 1.7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+}
+function playHero() {
+  if (breathe) breathe.kill(); if (travel) travel.kill(); gsap.set($pulse, { opacity: 0 });
+  if (reduce) { setAfter(1); gsap.set([$arr, $dot, $grid], { opacity: 1 }); const L = $a.getTotalLength(); gsap.set([$a, $gp], { strokeDasharray: L, strokeDashoffset: 0 }); startGlow(); return; }
+  setAfter(0); const L = $a.getTotalLength(); gsap.set([$a, $gp], { strokeDasharray: L, strokeDashoffset: L }); gsap.set([$arr, $dot], { opacity: 0 }); gsap.set($grid, { opacity: 0 });
+  gsap.timeline()
+    .to($grid, { opacity: 1, duration: 0.8 }, 0)
+    .to([$a, $gp], { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, 0.3)
+    .to({ t: 0 }, { t: 1, duration: 1.7, ease: "power3.inOut", onUpdate() { setAfter(this.targets()[0].t); } }, 0.5)
+    .to($arr, { opacity: 1, duration: 1 }, 1.1)
+    .to($dot, { opacity: 1, duration: 0.5 }, 1.7)
+    .fromTo($dot, { attr: { r: 7 } }, { attr: { r: 12 }, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut" }, ">-.25")
+    .add(startGlow);
+}
+q("replay").onclick = playHero;
+
+// load-in
+if (!reduce) {
+  gsap.from("nav", { y: -12, opacity: 0, duration: 0.6, ease: "power3.out" });
+  gsap.from(".eyebrow", { y: 14, opacity: 0, duration: 0.6, delay: 0.1, ease: "power3.out" });
+  gsap.from("h1", { y: 22, opacity: 0, duration: 0.8, delay: 0.2, ease: "power3.out" });
+  gsap.from(".sub", { y: 14, opacity: 0, duration: 0.6, delay: 0.4, ease: "power3.out" });
+  gsap.from(".stage", { y: 26, opacity: 0, duration: 0.9, delay: 0.5, ease: "power3.out", onComplete: playHero });
+  gsap.from(".panel", { y: 26, opacity: 0, duration: 0.8, delay: 0.75, ease: "power3.out" });
+} else { playHero(); }
+
+// ───────────────────────── step 1: channel read ─────────────────────────
+// States where we found a channel and can move the creator forward.
+const FOUND = new Set(["OK", "HIDDEN_SUBS", "HIDDEN_LIKES", "HIDDEN_BOTH", "MINIMAL_DATA", "PRIVATE_OR_EMPTY"]);
+
+function paintIdentity(host, identity, metrics) {
+  const av = host.querySelector(".ravatar");
+  if (identity.avatarUrl) { av.style.backgroundImage = `url("${identity.avatarUrl}")`; av.textContent = ""; }
+  else { av.style.backgroundImage = ""; av.textContent = identity.initial; }     // gradient circle + initial fallback
+  host.querySelector(".rname").textContent = identity.handleDisplay || identity.title;
+  // context strip: creating since · videos · views
+  const parts = [];
+  if (identity.sinceYear) parts.push(`Creating since ${identity.sinceYear}`);
+  if (metrics?.videoCount != null) parts.push(`${formatCount(metrics.videoCount)} videos`);
+  if (metrics?.totalViews != null) parts.push(`${formatCount(metrics.totalViews)} views`);
+  host.querySelector(".rcontext").textContent = parts.join("  ·  ");
+}
+
+// ↑/↓ momentum chip from the view-trend ratio (recent third vs prior third).
+function momentumChip(ratio) {
+  if (ratio == null) return "";
+  const pct = Math.round((ratio - 1) * 100);
+  if (pct >= 3) return `<span class="momentum up">↑ ${pct}%</span>`;
+  if (pct <= -3) return `<span class="momentum down">↓ ${Math.abs(pct)}%</span>`;
+  return `<span class="momentum flat">→ steady</span>`;
+}
+
+function paintCadence(host, metrics) {
+  const el = host.querySelector(".cadence");
+  const series = metrics?.cadenceSeries || [];
+  if (!series.length || series.every((c) => c === 0)) { el.style.display = "none"; el.innerHTML = ""; return; }
+  el.style.display = "";
+  const max = Math.max(1, ...series);
+  const label = metrics?.cadencePerMonth != null ? `≈ ${Math.max(1, Math.round(metrics.cadencePerMonth))}/MO` : "";
+  el.innerHTML = series.map((c) => `<i style="height:${Math.round((c / max) * 100)}%"></i>`).join("") + (label ? `<span class="clabel">${label}</span>` : "");
+}
+
+// Render the read for any state (PRD 2d) — never a wrong number, never a broken card.
+function renderRead(read) {
+  q("readskel").hidden = true;
+  const readEl = q("read"), msgEl = q("readmsg");
+  readEl.hidden = true; msgEl.hidden = true;
+
+  // pure message states (no channel): NOT_FOUND / API_ERROR
+  if (!FOUND.has(read.state)) {
+    msgEl.hidden = false; msgEl.innerHTML = `<div>${read.message}</div>`;
+    if (!reduce) gsap.fromTo(msgEl, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" });
+    return false; // stay on step 1, let them retry
+  }
+
+  readEl.hidden = false;
+  const m = read.metrics;
+  paintIdentity(readEl, read.identity, m);
+
+  const insight = q("rinsight"), mech = q("rmech"), receipts = q("receipts"), cadence = q("cadence");
+  if (read.state === "PRIVATE_OR_EMPTY") {
+    insight.textContent = read.message; mech.textContent = ""; receipts.innerHTML = ""; cadence.style.display = "none";
   } else {
-    playHero();
+    insight.innerHTML = read.reframe ? read.reframe.insight : "";
+    mech.textContent = read.reframe ? read.reframe.mechanism : "";
+    // momentum chip rides the subscribers receipt (or avg-views when subs are hidden)
+    const momentumKey = read.flags?.hiddenSubs ? "avgViews" : "subs";
+    receipts.innerHTML = (read.receipts || []).map((r) => {
+      const chip = r.key === momentumKey ? momentumChip(m?.momentumRatio) : "";
+      return `<div class="receipt${r.muted ? " muted" : ""}"><span class="rk">${r.label}</span><span class="rvrow"><span class="rv">${r.value}</span>${chip}</span></div>`;
+    }).join("");
+    paintCadence(readEl, m);
   }
-  var FOUND = /* @__PURE__ */ new Set(["OK", "HIDDEN_SUBS", "HIDDEN_LIKES", "HIDDEN_BOTH", "MINIMAL_DATA", "PRIVATE_OR_EMPTY"]);
-  function paintIdentity(host, identity, metrics) {
-    const av = host.querySelector(".ravatar");
-    if (identity.avatarUrl) {
-      av.style.backgroundImage = `url("${identity.avatarUrl}")`;
-      av.textContent = "";
-    } else {
-      av.style.backgroundImage = "";
-      av.textContent = identity.initial;
-    }
-    host.querySelector(".rname").textContent = identity.handleDisplay || identity.title;
-    const parts = [];
-    if (identity.sinceYear) parts.push(`Creating since ${identity.sinceYear}`);
-    if ((metrics == null ? void 0 : metrics.videoCount) != null) parts.push(`${formatCount(metrics.videoCount)} videos`);
-    if ((metrics == null ? void 0 : metrics.totalViews) != null) parts.push(`${formatCount(metrics.totalViews)} views`);
-    host.querySelector(".rcontext").textContent = parts.join("  \xB7  ");
+
+  if (reduce) { gsap.set(readEl, { opacity: 1 }); gsap.set(".cadence i", { scaleY: 1 }); return true; }
+  gsap.set(readEl, { opacity: 1 });
+  gsap.from(readEl.querySelector(".rtop"), { y: 10, opacity: 0, duration: 0.45, ease: "power3.out" });
+  gsap.from(insight, { y: 14, opacity: 0, duration: 0.6, delay: 0.12, ease: "power3.out" });   // the signature reveal
+  gsap.from(mech, { y: 10, opacity: 0, duration: 0.5, delay: 0.28, ease: "power3.out" });
+  gsap.from(readEl.querySelectorAll(".receipt"), { y: 12, opacity: 0, stagger: 0.07, duration: 0.5, delay: 0.4, ease: "power3.out" });
+  gsap.fromTo(readEl.querySelectorAll(".cadence i"), { scaleY: 0 }, { scaleY: 1, stagger: 0.05, duration: 0.5, delay: 0.55, ease: "back.out(1.6)" });
+  return true;
+}
+
+// ───────────────────────── stepper ─────────────────────────
+const steps = q("steps"), pfill = q("pfill"), count = q("count"), TOTAL = 4;
+let cur = 0;
+const TIERS = SAMPLE.pricingTiers, REC = SAMPLE.recommendedIndex, MX = TIERS.length - 1, BN = SAMPLE.bottlenecks;
+
+const pbar = q("pbar");
+function setProg() {
+  pfill.style.width = ((cur + 1) / TOTAL * 100) + "%";
+  count.textContent = `STEP ${cur + 1} OF ${TOTAL}`;
+  if (pbar) { pbar.setAttribute("aria-valuenow", String(cur + 1)); pbar.setAttribute("aria-label", `Qualifier progress, step ${cur + 1} of ${TOTAL}`); }
+}
+function go(html) {
+  const old = steps.firstElementChild, n = document.createElement("div"); n.className = "step"; n.setAttribute("aria-current", "step"); n.innerHTML = html; steps.appendChild(n);
+  if (old) old.removeAttribute("aria-current");
+  if (reduce) { old.remove(); } else {
+    gsap.to(old, { x: -34, opacity: 0, duration: 0.34, ease: "power2.in", onComplete: () => old.remove() });
+    gsap.fromTo(n, { x: 34, opacity: 0, scale: 0.99 }, { x: 0, opacity: 1, scale: 1, duration: 0.5, delay: 0.18, ease: "power3.out" });
   }
-  function momentumChip(ratio) {
-    if (ratio == null) return "";
-    const pct = Math.round((ratio - 1) * 100);
-    if (pct >= 3) return `<span class="momentum up">\u2191 ${pct}%</span>`;
-    if (pct <= -3) return `<span class="momentum down">\u2193 ${Math.abs(pct)}%</span>`;
-    return `<span class="momentum flat">\u2192 steady</span>`;
+  const h = n.querySelector(".q"); if (h) { h.tabIndex = -1; setTimeout(() => h.focus({ preventScroll: true }), reduce ? 0 : 220); }
+  return n;
+}
+
+// step 1 wiring — validate → skeleton → read pipeline → render (PRD Part 2)
+q("analyze").onclick = async () => {
+  const b = q("analyze"), input = (q("url").value || "").trim(), note = q("urlnote");
+  // cheap client-side guard (2a): never call the API on obviously-not-a-channel input
+  if (!looksLikeChannel(input)) {
+    note.textContent = "That doesn't look like a YouTube channel yet — paste your channel URL or @handle.";
+    q("url").focus(); return;
   }
-  function paintCadence(host, metrics) {
-    const el = host.querySelector(".cadence");
-    const series = (metrics == null ? void 0 : metrics.cadenceSeries) || [];
-    if (!series.length || series.every((c) => c === 0)) {
-      el.style.display = "none";
-      el.innerHTML = "";
-      return;
-    }
-    el.style.display = "";
-    const max = Math.max(1, ...series);
-    const label = (metrics == null ? void 0 : metrics.cadencePerMonth) != null ? `\u2248 ${Math.max(1, Math.round(metrics.cadencePerMonth))}/MO` : "";
-    el.innerHTML = series.map((c) => `<i style="height:${Math.round(c / max * 100)}%"></i>`).join("") + (label ? `<span class="clabel">${label}</span>` : "");
-  }
-  function renderRead(read) {
-    var _a;
-    q("readskel").hidden = true;
-    const readEl = q("read"), msgEl = q("readmsg");
-    readEl.hidden = true;
-    msgEl.hidden = true;
-    if (!FOUND.has(read.state)) {
-      msgEl.hidden = false;
-      msgEl.innerHTML = `<div>${read.message}</div>`;
-      if (!reduce) gsap.fromTo(msgEl, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" });
-      return false;
-    }
-    readEl.hidden = false;
-    const m = read.metrics;
-    paintIdentity(readEl, read.identity, m);
-    const insight = q("rinsight"), mech = q("rmech"), receipts = q("receipts"), cadence = q("cadence");
-    if (read.state === "PRIVATE_OR_EMPTY") {
-      insight.textContent = read.message;
-      mech.textContent = "";
-      receipts.innerHTML = "";
-      cadence.style.display = "none";
-    } else {
-      insight.innerHTML = read.reframe ? read.reframe.insight : "";
-      mech.textContent = read.reframe ? read.reframe.mechanism : "";
-      const momentumKey = ((_a = read.flags) == null ? void 0 : _a.hiddenSubs) ? "avgViews" : "subs";
-      receipts.innerHTML = (read.receipts || []).map((r) => {
-        const chip = r.key === momentumKey ? momentumChip(m == null ? void 0 : m.momentumRatio) : "";
-        return `<div class="receipt${r.muted ? " muted" : ""}"><span class="rk">${r.label}</span><span class="rvrow"><span class="rv">${r.value}</span>${chip}</span></div>`;
-      }).join("");
-      paintCadence(readEl, m);
-    }
-    if (reduce) {
-      gsap.set(readEl, { opacity: 1 });
-      gsap.set(".cadence i", { scaleY: 1 });
-      return true;
-    }
-    gsap.set(readEl, { opacity: 1 });
-    gsap.from(readEl.querySelector(".rtop"), { y: 10, opacity: 0, duration: 0.45, ease: "power3.out" });
-    gsap.from(insight, { y: 14, opacity: 0, duration: 0.6, delay: 0.12, ease: "power3.out" });
-    gsap.from(mech, { y: 10, opacity: 0, duration: 0.5, delay: 0.28, ease: "power3.out" });
-    gsap.from(readEl.querySelectorAll(".receipt"), { y: 12, opacity: 0, stagger: 0.07, duration: 0.5, delay: 0.4, ease: "power3.out" });
-    gsap.fromTo(readEl.querySelectorAll(".cadence i"), { scaleY: 0 }, { scaleY: 1, stagger: 0.05, duration: 0.5, delay: 0.55, ease: "back.out(1.6)" });
-    return true;
-  }
-  var steps = q("steps");
-  var pfill = q("pfill");
-  var count = q("count");
-  var TOTAL = 4;
-  var cur = 0;
-  var TIERS2 = SAMPLE.pricingTiers;
-  var REC = SAMPLE.recommendedIndex;
-  var MX = TIERS2.length - 1;
-  var BN = SAMPLE.bottlenecks;
-  var pbar = q("pbar");
-  function setProg() {
-    pfill.style.width = (cur + 1) / TOTAL * 100 + "%";
-    count.textContent = `STEP ${cur + 1} OF ${TOTAL}`;
-    if (pbar) {
-      pbar.setAttribute("aria-valuenow", String(cur + 1));
-      pbar.setAttribute("aria-label", `Qualifier progress, step ${cur + 1} of ${TOTAL}`);
-    }
-  }
-  function go(html) {
-    const old = steps.firstElementChild, n2 = document.createElement("div");
-    n2.className = "step";
-    n2.setAttribute("aria-current", "step");
-    n2.innerHTML = html;
-    steps.appendChild(n2);
-    if (old) old.removeAttribute("aria-current");
-    if (reduce) {
-      old.remove();
-    } else {
-      gsap.to(old, { x: -34, opacity: 0, duration: 0.34, ease: "power2.in", onComplete: () => old.remove() });
-      gsap.fromTo(n2, { x: 34, opacity: 0, scale: 0.99 }, { x: 0, opacity: 1, scale: 1, duration: 0.5, delay: 0.18, ease: "power3.out" });
-    }
-    const h = n2.querySelector(".q");
-    if (h) {
-      h.tabIndex = -1;
-      setTimeout(() => h.focus({ preventScroll: true }), reduce ? 0 : 220);
-    }
-    return n2;
-  }
-  q("analyze").onclick = async () => {
-    var _a;
-    const b = q("analyze"), input = (q("url").value || "").trim(), note = q("urlnote");
-    if (!looksLikeChannel(input)) {
-      note.textContent = "That doesn't look like a YouTube channel yet \u2014 paste your channel URL or @handle.";
-      q("url").focus();
-      return;
-    }
-    note.textContent = "";
-    lead.channel_url = input;
-    b.textContent = "Reading\u2026";
-    b.disabled = true;
-    q("read").hidden = true;
-    q("readmsg").hidden = true;
-    q("readskel").hidden = false;
-    const cfg = window.VIDRENDER || {};
-    const t0 = Date.now();
-    let read;
-    try {
-      read = await readChannel(input, { demo: demo(), key: cfg.youtubeApiKey });
-    } catch {
-      read = { state: "API_ERROR", message: "Couldn't reach YouTube just now \u2014 try again in a moment." };
-    }
-    const elapsed = Date.now() - t0, minBeat = reduce ? 0 : 650;
-    if (elapsed < minBeat) await wait(minBeat - elapsed);
-    lead.handle = (((_a = read.identity) == null ? void 0 : _a.handleDisplay) || "").replace(/^@/, "") || null;
-    const canProceed = renderRead(read);
-    b.disabled = false;
-    if (canProceed) {
-      b.innerHTML = 'Next <span class="arw">\u2192</span>';
-      b.onclick = s2;
-    } else {
-      b.textContent = "Try again";
-    }
-  };
-  function s2() {
-    cur = 1;
-    setProg();
-    const n2 = go(`<div class="q">What's capping your growth?</div><div class="qs">Pick the one that stings most. We'll confirm it from your data.</div><div class="chips">${BN.map((b) => `<button class="chip" data-b="${b}">${b}</button>`).join("")}</div><button class="back">\u2190 back</button>`);
-    n2.querySelectorAll(".chip").forEach((c) => c.onclick = () => {
-      n2.querySelectorAll(".chip").forEach((x) => x.classList.remove("on"));
-      c.classList.add("on");
-      lead.bottleneck = c.dataset.b;
-      setTimeout(s3, 240);
-    });
-    n2.querySelector(".back").onclick = () => location.reload();
-  }
-  function s3() {
-    cur = 2;
-    setProg();
-    const n2 = go(`<div class="q">What's your budget?</div><div class="qs">Slide to your number \u2014 we recommend honestly.</div>
+  note.textContent = ""; lead.channel_url = input;
+  b.textContent = "Reading…"; b.disabled = true;
+  q("read").hidden = true; q("readmsg").hidden = true; q("readskel").hidden = false;
+
+  const cfg = window.VIDRENDER || {};
+  const t0 = Date.now();
+  let read;
+  try { read = await readChannel(input, { demo: demo(), key: cfg.youtubeApiKey }); }
+  catch { read = { state: "API_ERROR", message: "Couldn't reach YouTube just now — try again in a moment." }; }
+  // hold the skeleton for a beat so it reads as "reading", never a flash
+  const elapsed = Date.now() - t0, minBeat = reduce ? 0 : 650;
+  if (elapsed < minBeat) await wait(minBeat - elapsed);
+
+  // capture the resolved @handle for the lead row + email subject
+  lead.handle = (read.identity?.handleDisplay || "").replace(/^@/, "") || null;
+  READ = read; // keep the whole read so the final-step storyboard can mirror it (close loop)
+
+  const canProceed = renderRead(read);
+  b.disabled = false;
+  if (canProceed) { b.innerHTML = 'Next <span class="arw">→</span>'; b.onclick = s2; }
+  else { b.textContent = "Try again"; } // NOT_FOUND / API_ERROR — let them retry, no fake read
+};
+
+function s2() {
+  cur = 1; setProg();
+  const n = go(`<div class="q">What's capping your growth?</div><div class="qs">Pick the one that stings most. We'll confirm it from your data.</div><div class="chips">${BN.map((b) => `<button class="chip" data-b="${b}">${b}</button>`).join("")}</div><button class="back">← back</button>`);
+  n.querySelectorAll(".chip").forEach((c) => c.onclick = () => { n.querySelectorAll(".chip").forEach((x) => x.classList.remove("on")); c.classList.add("on"); lead.bottleneck = c.dataset.b; setTimeout(s3, 240); });
+  n.querySelector(".back").onclick = () => location.reload();
+}
+
+function s3() {
+  cur = 2; setProg();
+  const n = go(`<div class="q">What's your budget?</div><div class="qs">Slide to your number — we recommend honestly.</div>
   <div class="price"><span class="p" id="pp"></span><span class="per" id="pper"></span></div>
   <div class="tname" id="tn"></div>
   <div class="tdesc" id="td"></div>
   <div id="sw"><div class="slider" id="sl"><div class="track"></div><div class="tfill"></div><div class="recdot" id="rd"></div><div class="thumb"></div><input type="range" class="range" id="rg" min="0" max="${MX}" step="1" value="${REC}" aria-label="budget level"/></div><div class="ticks" id="tk"></div><div class="rechint" id="rh"></div></div>
   <div id="cw" style="display:none"><div class="cfield"><span class="pre">$</span><input id="camt" inputmode="numeric" placeholder="Your number"/></div><div class="perTog"><button class="on" data-per="per video">per video</button><button data-per="per month">per month</button></div></div>
-  <button class="specbtn" id="spec">Have a specific budget? \u2192</button>
-  <button class="btn full" id="cont">Continue <span class="arw">\u2192</span></button><button class="back">\u2190 back</button>`);
-    const rg = n2.querySelector("#rg"), sl = n2.querySelector("#sl"), tk = n2.querySelector("#tk"), pp = n2.querySelector("#pp"), pper = n2.querySelector("#pper"), tn = n2.querySelector("#tn"), td = n2.querySelector("#td"), rh = n2.querySelector("#rh"), sw = n2.querySelector("#sw"), cw = n2.querySelector("#cw"), spec = n2.querySelector("#spec"), camt = n2.querySelector("#camt");
-    const recName = TIERS2[REC].label;
-    TIERS2.forEach((t, i) => {
-      const sp = document.createElement("span");
-      sp.style.left = `calc(15px + ${i / MX} * (100% - 30px))`;
-      sp.textContent = t.tick;
-      tk.appendChild(sp);
-    });
-    n2.querySelector("#rd").style.left = `calc(15px + ${REC / MX} * (100% - 30px))`;
-    let custom = false, perMode = "per video";
-    const hint = (v) => v < REC ? `\u2191 Most see real lift at <b>${recName} \xB7 ${TIERS2[REC].price}</b>.` : v === REC ? "\u2713 Our honest pick for channels like yours." : `\u2193 <b>${recName} \xB7 ${TIERS2[REC].price}</b> covers most \u2014 choose more only if you want it.`;
-    function render() {
-      const v = +rg.value, t = TIERS2[v];
-      sl.style.setProperty("--pct", v / MX);
-      pp.textContent = t.price;
-      pper.textContent = t.per;
-      tn.innerHTML = `${t.label}${v === REC ? ' <span class="recbadge">RECOMMENDED</span>' : ""}`;
-      td.textContent = t.desc;
-      rh.innerHTML = hint(v);
-      [...tk.children].forEach((sp, i) => sp.classList.toggle("on", i === v));
-      if (!reduce) gsap.fromTo(pp, { scale: 0.94 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
-    }
-    function cust() {
-      pp.textContent = camt.value ? "$" + Number(camt.value).toLocaleString() : "$\u2014";
-      pper.textContent = perMode;
-      tn.textContent = "Custom";
-      td.textContent = "";
-      rh.innerHTML = "We'll tailor a quote to your budget.";
-    }
-    function showCustom(on) {
-      custom = on;
-      sw.style.display = on ? "none" : "";
-      cw.style.display = on ? "" : "none";
-      spec.textContent = on ? "\u2190 use the slider instead" : "Have a specific budget? \u2192";
-      if (on) {
-        cust();
-        setTimeout(() => camt.focus(), 50);
-      } else render();
-    }
-    rg.addEventListener("input", render);
-    rg.addEventListener("pointerdown", () => sl.classList.add("drag"));
-    ["pointerup", "pointercancel", "blur"].forEach((e) => rg.addEventListener(e, () => sl.classList.remove("drag")));
-    spec.onclick = () => showCustom(!custom);
-    camt.addEventListener("input", cust);
-    n2.querySelectorAll(".perTog button").forEach((b) => b.onclick = () => {
-      n2.querySelectorAll(".perTog button").forEach((x) => x.classList.remove("on"));
-      b.classList.add("on");
-      perMode = b.dataset.per;
-      cust();
-    });
-    render();
-    n2.querySelector("#cont").onclick = () => {
-      const mapped = custom ? mapCustomBudget(camt.value, perMode) : mapSliderTier(+rg.value);
-      lead.budget_tier = mapped.budget_tier;
-      lead.budget_detail = mapped.budget_detail;
-      s4();
-    };
-    n2.querySelector(".back").onclick = s2;
+  <button class="specbtn" id="spec">Have a specific budget? →</button>
+  <button class="btn full" id="cont">Continue <span class="arw">→</span></button><button class="back">← back</button>`);
+  const rg = n.querySelector("#rg"), sl = n.querySelector("#sl"), tk = n.querySelector("#tk"), pp = n.querySelector("#pp"), pper = n.querySelector("#pper"), tn = n.querySelector("#tn"), td = n.querySelector("#td"), rh = n.querySelector("#rh"), sw = n.querySelector("#sw"), cw = n.querySelector("#cw"), spec = n.querySelector("#spec"), camt = n.querySelector("#camt");
+  const recName = TIERS[REC].label;
+  TIERS.forEach((t, i) => { const sp = document.createElement("span"); sp.style.left = `calc(15px + ${i / MX} * (100% - 30px))`; sp.textContent = t.tick; tk.appendChild(sp); });
+  n.querySelector("#rd").style.left = `calc(15px + ${REC / MX} * (100% - 30px))`;
+  let custom = false, perMode = "per video";
+  const hint = (v) => v < REC ? `↑ Most see real lift at <b>${recName} · ${TIERS[REC].price}</b>.` : v === REC ? "✓ Our honest pick for channels like yours." : `↓ <b>${recName} · ${TIERS[REC].price}</b> covers most — choose more only if you want it.`;
+  function render() {
+    const v = +rg.value, t = TIERS[v]; sl.style.setProperty("--pct", v / MX); pp.textContent = t.price; pper.textContent = t.per;
+    tn.innerHTML = `${t.label}${v === REC ? ' <span class="recbadge">RECOMMENDED</span>' : ""}`; td.textContent = t.desc; rh.innerHTML = hint(v);
+    [...tk.children].forEach((sp, i) => sp.classList.toggle("on", i === v));
+    if (!reduce) gsap.fromTo(pp, { scale: 0.94 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
   }
-  function s4() {
-    cur = 3;
-    setProg();
-    const n2 = go(`<div class="q">Where do we send your brief?</div><div class="qs">Your full breakdown + a free sample land within 24 hours.</div><div class="field" style="margin-bottom:10px"><input id="nm" placeholder="Name (optional)"/></div><div class="field"><input id="em" placeholder="you@email.com"/></div><div class="field-note" id="enote" style="color:#C2410C;font-family:var(--mono);font-size:11px;margin-top:8px;min-height:14px"></div><button class="btn full" id="send">Send my brief</button><button class="back">\u2190 back</button>`);
-    n2.querySelector("#send").onclick = async () => {
-      const email = (n2.querySelector("#em").value || "").trim();
-      const note = n2.querySelector("#enote");
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        note.textContent = "Enter a valid email so we can send your brief.";
-        n2.querySelector("#em").focus();
-        return;
-      }
-      note.textContent = "";
-      lead.name = (n2.querySelector("#nm").value || "").trim() || null;
-      lead.email = email;
-      const b = n2.querySelector("#send");
-      b.textContent = "Sending\u2026";
-      b.disabled = true;
-      try {
-        await submitLead();
-        done();
-      } catch (err) {
-        note.textContent = err.message || "Couldn't submit. Try again.";
-        b.disabled = false;
-        b.textContent = "Send my brief";
-      }
-    };
-    n2.querySelector(".back").onclick = s3;
-  }
-  function done() {
-    pfill.style.width = "100%";
-    count.textContent = "DONE";
-    go(`<div class="done">
-    <div class="big">We're pulling your last videos apart, frame by frame.</div>
-    <div class="small">Transcripts, thumbnails, and the exact seconds you start losing people \u2014 a real read, not a template. <b>Your full breakdown lands in your inbox within 24 hours.</b></div>
-    <div class="tease">It won't look like any "audit" you've seen.</div>
-  </div>`);
-  }
-  if (demo()) {
-    const b = q("demoBadge");
-    if (b) b.hidden = false;
-  }
-  setProg();
-})();
+  function cust() { pp.textContent = camt.value ? ("$" + Number(camt.value).toLocaleString()) : "$—"; pper.textContent = perMode; tn.textContent = "Custom"; td.textContent = ""; rh.innerHTML = "We'll tailor a quote to your budget."; }
+  function showCustom(on) { custom = on; sw.style.display = on ? "none" : ""; cw.style.display = on ? "" : "none"; spec.textContent = on ? "← use the slider instead" : "Have a specific budget? →"; if (on) { cust(); setTimeout(() => camt.focus(), 50); } else render(); }
+  rg.addEventListener("input", render); rg.addEventListener("pointerdown", () => sl.classList.add("drag")); ["pointerup", "pointercancel", "blur"].forEach((e) => rg.addEventListener(e, () => sl.classList.remove("drag")));
+  spec.onclick = () => showCustom(!custom); camt.addEventListener("input", cust);
+  n.querySelectorAll(".perTog button").forEach((b) => b.onclick = () => { n.querySelectorAll(".perTog button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); perMode = b.dataset.per; cust(); });
+  render();
+  n.querySelector("#cont").onclick = () => {
+    const mapped = custom ? mapCustomBudget(camt.value, perMode) : mapSliderTier(+rg.value);
+    lead.budget_tier = mapped.budget_tier;
+    lead.budget_detail = mapped.budget_detail;
+    s4();
+  };
+  n.querySelector(".back").onclick = s2;
+}
 
+function s4() {
+  cur = 3; setProg();
+  const n = go(`<div class="q">Where do we send your brief?</div><div class="qs">Your full breakdown + a free sample land within 24 hours.</div><div class="field" style="margin-bottom:10px"><input id="nm" placeholder="Name (optional)"/></div><div class="field"><input id="em" placeholder="you@email.com"/></div><div class="field-note" id="enote" style="color:#C2410C;font-family:var(--mono);font-size:11px;margin-top:8px;min-height:14px"></div><button class="btn full" id="send">Send my brief</button><button class="back">← back</button>`);
+  n.querySelector("#send").onclick = async () => {
+    const email = (n.querySelector("#em").value || "").trim();
+    const note = n.querySelector("#enote");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Enter a valid email so we can send your brief."; n.querySelector("#em").focus(); return; }
+    note.textContent = "";
+    lead.name = (n.querySelector("#nm").value || "").trim() || null; lead.email = email;
+    const b = n.querySelector("#send"); b.textContent = "Sending…"; b.disabled = true;
+    try { const res = await submitLead(); done(res); }
+    catch (err) { note.textContent = err.message || "Couldn't submit. Try again."; b.disabled = false; b.textContent = "Send my brief"; }
+  };
+  n.querySelector(".back").onclick = s3;
+}
+
+// ───────────────────────── final step: the handoff (open the thread) ─────────────────────────
+// The lead is already saved by submitLead(). This step turns the creator into the initiator: a
+// fully pre-filled email to hello@vidrender.com (they type nothing) so our reply lands in-thread,
+// in their real inbox. That also quietly captures a real, working address even if the typed one
+// was junk — and self-selects the motivated leads, while the rest stay reachable from the sheet.
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function budgetLine() {
+  const d = lead.budget_detail;
+  if (!d) return "";
+  if (d.custom) return d.amount ? `$${Number(d.amount).toLocaleString()} ${d.per}` : "open to your recommendation";
+  return `${d.label} — ${d.price} ${d.per}`;
+}
+
+// Build the pre-written note from data we already have — the creator fills in nothing.
+function buildHandoff(ref) {
+  const handleDisp = lead.handle ? `@${lead.handle}` : (lead.channel_url || "my channel");
+  const subject = `I want you on my videos — ${handleDisp}`;
+  const L = [
+    "Hi VidRender,",
+    "",
+    "I've been looking for someone to take my post-production seriously — and this looks like it. I'd like you on my videos.",
+    "",
+    "First, I'd love the channel read you put together. I want to see how you'd approach my content and where the real wins are before we start.",
+    "",
+    "Me:",
+  ];
+  if (lead.name) L.push(`Name — ${lead.name}`);
+  L.push(`Channel — ${lead.channel_url}`);
+  if (lead.bottleneck) L.push(`What I want to level up — ${lead.bottleneck}`);
+  const bl = budgetLine(); if (bl) L.push(`Budget to start — ${bl}`);
+  L.push("", "Reply right here whenever it's ready — I'll be watching for it.", "", `Ref: ${ref}`, "", "Thanks,");
+  if (lead.name) L.push(lead.name);
+  const body = L.join("\n");
+  const mailto = `mailto:hello@vidrender.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return { subject, body, mailto };
+}
+
+// Copy with a graceful fallback for browsers/contexts where the async clipboard is blocked.
+async function copyText(text, btn) {
+  try { await navigator.clipboard.writeText(text); }
+  catch {
+    const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch { /* best effort */ } ta.remove();
+  }
+  btn.textContent = "Copied ✓"; btn.classList.add("done");
+  setTimeout(() => { btn.textContent = btn.dataset.label; btn.classList.remove("done"); }, 1600);
+}
+
+// A looping ~40s storyboard on a phone: the pre-filled note (with their name) → tap Send → sent →
+// VidRender reads their channel (YouTube-style scan) → the problems capping growth → how we grow it
+// (retention lifting). It shows the whole promise wordlessly so the send feels worth it.
+function animateHandoff(n) {
+  if (typeof gsap === "undefined") return;
+  // personalize the mock from what we captured
+  const nmEl = n.querySelector("#gName"); if (nmEl) nmEl.textContent = lead.name || "you";
+  const ytEl = n.querySelector("#ytName"); if (ytEl) ytEl.textContent = lead.handle ? `@${lead.handle}` : "@yourchannel";
+
+  const scr = n.querySelector(".ph-screen");
+  const S = {
+    compose: n.querySelector(".sc-compose"), sent: n.querySelector(".sc-sent"),
+    analyze: n.querySelector(".sc-analyze"), problems: n.querySelector(".sc-problems"), grow: n.querySelector(".sc-grow"),
+    outro: n.querySelector(".sc-outro"),
+  };
+  const scenes = Object.values(S);
+  const cursor = n.querySelector("#phCursor"), gSend = n.querySelector("#gSend"), scan = n.querySelector("#ytScan"),
+    thumbs = n.querySelectorAll(".yt-grid i"),
+    prLine = n.querySelector("#prLine"), prArea = n.querySelector("#prArea"), prMarker = n.querySelector("#prMarker"),
+    prLeak = n.querySelector("#prLeak"), prInsight = n.querySelector("#prInsight"), prChips = n.querySelectorAll(".pr-chip"),
+    nowBars = n.querySelectorAll(".b-now"), vrBars = n.querySelectorAll(".b-vr"), ups = n.querySelectorAll(".gr-up"),
+    grVals = n.querySelectorAll(".gr-val"), grLabs = n.querySelectorAll(".gr-lab"),
+    outBadge = n.querySelector(".out-badge"), outTitle = n.querySelector(".out-title"), outSub = n.querySelector(".out-sub"),
+    outBtn = n.querySelector(".out-btn"), outHint = n.querySelector(".out-hint"),
+    composeRows = S.compose.querySelectorAll(".gm-row, .gm-body > *"), sentCheck = n.querySelector(".sent-check");
+  if (!scr || !prLine) return;
+  const PL = prLine.getTotalLength();
+
+  if (reduce) {                                                   // static: show the note ready to send
+    gsap.set(scenes, { opacity: 0 }); gsap.set(S.compose, { opacity: 1 });
+    gsap.set(prLine, { strokeDasharray: PL, strokeDashoffset: 0 });
+    gsap.set([nowBars, vrBars], { scaleY: 1, transformOrigin: "bottom" });
+    return;
+  }
+
+  // cursor target = centre of the Send button, in screen-local coords (robust to layout)
+  const s0 = scr.getBoundingClientRect(), sr = gSend.getBoundingClientRect();
+  const sendX = sr.left - s0.left + sr.width / 2, sendY = sr.top - s0.top + sr.height / 2;
+
+  const tl = gsap.timeline({ repeat: -1, defaults: { ease: "power2.out" } });
+
+  // reset every loop
+  tl.set(scenes, { opacity: 0, y: 0 })
+    .set(cursor, { opacity: 0, scale: 1, x: sendX - 66, y: sendY + 168 })
+    .set(composeRows, { opacity: 0, y: 8 })
+    .set(scan, { opacity: 0, top: 112 })
+    .set(thumbs, { opacity: 0.22 })
+    .set(prLine, { strokeDasharray: PL, strokeDashoffset: PL })
+    .set([prArea, prLeak, prInsight], { opacity: 0 })
+    .set(prMarker, { scale: 0, transformOrigin: "center" })
+    .set(prChips, { opacity: 0, y: 6 })
+    .set([nowBars, vrBars], { scaleY: 0, transformOrigin: "bottom" })
+    .set([grVals, grLabs], { opacity: 0 })
+    .set(ups, { xPercent: -50, opacity: 0, y: 6, scale: 0.6 })
+    .set([outTitle, outSub, outHint], { opacity: 0, y: 8 })
+    .set(outBadge, { scale: 0, transformOrigin: "center" })
+    .set(outBtn, { opacity: 0, scale: 0.9 });
+
+  // ── 1 · compose + tap Send ──
+  tl.to(S.compose, { opacity: 1, duration: 0.5 })
+    .to(composeRows, { opacity: 1, y: 0, stagger: 0.13, duration: 0.4 }, "-=.1")
+    .to(cursor, { opacity: 1, duration: 0.3 }, "-=.2")
+    .to(cursor, { x: sendX, y: sendY, duration: 1.0, ease: "power2.inOut" }, "+=.9")
+    .to(cursor, { scale: 0.78, duration: 0.15, yoyo: true, repeat: 1 })
+    .to(gSend, { scale: 0.9, duration: 0.15, yoyo: true, repeat: 1 }, "<")
+    .to(cursor, { opacity: 0, duration: 0.3 })
+    .to(S.compose, { opacity: 0, y: -16, duration: 0.45 }, "+=.15");
+
+  // ── 2 · sent ──
+  tl.to(S.sent, { opacity: 1, duration: 0.5 })
+    .fromTo(sentCheck, { scale: 0 }, { scale: 1, duration: 0.6, ease: "back.out(2)" }, "<")
+    .to(S.sent, { opacity: 0, duration: 0.45 }, "+=2.4");
+
+  // ── 3 · reading the channel ──
+  tl.to(S.analyze, { opacity: 1, duration: 0.5 })
+    .to(scan, { opacity: 1, duration: 0.3 }, "<.2")
+    .fromTo(scan, { top: 112 }, { top: 248, duration: 1.7, ease: "sine.inOut", yoyo: true, repeat: 3 }, "<")
+    .to(thumbs, { opacity: 1, stagger: 0.16, duration: 0.4 }, "<")
+    .to(scan, { opacity: 0, duration: 0.3 }, ">-.3")
+    .to(S.analyze, { opacity: 0, duration: 0.45 }, "+=.9");
+
+  // ── 4 · what we found (real insight + real numbers, visual crash) ──
+  tl.to(S.problems, { opacity: 1, duration: 0.4 })
+    .to(prLine, { strokeDashoffset: 0, duration: 1.15, ease: "power2.in" }, "-=.1")             // attention crashes
+    .to(prArea, { opacity: 1, duration: 0.5 }, "<.3")
+    .to(prMarker, { scale: 1, duration: 0.4, ease: "back.out(2.2)" }, ">-.15")
+    .to(prLeak, { opacity: 1, duration: 0.35 }, "<.05")
+    .to(prMarker, { scale: 1.35, duration: 0.7, repeat: 3, yoyo: true, ease: "sine.inOut" }, ">")
+    .to(prInsight, { opacity: 1, duration: 0.5 }, "<-.9")
+    .to(prChips, { opacity: 1, y: 0, stagger: 0.12, duration: 0.4 }, "<.3")
+    .to(S.problems, { opacity: 0, duration: 0.45 }, "+=1.2");
+
+  // ── 5 · before / after, from THEIR real numbers ──
+  tl.to(S.grow, { opacity: 1, duration: 0.4 })
+    .to(nowBars, { scaleY: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" }, "-=.1")
+    .to(grLabs, { opacity: 1, duration: 0.3, stagger: 0.08 }, "<")
+    .to(grVals, { opacity: 1, duration: 0.3, stagger: 0.08 }, "<")
+    .to(vrBars, { scaleY: 1, duration: 0.75, stagger: 0.12, ease: "back.out(1.5)" }, "-=.15")   // the lift
+    .to(ups, { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.12, ease: "back.out(2)" }, "-=.35")
+    .to(S.grow, { opacity: 0, duration: 0.55 }, "+=3.2");
+
+  // ── 6 · the clear CTA (mirrors the real button below) ──
+  tl.to(S.outro, { opacity: 1, duration: 0.4 })
+    .to(outBadge, { scale: 1, duration: 0.5, ease: "back.out(2)" }, "-=.1")
+    .to([outTitle, outSub], { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 }, "-=.2")
+    .to(outBtn, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, "-=.1")
+    .to(outHint, { opacity: 1, y: 0, duration: 0.35 }, "-=.1")
+    .to(outBtn, { scale: 1.06, duration: 0.6, repeat: 5, yoyo: true, ease: "sine.inOut" }, ">")   // pulse: press me
+    .to(outHint, { y: 4, duration: 0.5, repeat: 5, yoyo: true, ease: "sine.inOut" }, "<")          // bounce toward the real button
+    .to(S.outro, { opacity: 0, duration: 0.5 }, "+=.5");
+}
+
+function done(res) {
+  pfill.style.width = "100%"; count.textContent = "LAST STEP";
+  const ref = (res && res.slug) || `${lead.handle || "lead"}-${Math.random().toString(36).slice(2, 6)}`;
+  const { subject, body, mailto } = buildHandoff(ref);
+
+  // ── pull the SAME real data the read card showed, so the storyboard is a close loop ──
+  const idn = (READ && READ.identity) || {};
+  const handleDisp = idn.handleDisplay || (lead.handle ? `@${lead.handle}` : "@yourchannel");
+  const avatarUrl = idn.avatarUrl && /^https?:\/\//.test(idn.avatarUrl) ? idn.avatarUrl : null;
+  const insight = (READ && READ.reframe && READ.reframe.insight) || "There's a clear, specific lever in how your videos open and hold attention.";
+  // real receipts (Subscribers / Avg views / Engagement) — numeric only, never a hidden/blank value
+  const rs = ((READ && READ.receipts) || []).filter((r) => !r.muted && r.value && !["—", "Hidden"].includes(r.value)).slice(0, 3);
+  const SHORT = { Subscribers: "Subs", "Avg views": "Views", Engagement: "Engage", Views: "Views" };
+  const groups = rs.length ? rs : [{ label: "Views", value: "" }, { label: "Engagement", value: "" }, { label: "Subscribers", value: "" }];
+  const hNow = ["36%", "30%", "34%"], hVr = ["90%", "82%", "86%"];
+  const groupsHtml = groups.map((r, i) => `<div class="gr-group">
+        <div class="gr-bars"><span class="gr-bar b-now" style="--h:${hNow[i] || "34%"}"></span><span class="gr-bar b-vr" style="--h:${hVr[i] || "86%"}"><span class="gr-up">↑</span></span></div>
+        <div class="gr-lab">${esc(SHORT[r.label] || r.label)}</div>${r.value ? `<div class="gr-val">${esc(r.value)}</div>` : ""}
+      </div>`).join("");
+  const chipsHtml = rs.map((r) => `<span class="pr-chip">${esc(r.value)} ${esc(String(r.label).toLowerCase())}</span>`).join("");
+  const CRASH = "M6 15 C 40 16, 72 21, 94 27 C 106 31, 110 54, 126 60 C 152 68, 176 70, 194 71";
+
+  const n = go(`<div class="handoff">
+    <div class="ho-phone" aria-hidden="true">
+      <div class="ph-frame">
+        <span class="ph-cam"></span>
+        <div class="ph-screen">
+          <!-- scene 1 · the pre-filled email + Send -->
+          <div class="scene sc-compose">
+            <div class="gm-bar"><span class="gm-x">✕</span><span class="gm-t">New message</span><span class="gm-send" id="gSend">Send&nbsp;➤</span></div>
+            <div class="gm-row"><span class="gm-k">To</span><span class="gm-v">hello@vidrender.com</span></div>
+            <div class="gm-row"><span class="gm-k">Subj</span><span class="gm-v">I want you on my videos</span></div>
+            <div class="gm-body">
+              <div class="gm-hi">Hi VidRender,</div>
+              <span class="gl w90"></span><span class="gl w80"></span><span class="gl w60"></span>
+              <div class="gm-sign">— <b id="gName">you</b></div>
+            </div>
+          </div>
+          <!-- scene 2 · sent -->
+          <div class="scene sc-sent">
+            <div class="sent-check">✓</div>
+            <div class="sent-t">Sent to VidRender</div>
+            <div class="sent-s">We're on it.</div>
+          </div>
+          <!-- scene 3 · reading THEIR channel (YouTube-style) -->
+          <div class="scene sc-analyze">
+            <div class="yt-bar"><span class="yt-play"></span><span class="yt-bt">Reading ${esc(handleDisp)}</span></div>
+            <div class="yt-head"><span class="yt-av"></span><div class="yt-id"><b>${esc(handleDisp)}</b><span>scanning your uploads…</span></div></div>
+            <div class="yt-grid"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="yt-scan" id="ytScan"></div>
+            <div class="yt-cap">Watching your last videos, frame by frame</div>
+          </div>
+          <!-- scene 4 · what we found (real insight + real numbers, visual) -->
+          <div class="scene sc-problems">
+            <div class="pr-h">What we found</div>
+            <div class="pr-chart">
+              <svg class="pr-curve" viewBox="0 0 200 80" aria-hidden="true">
+                <defs><linearGradient id="prg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF3D3D" stop-opacity=".2"/><stop offset="1" stop-color="#FF3D3D" stop-opacity="0"/></linearGradient></defs>
+                <path id="prArea" d="${CRASH} L194 80 L6 80 Z" fill="url(#prg)" opacity="0"/>
+                <path id="prLine" d="${CRASH}" fill="none" stroke="#FF3D3D" stroke-width="3" stroke-linecap="round"/>
+                <circle id="prMarker" cx="118" cy="55" r="4.6" fill="#FF3D3D"/>
+              </svg>
+              <span class="pr-leak" id="prLeak">attention drops</span>
+            </div>
+            <div class="pr-insight" id="prInsight">${esc(insight)}</div>
+            ${chipsHtml ? `<div class="pr-stats">${chipsHtml}</div>` : ""}
+          </div>
+          <!-- scene 5 · before / after, from THEIR real numbers -->
+          <div class="scene sc-grow">
+            <div class="gr-h">The same channel — held</div>
+            <div class="gr-legend"><span class="lg lg-a">Now</span><span class="lg lg-b">With VidRender</span></div>
+            <div class="gr-chart">${groupsHtml}</div>
+          </div>
+          <!-- scene 6 · the clear CTA -->
+          <div class="scene sc-outro">
+            <span class="out-badge">➤</span>
+            <div class="out-title">Now send your note</div>
+            <div class="out-sub">One tap and everything you just saw comes back — straight to your inbox.</div>
+            <span class="out-btn">Open email &amp; send</span>
+            <span class="out-hint">↓ tap the button below</span>
+          </div>
+          <span class="ph-cursor" id="phCursor"></span>
+        </div>
+      </div>
+      <div class="ho-cap">Send the note → we read ${esc(handleDisp)} → you get the plan to grow</div>
+    </div>
+
+    <div class="ho-eyebrow">ONE LAST STEP</div>
+    <div class="ho-title">Send the note. Your read comes back here.</div>
+    <div class="ho-sub">One tap opens a direct thread with us — a person reads your channel and replies right here, usually within a day: the exact problems capping your growth and how we'd fix them fast. It's already written; you change nothing.</div>
+
+    <div class="ho-preview" aria-label="Your pre-written email">
+      <div class="ho-line"><span class="ho-k">To</span><span class="ho-v">hello@vidrender.com</span></div>
+      <div class="ho-line"><span class="ho-k">Subject</span><span class="ho-v">${esc(subject)}</span></div>
+      <div class="ho-body">${esc(body)}</div>
+    </div>
+    <a class="btn full" id="hoSend" href="${esc(mailto)}">Open email &amp; send</a>
+    <div class="ho-fallback">
+      <span>Email app didn't open? Copy it instead:</span>
+      <div class="ho-copyrow">
+        <button class="ho-copy" id="copyEmail" data-label="Copy email address">Copy email address</button>
+        <button class="ho-copy" id="copyBody" data-label="Copy message">Copy message</button>
+      </div>
+    </div>
+    <div class="ho-reassure">Your details are already saved. Prefer not to send? We'll still reach out with your read.</div>
+  </div>`);
+  n.querySelector("#copyEmail").onclick = (e) => copyText("hello@vidrender.com", e.currentTarget);
+  n.querySelector("#copyBody").onclick = (e) => copyText(body, e.currentTarget);
+  if (avatarUrl) { const av = n.querySelector(".yt-av"); if (av) { av.style.backgroundImage = `url("${avatarUrl}")`; av.style.backgroundSize = "cover"; av.style.backgroundPosition = "center"; } }
+  animateHandoff(n);
+}
+
+// DEMO badge only in demo mode (hidden on the live site)
+if (demo()) { const b = q("demoBadge"); if (b) b.hidden = false; }
+setProg();
+
+  })();
+})();
 </script>
 </body>
 </html>
